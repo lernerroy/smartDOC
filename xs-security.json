@@ -1,5 +1,5 @@
 {
-  "xsappname": "smartDOC-${space}",
+  "xsappname": "smartdoc-${space}",
   "tenant-mode": "shared",
   "scopes": [
     { "name": "$XSAPPNAME.ExtendCDS", "description": "Extend CDS application" },

@@ -1,9 +1,9 @@
 ## Generated mta.yaml based on template version 0.4.0
-## appName = smartDOC
+## appName = smartdoc
 ## language=nodejs; multitenant=true
 ## approuter=
 _schema-version: '3.1'
-ID: smartDOC
+ID: smartdoc
 version: 1.0.0
 description: "A simple CAP project."
 parameters:
@@ -18,7 +18,7 @@ build-parameters:
 
 modules:
  # --------------------- SERVER MODULE ------------------------
- - name: smartDOC-srv
+ - name: smartdoc-srv
  # ------------------------------------------------------------
    type: nodejs
    path: gen/srv
@@ -28,9 +28,9 @@ modules:
      SAP_JWT_TRUST_ACL: [{"clientid":"*","identityzone":"sap-provisioning"}]  # Trust between server and SaaS Manager
    requires:
     # Resources extracted from CAP configuration
-    - name: smartDOC-db-mt
-    - name: smartDOC-uaa-mt
-    - name: smartDOC-registry
+    - name: smartdoc-db-mt
+    - name: smartdoc-uaa-mt
+    - name: smartdoc-registry
    provides:
     - name: srv-api      # required by consumers of CAP services (e.g. approuter)
       properties:
@@ -45,7 +45,7 @@ resources:
  # services extracted from CAP configuration
  # 'service-plan' can be configured via 'cds.requires.<name>.vcap.plan'
 # ------------------------------------------------------------
- - name: smartDOC-db-mt
+ - name: smartdoc-db-mt
 # ------------------------------------------------------------
    type: org.cloudfoundry.managed-service
    parameters:
@@ -54,7 +54,7 @@ resources:
    properties:
      hdi-service-name: ${service-name}
 # ------------------------------------------------------------
- - name: smartDOC-uaa-mt
+ - name: smartdoc-uaa-mt
 # ------------------------------------------------------------
    type: org.cloudfoundry.managed-service
    parameters:
@@ -62,13 +62,13 @@ resources:
      service-plan: application  
      path: ./xs-security.json
      config:
-       xsappname: smartDOC-${space}    #  name + space dependency
+       xsappname: smartdoc-${space}    #  name + space dependency
        tenant-mode: shared
 
- - name: smartDOC-registry
+ - name: smartdoc-registry
    type: org.cloudfoundry.managed-service
    requires:
-      - name: smartDOC-uaa-mt
+      - name: smartdoc-uaa-mt
       - name: mtx-api 
         properties: 
            prop: ~{mtx-url} 
@@ -78,9 +78,9 @@ resources:
       service: saas-registry
       service-plan: application
       config:
-         xsappname: smartDOC-${space}
-         appName: smartDOC
-         displayName: smartDOC
+         xsappname: smartdoc-${space}
+         appName: smartdoc
+         displayName: smartdoc
          description: A simple CAP project.
          #category: 'Category'
          appUrls:

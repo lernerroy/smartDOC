@@ -1,91 +1,95 @@
 {
-    "name": "smartDOC",
-    "version": "1.0.0",
-    "description": "A simple CAP project.",
-    "repository": "<Add your repository here>",
-    "license": "UNLICENSED",
-    "private": true,
-    "dependencies": {
-        "@sap/cds": "^5",
-        "express": "^4",
-        "hdb": "^0.18.3",
-        "@sap/cds-mtx": "^2",
-        "@sap/hana-client": "^2",
-        "@sap/hdi-deploy": "^4",
-        "@sap/instance-manager": "^2",
-        "@sap/xssec": "^3",
-        "passport": "^0"
+  "name": "smartdoc",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@sap/cds": "^5",
+    "express": "^4",
+    "hdb": "^0.18.3",
+    "@sap/cds-mtx": "^2",
+    "@sap/hana-client": "^2",
+    "@sap/hdi-deploy": "^4",
+    "@sap/instance-manager": "^2",
+    "@sap/xssec": "^3",
+    "passport": "^0"
+  },
+  "devDependencies": {
+    "sqlite3": "^5.0.2"
+  },
+  "scripts": {
+    "start": "cds run"
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "env": {
+      "es2020": true,
+      "node": true,
+      "jest": true,
+      "mocha": true
     },
-    "devDependencies": {
-        "sqlite3": "^5.0.2"
+    "globals": {
+      "SELECT": true,
+      "INSERT": true,
+      "UPDATE": true,
+      "DELETE": true,
+      "CREATE": true,
+      "DROP": true,
+      "CDL": true,
+      "CQL": true,
+      "CXL": true,
+      "cds": true
     },
-    "scripts": {
-        "start": "cds run"
-    },
-    "eslintConfig": {
-        "extends": "eslint:recommended",
-        "env": {
-            "es2020": true,
-            "node": true,
-            "jest": true,
-            "mocha": true
-        },
-        "globals": {
-            "SELECT": true,
-            "INSERT": true,
-            "UPDATE": true,
-            "DELETE": true,
-            "CREATE": true,
-            "DROP": true,
-            "CDL": true,
-            "CQL": true,
-            "CXL": true,
-            "cds": true
-        },
-        "rules": {
-            "no-console": "off",
-            "require-atomic-updates": "off"
-        }
-    },
-    "cds": {
-        "i18n": {
-            "folders": [
-                "_i18n"
-            ]
-        },
-        "hana": {
-            "deploy-format": "hdbtable"
-        },
-        "requires": {
-            "[production]": {
-                "db": {
-                    "kind": "hana",
-                    "vcap": {
-                        "label": "service-manager"
-                    }
-                },
-                "uaa": {
-                    "kind": "xsuaa"
-                },
-                "multitenancy": true
-            },
-            "[development]": {
-                "multitenancy": false,
-                "db": {
-                    "kind": "hana"
-                },
-                "auth": {
-                    "strategy": "mock",
-                    "users": {
-                        "roy.lerner@legstate.com": {
-                            "password": "123",
-                            "roles": [
-                                "API_user"
-                            ]
-                        }
-                    }
-                }
-            }
-        }
+    "rules": {
+      "no-console": "off",
+      "require-atomic-updates": "off"
     }
+  },
+  "cds": {
+    "i18n": {
+      "folders": [
+        "_i18n"
+      ]
+    },
+    "hana": {
+      "deploy-format": "hdbtable"
+    },
+    "requires": {
+      "[production]": {
+        "db": {
+          "kind": "hana",
+          "vcap": {
+            "label": "service-manager"
+          }
+        },
+        "uaa": {
+          "kind": "xsuaa"
+        },
+        "multitenancy": true
+      },
+      "[development]": {
+        "multitenancy": false,
+        "db": {
+          "kind": "hana"
+        },
+        "auth": {
+          "strategy": "mock",
+          "users": {
+            "roy.lerner@legstate.com": {
+              "password": "123",
+              "roles": [
+                "API_user"
+              ]
+            }
+          }
+        }
+      },
+      "TripService": {
+        "kind": "odata",
+        "model": "srv/external/cat-service"
+      }
+    }
+  }
 }
