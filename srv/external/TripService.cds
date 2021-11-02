@@ -1,22 +1,4 @@
-/* checksum : 43b2490e18f6e801b3187e713f48ee63 */
-entity TripService.Languages {
-  name : String(255);
-  descr : String(1000);
-  key code : String(14);
-
-  /**
-   * Please add an ON condition
-   * 
-   */
-  texts : Association to many TripService.Languages_texts {  };
-
-  /**
-   * Please add an ON condition
-   * 
-   */
-  localized : Association to one TripService.Languages_texts on localized.code = code;
-};
-
+/* checksum : c20807e5fa7d8f137a6625f55d9f9e9c */
 entity TripService.triprecord {
   createdAt : Timestamp;
 
@@ -66,14 +48,14 @@ entity TripService.triprecord {
    * Please add an ON condition
    * 
    */
-  origin : Association to one TripService.airportsCodes on origin.code = origin_code;
+  origin : Association to one TripService.airports on origin.code = origin_code;
   origin_code : String(3);
 
   /**
    * Please add an ON condition
    * 
    */
-  destination : Association to one TripService.airportsCodes on destination.code = destination_code;
+  destination : Association to one TripService.airports on destination.code = destination_code;
   destination_code : String(3);
   repeatno : String(3);
   idooutc : Date;
@@ -85,7 +67,7 @@ entity TripService.triprecord {
    * Please add an ON condition
    * 
    */
-  actarrapt : Association to one TripService.airportsCodes on actarrapt.code = actarrapt_code;
+  actarrapt : Association to one TripService.airports on actarrapt.code = actarrapt_code;
   actarrapt_code : String(3);
   actarrapticao : String(4);
 
@@ -93,7 +75,7 @@ entity TripService.triprecord {
    * Please add an ON condition
    * 
    */
-  actdeptapt : Association to one TripService.airportsCodes on actdeptapt.code = actdeptapt_code;
+  actdeptapt : Association to one TripService.airports on actdeptapt.code = actdeptapt_code;
   actdeptapt_code : String(3);
   actdeptapticao : String(4);
 
@@ -158,7 +140,7 @@ entity TripService.triprecord {
    * Please add an ON condition
    * 
    */
-  schedarrapt : Association to one TripService.airportsCodes on schedarrapt.code = schedarrapt_code;
+  schedarrapt : Association to one TripService.airports on schedarrapt.code = schedarrapt_code;
   schedarrapt_code : String(3);
   scheddeptapticao : String(4);
 
@@ -166,7 +148,7 @@ entity TripService.triprecord {
    * Please add an ON condition
    * 
    */
-  scheddeptapt : Association to one TripService.airportsCodes on scheddeptapt.code = scheddeptapt_code;
+  scheddeptapt : Association to one TripService.airports on scheddeptapt.code = scheddeptapt_code;
   scheddeptapt_code : String(3);
   flight_tm : Integer;
   arr_stand : String(10);
@@ -425,7 +407,7 @@ entity TripService.routeplan {
    * Please add an ON condition
    * {i18n>CurrencyCode.Description}
    */
-  currency : Association to one TripService.currencies_spec on currency.code = currency_code;
+  currency : Association to one TripService.Currencies on currency.code = currency_code;
 
   /**
    * {i18n>CurrencyCode.Description}
@@ -473,14 +455,14 @@ entity TripService.accommodation {
    * Please add an ON condition
    * 
    */
-  origin : Association to one TripService.airportsCodes on origin.code = origin_code;
+  origin : Association to one TripService.airports on origin.code = origin_code;
   origin_code : String(3);
 
   /**
    * Please add an ON condition
    * 
    */
-  destination : Association to one TripService.airportsCodes on destination.code = destination_code;
+  destination : Association to one TripService.airports on destination.code = destination_code;
   destination_code : String(3);
   scheddeptdateutc : Date;
   ccsmsgref : String(23);
@@ -497,7 +479,7 @@ entity TripService.accommodation {
    * Please add an ON condition
    * {i18n>CurrencyCode.Description}
    */
-  currency : Association to one TripService.currencies_spec on currency.code = currency_code;
+  currency : Association to one TripService.Currencies on currency.code = currency_code;
 
   /**
    * {i18n>CurrencyCode.Description}
@@ -537,14 +519,14 @@ entity TripService.catering {
    * Please add an ON condition
    * 
    */
-  origin : Association to one TripService.airportsCodes on origin.code = origin_code;
+  origin : Association to one TripService.airports on origin.code = origin_code;
   origin_code : String(3);
 
   /**
    * Please add an ON condition
    * 
    */
-  destination : Association to one TripService.airportsCodes on destination.code = destination_code;
+  destination : Association to one TripService.airports on destination.code = destination_code;
   destination_code : String(3);
   classtype : String(10);
   sapmeal : String(18);
@@ -574,7 +556,7 @@ entity TripService.catering {
    * Please add an ON condition
    * {i18n>CurrencyCode.Description}
    */
-  currency : Association to one TripService.currencies_spec on currency.code = currency_code;
+  currency : Association to one TripService.Currencies on currency.code = currency_code;
 
   /**
    * {i18n>CurrencyCode.Description}
@@ -623,14 +605,14 @@ entity TripService.cockpitTripsActuals {
    * Please add an ON condition
    * 
    */
-  zzscheddeptapt : Association to one TripService.airportsCodes on zzscheddeptapt.code = zzscheddeptapt_code;
+  zzscheddeptapt : Association to one TripService.airports on zzscheddeptapt.code = zzscheddeptapt_code;
   zzscheddeptapt_code : String(3);
 
   /**
    * Please add an ON condition
    * 
    */
-  zzschedarrapt : Association to one TripService.airportsCodes on zzschedarrapt.code = zzschedarrapt_code;
+  zzschedarrapt : Association to one TripService.airports on zzschedarrapt.code = zzschedarrapt_code;
   zzschedarrapt_code : String(3);
   zzschedarrts : Decimal(15);
   zzscheddeptts : Decimal(15);
@@ -647,14 +629,14 @@ entity TripService.cockpitTripsActuals {
    * Please add an ON condition
    * 
    */
-  zzorigin : Association to one TripService.airportsCodes on zzorigin.code = zzorigin_code;
+  zzorigin : Association to one TripService.airports on zzorigin.code = zzorigin_code;
   zzorigin_code : String(3);
 
   /**
    * Please add an ON condition
    * 
    */
-  zzdestination : Association to one TripService.airportsCodes on zzdestination.code = zzdestination_code;
+  zzdestination : Association to one TripService.airports on zzdestination.code = zzdestination_code;
   zzdestination_code : String(3);
   zzrealscheddept : Date;
   user_creation_timestamp : Decimal(15);
@@ -690,33 +672,12 @@ entity TripService.carriers {
    * Please add an ON condition
    * 
    */
-  localized : Association to one TripService.carriers_texts on localized.code = code;
-  key IsActiveEntity : Boolean;
-  HasActiveEntity : Boolean;
-  HasDraftEntity : Boolean;
-
-  /**
-   * Please add an ON condition
-   * 
-   */
-  DraftAdministrativeData : Association to one TripService.DraftAdministrativeData {  };
-
-  /**
-   * Please add an ON condition
-   * 
-   */
-  SiblingEntity : Association to one TripService.carriers {  };
-} actions {
-  action draftPrepare(
-    SideEffectsQualifier : LargeString
-  ) returns TripService.carriers;
-  action draftActivate() returns TripService.carriers;
-  action draftEdit(
-    PreserveChanges : Boolean
-  ) returns TripService.carriers;
+  localized : Association to one TripService.carriers_texts {  };
 };
 
 entity TripService.airports {
+  name : String(255);
+  descr : String(1000);
   createdAt : Timestamp;
 
   /**
@@ -729,13 +690,7 @@ entity TripService.airports {
    * {i18n>UserID.Description}
    */
   modifiedBy : String(255);
-
-  /**
-   * Please add an ON condition
-   * 
-   */
-  aptcd : Association to one TripService.airportsCodes on aptcd.code = aptcd_code;
-  aptcd_code : String(3);
+  key code : String(3);
   aptcd_icao : String(4);
   online_ind : Boolean;
   company_ind : Boolean;
@@ -745,7 +700,7 @@ entity TripService.airports {
    * Please add an ON condition
    * {i18n>CountryCode.Description}
    */
-  country_code : Association to one TripService.countries_spec on country_code.code = country_code_code;
+  country_code : Association to one TripService.Countries on country_code.code = country_code_code;
 
   /**
    * {i18n>CountryCode.Description}
@@ -776,29 +731,18 @@ entity TripService.airports {
    */
   lon_coord_sign : Association to one TripService.coord_signs on lon_coord_sign.code = lon_coord_sign_code;
   lon_coord_sign_code : String(1);
-  key IsActiveEntity : Boolean;
-  HasActiveEntity : Boolean;
-  HasDraftEntity : Boolean;
 
   /**
    * Please add an ON condition
    * 
    */
-  DraftAdministrativeData : Association to one TripService.DraftAdministrativeData {  };
+  texts : Association to many TripService.airports_texts {  };
 
   /**
    * Please add an ON condition
    * 
    */
-  SiblingEntity : Association to one TripService.airports {  };
-} actions {
-  action draftPrepare(
-    SideEffectsQualifier : LargeString
-  ) returns TripService.airports;
-  action draftActivate() returns TripService.airports;
-  action draftEdit(
-    PreserveChanges : Boolean
-  ) returns TripService.airports;
+  localized : Association to one TripService.airports_texts {  };
 };
 
 entity TripService.legstates {
@@ -816,7 +760,6 @@ entity TripService.legstates {
    * {i18n>UserID.Description}
    */
   modifiedBy : String(255);
-  ID : UUID;
   key code : String(3);
   stonr : String(2);
   finalLegstate : Boolean;
@@ -831,33 +774,10 @@ entity TripService.legstates {
    * Please add an ON condition
    * 
    */
-  localized : Association to one TripService.legstates_texts on localized.code = code;
-  key IsActiveEntity : Boolean;
-  HasActiveEntity : Boolean;
-  HasDraftEntity : Boolean;
-
-  /**
-   * Please add an ON condition
-   * 
-   */
-  DraftAdministrativeData : Association to one TripService.DraftAdministrativeData {  };
-
-  /**
-   * Please add an ON condition
-   * 
-   */
-  SiblingEntity : Association to one TripService.legstates {  };
-} actions {
-  action draftPrepare(
-    SideEffectsQualifier : LargeString
-  ) returns TripService.legstates;
-  action draftActivate() returns TripService.legstates;
-  action draftEdit(
-    PreserveChanges : Boolean
-  ) returns TripService.legstates;
+  localized : Association to one TripService.legstates_texts {  };
 };
 
-entity TripService.languages_spec {
+entity TripService.Languages {
   name : String(255);
   descr : String(1000);
   key code : String(14);
@@ -866,39 +786,16 @@ entity TripService.languages_spec {
    * Please add an ON condition
    * 
    */
-  texts : Association to many TripService.languages_spec_texts {  };
+  texts : Association to many TripService.Languages_texts {  };
 
   /**
    * Please add an ON condition
    * 
    */
-  localized : Association to one TripService.languages_spec_texts on localized.code = code;
-  key IsActiveEntity : Boolean;
-  HasActiveEntity : Boolean;
-  HasDraftEntity : Boolean;
-
-  /**
-   * Please add an ON condition
-   * 
-   */
-  DraftAdministrativeData : Association to one TripService.DraftAdministrativeData {  };
-
-  /**
-   * Please add an ON condition
-   * 
-   */
-  SiblingEntity : Association to one TripService.languages_spec {  };
-} actions {
-  action draftPrepare(
-    SideEffectsQualifier : LargeString
-  ) returns TripService.languages_spec;
-  action draftActivate() returns TripService.languages_spec;
-  action draftEdit(
-    PreserveChanges : Boolean
-  ) returns TripService.languages_spec;
+  localized : Association to one TripService.Languages_texts {  };
 };
 
-entity TripService.countries_spec {
+entity TripService.Countries {
   name : String(255);
   descr : String(1000);
   key code : String(3);
@@ -907,39 +804,16 @@ entity TripService.countries_spec {
    * Please add an ON condition
    * 
    */
-  texts : Association to many TripService.countries_spec_texts {  };
+  texts : Association to many TripService.Countries_texts {  };
 
   /**
    * Please add an ON condition
    * 
    */
-  localized : Association to one TripService.countries_spec_texts on localized.code = code;
-  key IsActiveEntity : Boolean;
-  HasActiveEntity : Boolean;
-  HasDraftEntity : Boolean;
-
-  /**
-   * Please add an ON condition
-   * 
-   */
-  DraftAdministrativeData : Association to one TripService.DraftAdministrativeData {  };
-
-  /**
-   * Please add an ON condition
-   * 
-   */
-  SiblingEntity : Association to one TripService.countries_spec {  };
-} actions {
-  action draftPrepare(
-    SideEffectsQualifier : LargeString
-  ) returns TripService.countries_spec;
-  action draftActivate() returns TripService.countries_spec;
-  action draftEdit(
-    PreserveChanges : Boolean
-  ) returns TripService.countries_spec;
+  localized : Association to one TripService.Countries_texts {  };
 };
 
-entity TripService.currencies_spec {
+entity TripService.Currencies {
   name : String(255);
   descr : String(1000);
   key code : String(3);
@@ -949,36 +823,13 @@ entity TripService.currencies_spec {
    * Please add an ON condition
    * 
    */
-  texts : Association to many TripService.currencies_spec_texts {  };
+  texts : Association to many TripService.Currencies_texts {  };
 
   /**
    * Please add an ON condition
    * 
    */
-  localized : Association to one TripService.currencies_spec_texts on localized.code = code;
-  key IsActiveEntity : Boolean;
-  HasActiveEntity : Boolean;
-  HasDraftEntity : Boolean;
-
-  /**
-   * Please add an ON condition
-   * 
-   */
-  DraftAdministrativeData : Association to one TripService.DraftAdministrativeData {  };
-
-  /**
-   * Please add an ON condition
-   * 
-   */
-  SiblingEntity : Association to one TripService.currencies_spec {  };
-} actions {
-  action draftPrepare(
-    SideEffectsQualifier : LargeString
-  ) returns TripService.currencies_spec;
-  action draftActivate() returns TripService.currencies_spec;
-  action draftEdit(
-    PreserveChanges : Boolean
-  ) returns TripService.currencies_spec;
+  localized : Association to one TripService.Currencies_texts {  };
 };
 
 entity TripService.cockpitTrips {
@@ -1016,14 +867,14 @@ entity TripService.cockpitTrips {
    * Please add an ON condition
    * 
    */
-  zzscheddeptapt : Association to one TripService.airportsCodes on zzscheddeptapt.code = zzscheddeptapt_code;
+  zzscheddeptapt : Association to one TripService.airports on zzscheddeptapt.code = zzscheddeptapt_code;
   zzscheddeptapt_code : String(3);
 
   /**
    * Please add an ON condition
    * 
    */
-  zzschedarrapt : Association to one TripService.airportsCodes on zzschedarrapt.code = zzschedarrapt_code;
+  zzschedarrapt : Association to one TripService.airports on zzschedarrapt.code = zzschedarrapt_code;
   zzschedarrapt_code : String(3);
   zzschedarrts : Decimal(15);
   zzscheddeptts : Decimal(15);
@@ -1040,14 +891,14 @@ entity TripService.cockpitTrips {
    * Please add an ON condition
    * 
    */
-  zzorigin : Association to one TripService.airportsCodes on zzorigin.code = zzorigin_code;
+  zzorigin : Association to one TripService.airports on zzorigin.code = zzorigin_code;
   zzorigin_code : String(3);
 
   /**
    * Please add an ON condition
    * 
    */
-  zzdestination : Association to one TripService.airportsCodes on zzdestination.code = zzdestination_code;
+  zzdestination : Association to one TripService.airports on zzdestination.code = zzdestination_code;
   zzdestination_code : String(3);
   zzrealscheddept : Date;
   user_creation_timestamp : Decimal(15);
@@ -1056,7 +907,7 @@ entity TripService.cockpitTrips {
   pax_intf_creation_ts : Decimal(15);
 };
 
-entity TripService.airportsCodes {
+entity TripService.loadingStationCodes {
   name : String(255);
   descr : String(1000);
   createdAt : Timestamp;
@@ -1071,24 +922,6 @@ entity TripService.airportsCodes {
    * {i18n>UserID.Description}
    */
   modifiedBy : String(255);
-  key code : String(3);
-
-  /**
-   * Please add an ON condition
-   * 
-   */
-  texts : Association to many TripService.airportsCodes_texts {  };
-
-  /**
-   * Please add an ON condition
-   * 
-   */
-  localized : Association to one TripService.airportsCodes_texts on localized.code = code;
-};
-
-entity TripService.loadingStationCodes {
-  name : String(255);
-  descr : String(1000);
   key code : String(2);
 
   /**
@@ -1107,6 +940,18 @@ entity TripService.loadingStationCodes {
 entity TripService.coord_signs {
   name : String(255);
   descr : String(1000);
+  createdAt : Timestamp;
+
+  /**
+   * {i18n>UserID.Description}
+   */
+  createdBy : String(255);
+  modifiedAt : Timestamp;
+
+  /**
+   * {i18n>UserID.Description}
+   */
+  modifiedBy : String(255);
   key code : String(1);
 
   /**
@@ -1122,64 +967,52 @@ entity TripService.coord_signs {
   localized : Association to one TripService.coord_signs_texts on localized.code = code;
 };
 
-entity TripService.DraftAdministrativeData {
-  key DraftUUID : UUID;
-  CreationDateTime : Timestamp;
-  CreatedByUser : String(256);
-  DraftIsCreatedByMe : Boolean;
-  LastChangeDateTime : Timestamp;
-  LastChangedByUser : String(256);
-  InProcessByUser : String(256);
-  DraftIsProcessedByMe : Boolean;
-};
-
-entity TripService.Languages_texts {
-  key locale : String(14);
-  name : String(255);
-  descr : String(1000);
-  key code : String(14);
-};
-
 entity TripService.carriers_texts {
-  key locale : String(14);
+  key ID_texts : UUID;
+  locale : String(14);
   name : String(255);
   descr : String(1000);
-  key code : String(2);
+  code : String(2);
+};
+
+entity TripService.airports_texts {
+  key ID_texts : UUID;
+  locale : String(14);
+  name : String(255);
+  descr : String(1000);
+  code : String(3);
 };
 
 entity TripService.legstates_texts {
-  key locale : String(14);
+  key ID_texts : UUID;
+  locale : String(14);
   name : String(255);
   descr : String(1000);
-  key code : String(3);
+  code : String(3);
 };
 
-entity TripService.languages_spec_texts {
-  key locale : String(14);
+entity TripService.Languages_texts {
+  key ID_texts : UUID;
+  locale : String(14);
   name : String(255);
   descr : String(1000);
-  key code : String(14);
+  code : String(14);
 };
 
-entity TripService.countries_spec_texts {
-  key locale : String(14);
+entity TripService.Countries_texts {
+  key ID_texts : UUID;
+  locale : String(14);
   name : String(255);
   descr : String(1000);
-  key code : String(3);
+  code : String(3);
 };
 
-entity TripService.currencies_spec_texts {
-  key locale : String(14);
+entity TripService.Currencies_texts {
+  key ID_texts : UUID;
+  locale : String(14);
   name : String(255);
   descr : String(1000);
-  key code : String(3);
-};
-
-entity TripService.airportsCodes_texts {
-  key locale : String(14);
-  name : String(255);
-  descr : String(1000);
-  key code : String(3);
+  code : String(3);
 };
 
 entity TripService.loadingStationCodes_texts {

@@ -89,6 +89,26 @@
       "TripService": {
         "kind": "odata",
         "model": "srv/external/cat-service"
+      },
+      "ZGW_LS_FO_PLANT_SRV": {
+        "kind": "odata-v2",
+        "model": "srv/external/Plant"
+      },
+      "ZGW_LS_FO_PURCHASE_ORG_SRV": {
+        "kind": "odata-v2",
+        "model": "srv/external/PurchaseOrg"
+      },
+      "ZGW_LS_FO_ORDER_TYPE_SRV": {
+        "kind": "odata-v2",
+        "model": "srv/external/OrderType"
+      },
+      "API_PRODUCTGROUP_SRV": {
+        "kind": "odata-v2",
+        "model": "srv/external/OP_API_PRODUCTGROUP_SRV_0001"
+      },
+      "API_COMPANYCODE_SRV": {
+        "kind": "odata-v2",
+        "model": "srv/external/OP_API_COMPANYCODE_SRV"
       }
     }
   }

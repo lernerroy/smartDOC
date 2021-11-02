@@ -1,25 +1,44 @@
-namespace my.smartdoc;
-using { TripService } from '../srv/external/cat-service';
-//using { PlantService } from '../srv/external/plant';
+namespace com.legstate.smartdoc;
 
-type airportsCode : Association to TripService.airportsCodes;
+using { TripService } 
+        from '../srv/external/TripService';
+using { ZGW_LS_FO_PLANT_SRV as PlantService } 
+        from '../srv/external/ZGW_LS_FO_PLANT_SRV';
+using { ZGW_LS_FO_ORDER_TYPE_SRV as OrderTypeService } 
+        from '../srv/external/OrderType';
+using { API_COMPANYCODE_SRV as CompanyCodeService } 
+        from '../srv/external/OP_API_COMPANYCODE_SRV';
+using { API_PRODUCTGROUP_SRV as materialGroupService } 
+        from '../srv/external/OP_API_PRODUCTGROUP_SRV_0001';
 
-entity airports_enh {
-    key airport : airportsCode; //Association to one TripService.airportsCodes on airport.code = airport;
-    //key airport : TripService.airportsCodes.airport_enh;
-    plant  : String(4); //PlantService.werks;
+
+type plant : Association to 
+        PlantService.PlantSet;
+type companyCode : Association to 
+        CompanyCodeService.A_CompanyCode;
+type materialGroup : Association to 
+        materialGroupService.A_ProductGroup;
+type orderType : Association to 
+        OrderTypeService.A_OrderTypeSet;
+
+type airportCode : Association to TripService.airports;
+type carrierCode : Association to TripService.carriers;
+
+entity Airports {
+    key code : airportCode;
+    plant  : plant;
 }
 
-entity carriers_enh {
-    key carrier_code        : Integer;
-    companyCode             : String(4);
+entity Carriers {
+    key code                : carrierCode;
+    companyCode             : companyCode;
     mainWorkCenter          : String(8);
-    orderType               : String(4);
-    awbOrderType            : String(4);
+    orderType               : orderType;
+    awbOrderType            : orderType;
     purchaseOrganization    : String(4);
-    plant                   : String(4);
-    materialGroup           : String(9);
-    purchasingGroup         : String(3);
+    plant                   : plant;
+    materialGroup           : materialGroup;
     controlKey              : String(4);
-    profitCenter            : String(10);
+   // purchasingGroup         : String(3);
+   // profitCenter            : String(10);
 }

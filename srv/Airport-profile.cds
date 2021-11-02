@@ -1,16 +1,18 @@
-using my.smartdoc as my from '../db/data-model';
+using com.legstate.smartdoc as smartdoc
+        from '../db/data-model';
+using { ZGW_LS_FO_PLANT_SRV as PlantService } 
+        from './external/ZGW_LS_FO_PLANT_SRV';
+
+
 
 service smartDOCService { 
 
-    entity airports_enh as projection on my.airports_enh;
-    entity carriers_enh as projection on my.carriers_enh;
+    entity Airports as projection on smartdoc.Airports;
+    entity Carriers as projection on smartdoc.Carriers;
     
 }
 
-
-
-
-annotate airports_enh with {
+annotate Airports with {
     airport;
     plant;
     @readonly companyCode;
@@ -26,7 +28,7 @@ annotate carriers_enh with {
     purchaseOrganization;
     plant;
     materialGroup;
-    purchasingGroup;
+    //purchasingGroup; not needed for now
     controlKey;
-    profitCenter;
+    //profitCenter; not needed for now
 };
