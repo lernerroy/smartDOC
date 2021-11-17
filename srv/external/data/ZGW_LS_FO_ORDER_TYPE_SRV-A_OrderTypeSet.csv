@@ -1,0 +1,4 @@
+OrderType;OrderCategory;Language;OrderTypeDescription
+FL01;01;EN;Flight Order 1000
+FL02;01;EN;Flight Order 2000
+AWB;01;EN;Flight Order Trucking Routes (AWB)

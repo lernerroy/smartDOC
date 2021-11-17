@@ -2,10 +2,18 @@
   "xsappname": "smartdoc-${space}",
   "tenant-mode": "shared",
   "scopes": [
-    { "name": "$XSAPPNAME.ExtendCDS", "description": "Extend CDS application" },
-    { "name": "$XSAPPNAME.ExtendCDSdelete", "description": "Extend CDS application with undeploy" },
-    { "name": "$XSAPPNAME.MtxDiagnose", "description": "Diagnose MTX sidecar" },
-    { "name": "$XSAPPNAME.mtdeployment", "description": "Deploy applications" },
+    {
+        "name": "$XSAPPNAME.User",
+        "description": "With this scope, USER can read smartDOC"
+    },
+    {
+        "name": "$XSAPPNAME.API_user",
+        "description": "With this scope, USER can read & Write smartDOC"
+    },
+    {
+        "name": "$XSAPPNAME.Admin",
+        "description": "With this scope, USER can administrate smartDOC"
+    },
     { "name": "$XSAPPNAME.mtcallback", "description": "Subscribe to applications", "grant-as-authority-to-apps": [
       "$XSAPPNAME(application,sap-provisioning,tenant-onboarding)"
     ]}
@@ -14,28 +22,53 @@
     "$XSAPPNAME.MtxDiagnose"
   ],
   "role-templates": [
-    {
-      "name": "MultitenancyAdministrator",
-      "description": "Administrate multitenant applications",
-      "scope-references": [
-        "$XSAPPNAME.MtxDiagnose",
-        "$XSAPPNAME.mtdeployment",
-        "$XSAPPNAME.mtcallback"
-      ]
-    },
-    {
-      "name": "ExtensionDeveloper",
-      "description": "Extend application",
-      "scope-references": [
-        "$XSAPPNAME.ExtendCDS"
-      ]
-    },
-    {
-      "name": "ExtensionDeveloperUndeploy",
-      "description": "Undeploy extension",
-      "scope-references": [
-        "$XSAPPNAME.ExtendCDSdelete"
-      ]
-    }
-  ]
+        {
+            "name": "API_user",
+            "description": "API Granted user",
+            "scope-references": [
+                "$XSAPPNAME.API_user"
+            ]
+        },
+        {
+            "name": "User",
+            "description": "User",
+            "scope-references": [
+                "$XSAPPNAME.User"
+            ]
+        },
+        {
+            "name": "Admin",
+            "description": "Administrator users",
+            "scope-references": [
+                "$XSAPPNAME.Admin"
+            ]
+        }
+    ],
+    "role-collections": [
+        {
+            "name": "smartDOC_API_user",
+            "description": "smartDOC App Administrator",
+            "role-template-references": [
+                "$XSAPPNAME.API_user",
+                "$XSAPPNAME.User"
+            ]            
+        },
+        {
+            "name": "smartDOC_User",
+            "description": "smartDOC App User",
+            "role-template-references": [
+                "$XSAPPNAME.User"
+            ]
+        },
+        {
+            "name": "smartDOC_Administrator",
+            "description": "smartDOC App Administrator",
+            "role-template-references": [
+                "$XSAPPNAME.API_user",
+                "$XSAPPNAME.User",
+                "$XSAPPNAME.Admin"
+            ]
+        }
+    ],
+    "oauth2-configuration": { "credential-types" : ["binding-secret"] }
 }

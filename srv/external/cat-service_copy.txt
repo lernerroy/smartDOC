@@ -1,4 +1,4 @@
-/* checksum : c20807e5fa7d8f137a6625f55d9f9e9c */
+/* checksum : 2c287419c8cb77066b03e3ff5aff14db */
 entity TripService.triprecord {
   createdAt : Timestamp;
 
@@ -25,7 +25,7 @@ entity TripService.triprecord {
    * Please add an ON condition
    * 
    */
-  supcarriercode2 : Association to one TripService.carriers on supcarriercode2.code = supcarriercode2_code;
+  supcarriercode2 : Association to one TripService.Carriers on supcarriercode2.code = supcarriercode2_code;
   supcarriercode2_code : String(2);
   scheddeptdate : Date;
   flightno : String(4);
@@ -34,28 +34,28 @@ entity TripService.triprecord {
    * Please add an ON condition
    * 
    */
-  supcarriercode : Association to one TripService.carriers on supcarriercode.code = supcarriercode_code;
+  supcarriercode : Association to one TripService.Carriers on supcarriercode.code = supcarriercode_code;
   supcarriercode_code : String(2);
 
   /**
    * Please add an ON condition
    * 
    */
-  carriercode : Association to one TripService.carriers on carriercode.code = carriercode_code;
+  carriercode : Association to one TripService.Carriers on carriercode.code = carriercode_code;
   carriercode_code : String(2);
 
   /**
    * Please add an ON condition
    * 
    */
-  origin : Association to one TripService.airports on origin.code = origin_code;
+  origin : Association to one TripService.Airports on origin.code = origin_code;
   origin_code : String(3);
 
   /**
    * Please add an ON condition
    * 
    */
-  destination : Association to one TripService.airports on destination.code = destination_code;
+  destination : Association to one TripService.Airports on destination.code = destination_code;
   destination_code : String(3);
   repeatno : String(3);
   idooutc : Date;
@@ -67,7 +67,7 @@ entity TripService.triprecord {
    * Please add an ON condition
    * 
    */
-  actarrapt : Association to one TripService.airports on actarrapt.code = actarrapt_code;
+  actarrapt : Association to one TripService.Airports on actarrapt.code = actarrapt_code;
   actarrapt_code : String(3);
   actarrapticao : String(4);
 
@@ -75,7 +75,7 @@ entity TripService.triprecord {
    * Please add an ON condition
    * 
    */
-  actdeptapt : Association to one TripService.airports on actdeptapt.code = actdeptapt_code;
+  actdeptapt : Association to one TripService.Airports on actdeptapt.code = actdeptapt_code;
   actdeptapt_code : String(3);
   actdeptapticao : String(4);
 
@@ -83,7 +83,7 @@ entity TripService.triprecord {
    * Please add an ON condition
    * 
    */
-  legstate : Association to one TripService.legstates on legstate.code = legstate_code;
+  legstate : Association to one TripService.Legstates on legstate.code = legstate_code;
   legstate_code : String(3);
   aircrafttype : String(3);
   aircrafttypecpa : String(3);
@@ -140,7 +140,7 @@ entity TripService.triprecord {
    * Please add an ON condition
    * 
    */
-  schedarrapt : Association to one TripService.airports on schedarrapt.code = schedarrapt_code;
+  schedarrapt : Association to one TripService.Airports on schedarrapt.code = schedarrapt_code;
   schedarrapt_code : String(3);
   scheddeptapticao : String(4);
 
@@ -148,7 +148,7 @@ entity TripService.triprecord {
    * Please add an ON condition
    * 
    */
-  scheddeptapt : Association to one TripService.airports on scheddeptapt.code = scheddeptapt_code;
+  scheddeptapt : Association to one TripService.Airports on scheddeptapt.code = scheddeptapt_code;
   scheddeptapt_code : String(3);
   flight_tm : Integer;
   arr_stand : String(10);
@@ -189,7 +189,7 @@ entity TripService.pax {
    * Please add an ON condition
    * 
    */
-  carriercode : Association to one TripService.carriers on carriercode.code = carriercode_code;
+  carriercode : Association to one TripService.Carriers on carriercode.code = carriercode_code;
   carriercode_code : String(2);
   version : Integer;
   user_ind : String(1);
@@ -447,7 +447,7 @@ entity TripService.accommodation {
    * Please add an ON condition
    * 
    */
-  carriercode : Association to one TripService.carriers on carriercode.code = carriercode_code;
+  carriercode : Association to one TripService.Carriers on carriercode.code = carriercode_code;
   carriercode_code : String(2);
   flightno : String(4);
 
@@ -455,14 +455,14 @@ entity TripService.accommodation {
    * Please add an ON condition
    * 
    */
-  origin : Association to one TripService.airports on origin.code = origin_code;
+  origin : Association to one TripService.Airports on origin.code = origin_code;
   origin_code : String(3);
 
   /**
    * Please add an ON condition
    * 
    */
-  destination : Association to one TripService.airports on destination.code = destination_code;
+  destination : Association to one TripService.Airports on destination.code = destination_code;
   destination_code : String(3);
   scheddeptdateutc : Date;
   ccsmsgref : String(23);
@@ -512,21 +512,21 @@ entity TripService.catering {
    * Please add an ON condition
    * 
    */
-  carriercode : Association to one TripService.carriers on carriercode.code = carriercode_code;
+  carriercode : Association to one TripService.Carriers on carriercode.code = carriercode_code;
   carriercode_code : String(2);
 
   /**
    * Please add an ON condition
    * 
    */
-  origin : Association to one TripService.airports on origin.code = origin_code;
+  origin : Association to one TripService.Airports on origin.code = origin_code;
   origin_code : String(3);
 
   /**
    * Please add an ON condition
    * 
    */
-  destination : Association to one TripService.airports on destination.code = destination_code;
+  destination : Association to one TripService.Airports on destination.code = destination_code;
   destination_code : String(3);
   classtype : String(10);
   sapmeal : String(18);
@@ -580,21 +580,21 @@ entity TripService.cockpitTripsActuals {
    * Please add an ON condition
    * 
    */
-  zzcarriercode : Association to one TripService.carriers on zzcarriercode.code = zzcarriercode_code;
+  zzcarriercode : Association to one TripService.Carriers on zzcarriercode.code = zzcarriercode_code;
   zzcarriercode_code : String(2);
 
   /**
    * Please add an ON condition
    * 
    */
-  zzsupcarriercode : Association to one TripService.carriers on zzsupcarriercode.code = zzsupcarriercode_code;
+  zzsupcarriercode : Association to one TripService.Carriers on zzsupcarriercode.code = zzsupcarriercode_code;
   zzsupcarriercode_code : String(2);
 
   /**
    * Please add an ON condition
    * 
    */
-  zzsupcarriercode2 : Association to one TripService.carriers on zzsupcarriercode2.code = zzsupcarriercode2_code;
+  zzsupcarriercode2 : Association to one TripService.Carriers on zzsupcarriercode2.code = zzsupcarriercode2_code;
   zzsupcarriercode2_code : String(2);
   zzscheddeptdate : Date;
   zzscheddepttime : Time;
@@ -605,14 +605,14 @@ entity TripService.cockpitTripsActuals {
    * Please add an ON condition
    * 
    */
-  zzscheddeptapt : Association to one TripService.airports on zzscheddeptapt.code = zzscheddeptapt_code;
+  zzscheddeptapt : Association to one TripService.Airports on zzscheddeptapt.code = zzscheddeptapt_code;
   zzscheddeptapt_code : String(3);
 
   /**
    * Please add an ON condition
    * 
    */
-  zzschedarrapt : Association to one TripService.airports on zzschedarrapt.code = zzschedarrapt_code;
+  zzschedarrapt : Association to one TripService.Airports on zzschedarrapt.code = zzschedarrapt_code;
   zzschedarrapt_code : String(3);
   zzschedarrts : Decimal(15);
   zzscheddeptts : Decimal(15);
@@ -622,21 +622,21 @@ entity TripService.cockpitTripsActuals {
    * Please add an ON condition
    * 
    */
-  zzlegstate : Association to one TripService.legstates on zzlegstate.code = zzlegstate_code;
+  zzlegstate : Association to one TripService.Legstates on zzlegstate.code = zzlegstate_code;
   zzlegstate_code : String(3);
 
   /**
    * Please add an ON condition
    * 
    */
-  zzorigin : Association to one TripService.airports on zzorigin.code = zzorigin_code;
+  zzorigin : Association to one TripService.Airports on zzorigin.code = zzorigin_code;
   zzorigin_code : String(3);
 
   /**
    * Please add an ON condition
    * 
    */
-  zzdestination : Association to one TripService.airports on zzdestination.code = zzdestination_code;
+  zzdestination : Association to one TripService.Airports on zzdestination.code = zzdestination_code;
   zzdestination_code : String(3);
   zzrealscheddept : Date;
   user_creation_timestamp : Decimal(15);
@@ -645,7 +645,7 @@ entity TripService.cockpitTripsActuals {
   pax_intf_creation_ts : Decimal(15);
 };
 
-entity TripService.carriers {
+entity TripService.Carriers {
   name : String(255);
   descr : String(1000);
   createdAt : Timestamp;
@@ -666,16 +666,16 @@ entity TripService.carriers {
    * Please add an ON condition
    * 
    */
-  texts : Association to many TripService.carriers_texts {  };
+  texts : Association to many TripService.Carriers_texts {  };
 
   /**
    * Please add an ON condition
    * 
    */
-  localized : Association to one TripService.carriers_texts {  };
+  localized : Association to one TripService.Carriers_texts {  };
 };
 
-entity TripService.airports {
+entity TripService.Airports {
   name : String(255);
   descr : String(1000);
   createdAt : Timestamp;
@@ -712,7 +712,7 @@ entity TripService.airports {
    * Please add an ON condition
    * 
    */
-  catloadstat : Association to one TripService.loadingStationCodes on catloadstat.code = catloadstat_code;
+  catloadstat : Association to one TripService.LoadingStationCodes on catloadstat.code = catloadstat_code;
   catloadstat_code : String(2);
   catgroundime : String(4);
   lat_coord : Decimal(16, 14);
@@ -722,30 +722,30 @@ entity TripService.airports {
    * Please add an ON condition
    * 
    */
-  lat_coord_sign : Association to one TripService.coord_signs on lat_coord_sign.code = lat_coord_sign_code;
+  lat_coord_sign : Association to one TripService.Coord_signs on lat_coord_sign.code = lat_coord_sign_code;
   lat_coord_sign_code : String(1);
 
   /**
    * Please add an ON condition
    * 
    */
-  lon_coord_sign : Association to one TripService.coord_signs on lon_coord_sign.code = lon_coord_sign_code;
+  lon_coord_sign : Association to one TripService.Coord_signs on lon_coord_sign.code = lon_coord_sign_code;
   lon_coord_sign_code : String(1);
 
   /**
    * Please add an ON condition
    * 
    */
-  texts : Association to many TripService.airports_texts {  };
+  texts : Association to many TripService.Airports_texts {  };
 
   /**
    * Please add an ON condition
    * 
    */
-  localized : Association to one TripService.airports_texts {  };
+  localized : Association to one TripService.Airports_texts {  };
 };
 
-entity TripService.legstates {
+entity TripService.Legstates {
   name : String(255);
   descr : String(1000);
   createdAt : Timestamp;
@@ -768,13 +768,13 @@ entity TripService.legstates {
    * Please add an ON condition
    * 
    */
-  texts : Association to many TripService.legstates_texts {  };
+  texts : Association to many TripService.Legstates_texts {  };
 
   /**
    * Please add an ON condition
    * 
    */
-  localized : Association to one TripService.legstates_texts {  };
+  localized : Association to one TripService.Legstates_texts {  };
 };
 
 entity TripService.Languages {
@@ -842,21 +842,21 @@ entity TripService.cockpitTrips {
    * Please add an ON condition
    * 
    */
-  zzcarriercode : Association to one TripService.carriers on zzcarriercode.code = zzcarriercode_code;
+  zzcarriercode : Association to one TripService.Carriers on zzcarriercode.code = zzcarriercode_code;
   zzcarriercode_code : String(2);
 
   /**
    * Please add an ON condition
    * 
    */
-  zzsupcarriercode : Association to one TripService.carriers on zzsupcarriercode.code = zzsupcarriercode_code;
+  zzsupcarriercode : Association to one TripService.Carriers on zzsupcarriercode.code = zzsupcarriercode_code;
   zzsupcarriercode_code : String(2);
 
   /**
    * Please add an ON condition
    * 
    */
-  zzsupcarriercode2 : Association to one TripService.carriers on zzsupcarriercode2.code = zzsupcarriercode2_code;
+  zzsupcarriercode2 : Association to one TripService.Carriers on zzsupcarriercode2.code = zzsupcarriercode2_code;
   zzsupcarriercode2_code : String(2);
   zzscheddeptdate : Date;
   zzscheddepttime : Time;
@@ -867,14 +867,14 @@ entity TripService.cockpitTrips {
    * Please add an ON condition
    * 
    */
-  zzscheddeptapt : Association to one TripService.airports on zzscheddeptapt.code = zzscheddeptapt_code;
+  zzscheddeptapt : Association to one TripService.Airports on zzscheddeptapt.code = zzscheddeptapt_code;
   zzscheddeptapt_code : String(3);
 
   /**
    * Please add an ON condition
    * 
    */
-  zzschedarrapt : Association to one TripService.airports on zzschedarrapt.code = zzschedarrapt_code;
+  zzschedarrapt : Association to one TripService.Airports on zzschedarrapt.code = zzschedarrapt_code;
   zzschedarrapt_code : String(3);
   zzschedarrts : Decimal(15);
   zzscheddeptts : Decimal(15);
@@ -884,21 +884,21 @@ entity TripService.cockpitTrips {
    * Please add an ON condition
    * 
    */
-  zzlegstate : Association to one TripService.legstates on zzlegstate.code = zzlegstate_code;
+  zzlegstate : Association to one TripService.Legstates on zzlegstate.code = zzlegstate_code;
   zzlegstate_code : String(3);
 
   /**
    * Please add an ON condition
    * 
    */
-  zzorigin : Association to one TripService.airports on zzorigin.code = zzorigin_code;
+  zzorigin : Association to one TripService.Airports on zzorigin.code = zzorigin_code;
   zzorigin_code : String(3);
 
   /**
    * Please add an ON condition
    * 
    */
-  zzdestination : Association to one TripService.airports on zzdestination.code = zzdestination_code;
+  zzdestination : Association to one TripService.Airports on zzdestination.code = zzdestination_code;
   zzdestination_code : String(3);
   zzrealscheddept : Date;
   user_creation_timestamp : Decimal(15);
@@ -907,7 +907,7 @@ entity TripService.cockpitTrips {
   pax_intf_creation_ts : Decimal(15);
 };
 
-entity TripService.loadingStationCodes {
+entity TripService.LoadingStationCodes {
   name : String(255);
   descr : String(1000);
   createdAt : Timestamp;
@@ -928,16 +928,16 @@ entity TripService.loadingStationCodes {
    * Please add an ON condition
    * 
    */
-  texts : Association to many TripService.loadingStationCodes_texts {  };
+  texts : Association to many TripService.LoadingStationCodes_texts {  };
 
   /**
    * Please add an ON condition
    * 
    */
-  localized : Association to one TripService.loadingStationCodes_texts on localized.code = code;
+  localized : Association to one TripService.LoadingStationCodes_texts on localized.code = code;
 };
 
-entity TripService.coord_signs {
+entity TripService.Coord_signs {
   name : String(255);
   descr : String(1000);
   createdAt : Timestamp;
@@ -958,16 +958,16 @@ entity TripService.coord_signs {
    * Please add an ON condition
    * 
    */
-  texts : Association to many TripService.coord_signs_texts {  };
+  texts : Association to many TripService.Coord_signs_texts {  };
 
   /**
    * Please add an ON condition
    * 
    */
-  localized : Association to one TripService.coord_signs_texts on localized.code = code;
+  localized : Association to one TripService.Coord_signs_texts on localized.code = code;
 };
 
-entity TripService.carriers_texts {
+entity TripService.Carriers_texts {
   key ID_texts : UUID;
   locale : String(14);
   name : String(255);
@@ -975,7 +975,7 @@ entity TripService.carriers_texts {
   code : String(2);
 };
 
-entity TripService.airports_texts {
+entity TripService.Airports_texts {
   key ID_texts : UUID;
   locale : String(14);
   name : String(255);
@@ -983,7 +983,7 @@ entity TripService.airports_texts {
   code : String(3);
 };
 
-entity TripService.legstates_texts {
+entity TripService.Legstates_texts {
   key ID_texts : UUID;
   locale : String(14);
   name : String(255);
@@ -1015,14 +1015,14 @@ entity TripService.Currencies_texts {
   code : String(3);
 };
 
-entity TripService.loadingStationCodes_texts {
+entity TripService.LoadingStationCodes_texts {
   key locale : String(14);
   name : String(255);
   descr : String(1000);
   key code : String(2);
 };
 
-entity TripService.coord_signs_texts {
+entity TripService.Coord_signs_texts {
   key locale : String(14);
   name : String(255);
   descr : String(1000);

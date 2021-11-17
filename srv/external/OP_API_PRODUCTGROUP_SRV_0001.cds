@@ -9,18 +9,18 @@ entity API_PRODUCTGROUP_SRV.A_ProductGroup {
   /**
    * Please add  an ON condition
    */
-  to_Text : Association to many API_PRODUCTGROUP_SRV.A_ProductGroupText {  };
+  to_Text : Association to many API_PRODUCTGROUP_SRV.A_ProductGroupText on to_Text.MaterialGroup = MaterialGroup;
 };
 
 entity API_PRODUCTGROUP_SRV.A_ProductGroupText {
   key MaterialGroup : String(9);
-  key Language : String(2);
+  key Language : String(2); 
   MaterialGroupName : String(20);
   MaterialGroupText : String(60);
 
   /**
    * Please add  an ON condition
    */
-  to_MaterialGroup : Association to API_PRODUCTGROUP_SRV.A_ProductGroup {  };
+  to_MaterialGroup : Association to API_PRODUCTGROUP_SRV.A_ProductGroup on to_MaterialGroup.MaterialGroup = MaterialGroup;
 };
 

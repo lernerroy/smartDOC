@@ -1,0 +1,5 @@
+CompanyCode;CompanyCodeName;CityName;Country;Currency;Language;ChartOfAccounts;FiscalYearVariant;Company;CreditControlArea;CountryChartOfAccounts;FinancialManagementArea;AddressID;TaxableEntity;VATRegistration;ExtendedWhldgTaxIsActive;ControllingArea;FieldStatusVariant;NonTaxableTransactionTaxCode;DocDateIsUsedForTaxDetn;TaxRptgDateIsActive
+MH01;Malaysia Airlines Berhad;Walldorf;DE;EUR;D;INT;K4;;;;;0000676399;0001;;false;0001;0001;A0;false;false
+1000;Best Run;Frankfurt;DE;EUR;D;INT;K4;001000;1000;GKR;1000;0000000121;1000;DE123456789;false;1000;1000;A0;false;false
+2000;Heathrow Airport;Walldorf;DE;EUR;D;INT;K4;;;;;0000676399;0001;;false;0001;0001;A0;false;false
+TAP;Malaysia Airlines Berhad;Walldorf;DE;EUR;D;INT;K4;;;;;0000676399;0001;;false;0001;0001;A0;false;false

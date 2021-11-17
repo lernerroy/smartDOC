@@ -1,115 +1,255 @@
 {
-  "name": "smartdoc",
-  "version": "1.0.0",
-  "description": "A simple CAP project.",
-  "repository": "<Add your repository here>",
-  "license": "UNLICENSED",
-  "private": true,
-  "dependencies": {
-    "@sap/cds": "^5",
-    "express": "^4",
-    "hdb": "^0.18.3",
-    "@sap/cds-mtx": "^2",
-    "@sap/hana-client": "^2",
-    "@sap/hdi-deploy": "^4",
-    "@sap/instance-manager": "^2",
-    "@sap/xssec": "^3",
-    "passport": "^0"
-  },
-  "devDependencies": {
-    "sqlite3": "^5.0.2"
-  },
-  "scripts": {
-    "start": "cds run"
-  },
-  "eslintConfig": {
-    "extends": "eslint:recommended",
-    "env": {
-      "es2020": true,
-      "node": true,
-      "jest": true,
-      "mocha": true
+    "name": "smartdoc",
+    "version": "1.0.0",
+    "description": "A simple CAP project.",
+    "repository": "<Add your repository here>",
+    "license": "UNLICENSED",
+    "private": true,
+    "dependencies": {
+        "@sap/cds": "^5",
+        "express": "^4",
+        "hdb": "^0.18.3",
+        "@sap/cds-mtx": "^2",
+        "@sap/hana-client": "^2",
+        "@sap/hdi-deploy": "^4",
+        "@sap/instance-manager": "^2",
+        "@sap/xssec": "^3",
+        "passport": "^0"
     },
-    "globals": {
-      "SELECT": true,
-      "INSERT": true,
-      "UPDATE": true,
-      "DELETE": true,
-      "CREATE": true,
-      "DROP": true,
-      "CDL": true,
-      "CQL": true,
-      "CXL": true,
-      "cds": true
+    "devDependencies": {
+        "@sap/ux-specification": "^1.90.14",
+        "sqlite3": "^5.0.2"
     },
-    "rules": {
-      "no-console": "off",
-      "require-atomic-updates": "off"
-    }
-  },
-  "cds": {
-    "i18n": {
-      "folders": [
-        "_i18n"
-      ]
+    "scripts": {
+        "start": "cds run",
+        "undeploy": "cf undeploy smartdoc --delete-services --delete-service-keys"
     },
-    "hana": {
-      "deploy-format": "hdbtable"
-    },
-    "requires": {
-      "[production]": {
-        "db": {
-          "kind": "hana",
-          "vcap": {
-            "label": "service-manager"
-          }
+    "eslintConfig": {
+        "extends": "eslint:recommended",
+        "env": {
+            "es2020": true,
+            "node": true,
+            "jest": true,
+            "mocha": true
         },
-        "uaa": {
-          "kind": "xsuaa"
+        "globals": {
+            "SELECT": true,
+            "INSERT": true,
+            "UPDATE": true,
+            "DELETE": true,
+            "CREATE": true,
+            "DROP": true,
+            "CDL": true,
+            "CQL": true,
+            "CXL": true,
+            "cds": true
         },
-        "multitenancy": true
-      },
-      "[development]": {
-        "multitenancy": false,
-        "db": {
-          "kind": "hana"
-        },
-        "auth": {
-          "strategy": "mock",
-          "users": {
-            "roy.lerner@legstate.com": {
-              "password": "123",
-              "roles": [
-                "API_user"
-              ]
-            }
-          }
+        "rules": {
+            "no-console": "off",
+            "require-atomic-updates": "off"
         }
-      },
-      "TripService": {
-        "kind": "odata",
-        "model": "srv/external/cat-service"
-      },
-      "ZGW_LS_FO_PLANT_SRV": {
-        "kind": "odata-v2",
-        "model": "srv/external/Plant"
-      },
-      "ZGW_LS_FO_PURCHASE_ORG_SRV": {
-        "kind": "odata-v2",
-        "model": "srv/external/PurchaseOrg"
-      },
-      "ZGW_LS_FO_ORDER_TYPE_SRV": {
-        "kind": "odata-v2",
-        "model": "srv/external/OrderType"
-      },
-      "API_PRODUCTGROUP_SRV": {
-        "kind": "odata-v2",
-        "model": "srv/external/OP_API_PRODUCTGROUP_SRV_0001"
-      },
-      "API_COMPANYCODE_SRV": {
-        "kind": "odata-v2",
-        "model": "srv/external/OP_API_COMPANYCODE_SRV"
-      }
-    }
-  }
+    },
+    "cds": {
+        "i18n": {
+            "folders": [
+                "_i18n"
+            ]
+        },
+        "hana": {
+            "deploy-format": "hdbtable"
+        },
+        "requires": {
+            "[production]": {
+                "db": {
+                    "kind": "hana",
+                    "vcap": {
+                        "label": "service-manager"
+                    }
+                },
+                "uaa": {
+                    "kind": "xsuaa"
+                },
+                "multitenancy": true
+            },
+            "[development]": {
+                "multitenancy": false,
+                "db": {
+                    "kind": "hana"
+                },
+                "auth": {
+                    "strategy": "mock",
+                    "users": {
+                        "roy.lerner@legstate.com": {
+                            "password": "123",
+                            "roles": [
+                                "API_user",
+                                "Admin",
+                                "User"
+                            ]
+                        }
+                    }
+                }
+            },
+            "[mock]": {
+                "multitenancy": false,
+                "db": {
+                    "kind": "sql"
+                },
+                "auth": {
+                    "strategy": "mock",
+                    "users": {
+                        "roy.lerner@legstate.com": {
+                            "password": "123",
+                            "roles": [
+                                "API_user",
+                                "Admin",
+                                "User"
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "smartDOCDraft": {
+            "kind": "odata",
+            "model": "srv/SmartDraft", 
+        },
+        "TripService": {
+            "kind": "odata",
+            "model": "srv/external/cat-service",
+            "[development]": {
+                "credentials": {
+                    "destination": "TripRecord",
+                    "path": "/browse/"
+                },
+                "destinationOptions": {
+                  "selectionStrategy": "alwaysSubscriber"
+                }
+            },
+            "[production]": {
+                "credentials": {
+                    "destination": "TripRecord",
+                    "path": "/browse/"
+                },
+                "destinationOptions": {
+                  "selectionStrategy": "alwaysSubscriber"
+                }
+            }
+        },
+        "ZGW_LS_FO_PLANT_SRV": {
+            "kind": "odata-v2",
+            "model": "srv/external/Plant",
+            "[development]": {
+                "credentials": {
+                    "destination": "DAK_1",
+                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_PLANT_SRV"
+                }
+            },
+            "[production]": {
+                "credentials": {
+                    "destination": "DAK_1",
+                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_PLANT_SRV"
+                }
+            }
+        },
+        "ZGW_LS_FO_PURCHASE_ORG_SRV": {
+            "kind": "odata-v2",
+            "model": "srv/external/PurchaseOrg",
+            "[development]": {
+                "credentials": {
+                    "destination": "DAK_1",
+                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_PURCHASE_ORG_SRV"
+                }
+            },
+            "[production]": {
+                "credentials": {
+                    "destination": "DAK_1",
+                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_PURCHASE_ORG_SRV"
+                }
+            }
+        },
+        "ZGW_LS_FO_ORDER_TYPE_SRV": {
+            "kind": "odata-v2",
+            "model": "srv/external/OrderType",
+            "[development]": {
+                "credentials": {
+                    "destination": "DAK_1",
+                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_ORDER_TYPE_SRV"
+                }
+            },
+            "[production]": {
+                "credentials": {
+                    "destination": "DAK_1",
+                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_ORDER_TYPE_SRV"
+                }
+            }
+        },
+        "API_PRODUCTGROUP_SRV": {
+            "kind": "odata-v2",
+            "model": "srv/external/OP_API_PRODUCTGROUP_SRV_0001",
+            "[development]": {
+                "credentials": {
+                    "destination": "DAK_1",
+                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_PROD_GROUP_SRV"
+                }
+            },
+            "[production]": {
+                "credentials": {
+                    "destination": "DAK_1",
+                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_PROD_GROUP_SRV"
+                }
+            }
+        },
+        "API_COMPANYCODE_SRV": {
+            "kind": "odata-v2",
+            "model": "srv/external/OP_API_COMPANYCODE_SRV",
+            "[development]": {
+                "credentials": {
+                    "destination": "DAK_1",
+                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_COMPANY_CODE_SRV"
+                }
+            },
+            "[production]": {
+                "credentials": {
+                    "destination": "DAK_1",
+                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_COMPANY_CODE_SRV"
+                }
+            }
+        },
+        "ZGW_LS_FO_WORK_CENTER_SRV": {
+            "kind": "odata-v2",
+            "model": "srv/external/WORKCENTER",
+            "[development]": {
+                "credentials": {
+                    "destination": "DAK_1",
+                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_WORK_CENTER_SRV"
+                }
+            },
+            "[production]": {
+                "credentials": {
+                    "destination": "DAK_1",
+                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_WORK_CENTER_SRV"
+                }
+            }
+        },
+        "ZGW_LS_FO_CONTROL_KEY_SRV": {
+            "kind": "odata-v2",
+            "model": "srv/external/ControlKey",
+            "[development]": {
+                "credentials": {
+                    "destination": "DAK_1",
+                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_CONTROL_KEY_SRV"
+                }
+            },
+            "[production]": {
+                "credentials": {
+                    "destination": "DAK_1",
+                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_CONTROL_KEY_SRV"
+                }
+            }
+        }
+    },
+    "sapux": [
+        "app/airport_manage"
+    ]
 }

@@ -4,13 +4,37 @@ using { ZGW_LS_FO_PLANT_SRV as PlantService }
         from './external/ZGW_LS_FO_PLANT_SRV';
 
 
+annotate smartdoc with @(requires : [
+    'Admin',
+    'API_user',
+    'User'
+]);
 
+annotate smartdoc with @(restrict : [
+    {
+        grant : [
+            'READ',
+            'WRITE'
+        ],
+        to    : 'API_user'
+    },
+    {
+        grant : ['*'],
+        to    : 'User'
+    },
+    {
+        grant : ['*'],
+        to    : 'Admin'
+    }
+]);
+
+@path : '/browse'
 service smartDOCService { 
 
-    entity Airports as projection on smartdoc.Airports;
-    entity Carriers as projection on smartdoc.Carriers;
-    
+    entity Airports as projection on smartdoc.Airports_enh;
+    entity Carriers as projection on smartdoc.Carriers_enh;
 }
+
 
 annotate Airports with {
     airport;
@@ -19,7 +43,7 @@ annotate Airports with {
     @readonly carrierCode;
 };
 
-annotate carriers_enh with {
+annotate Carriers with {
     carrier_code;
     companyCode;
     mainWorkCenter;
@@ -32,3 +56,4 @@ annotate carriers_enh with {
     controlKey;
     //profitCenter; not needed for now
 };
+
