@@ -23,6 +23,7 @@ modules:
   type: nodejs
   path: gen/srv
   parameters:
+    memory: 256M
     buildpack: nodejs_buildpack
   properties:
     SAP_JWT_TRUST_ACL: [{"clientid":"*","identityzone":"sap-provisioning"}]  # Trust between server and SaaS Manager
@@ -31,6 +32,7 @@ modules:
   - name: smartdoc-db-mt
   - name: smartdoc-uaa-mt
   - name: smartdoc-registry
+  - name: smartdoc-dest-srv
   provides:
   - name: srv-api      # required by consumers of CAP services (e.g. approuter)
     properties:
@@ -38,30 +40,30 @@ modules:
   - name: mtx-api      # potentially required by approuter
     properties:
       mtx-url: ${default-url}
-- name: smartdoc-app-content
-  type: com.sap.application.content
-  path: .
-  requires:
-  - name: smartdoc-repo-host
-    parameters:
-      content-target: true
-  build-parameters:
-    build-result: resources
-    requires:
-    - artifacts:
-      - airportmanage.zip
-      name: airportmanage
-      target-path: resources/
-- name: airportmanage
-  type: html5
-  path: app/airport_manage
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
+# - name: smartdoc-app-content
+#   type: com.sap.application.content
+#   path: .
+#   requires:
+#   - name: smartdoc-repo-host
+  #   parameters:
+  #     content-target: true
+  # build-parameters:
+  #   build-result: resources
+#     requires:
+#     - artifacts:
+#       - airports.zip
+#       name: airports
+#       target-path: resources/
+# - name: airports
+#   type: html5
+#   path: app/airports
+#   build-parameters:
+#     build-result: dist
+#     builder: custom
+#     commands:
+#     - npm install
+#     - npm run build:cf
+#     supported-platforms: []
 
 resources:
  # services extracted from CAP configuration
@@ -95,7 +97,23 @@ resources:
       prop: ~{mtx-url}
     parameters:
       param: ~{mtx-url}
- 
+  parameters:
+    service: saas-registry
+    service-plan: application
+    config:
+        xsappname: smartdoc-${space}
+        appName: smartdoc
+        displayName: smartdoc
+        description: A simple CAP project.
+        #category: 'Category'
+        appUrls:
+          onSubscription: ~{mtx-api/mtx-url}/mtx/v1/provisioning/tenant/{tenantId}
+          getDependencies: ~{mtx-api/mtx-url}/mtx/v1/provisioning/dependencies
+          onSubscriptionAsync: false
+          onUnSubscriptionAsync: false
+          callbackTimeoutMillis: 300000
+
+
 - name: smartdoc-repo-host
   type: org.cloudfoundry.managed-service
   parameters:
@@ -107,34 +125,8 @@ resources:
 - name: smartdoc-dest-srv
   type: org.cloudfoundry.managed-service
   parameters:
-    config:
-      HTML5Runtime_enabled: false
-      init_data:
-        instance:
-          destinations:
-          - Authentication: NoAuthentication
-            Name: ui5
-            ProxyType: Internet
-            Type: HTTP
-            URL: https://ui5.sap.com
-          existing_destinations_policy: update
-      version: 1.0.0
     service: destination
     service-name: smartdoc-dest-srv
     service-plan: lite
 
-    parameters:
-      service: saas-registry
-      service-plan: application
-      config:
-         xsappname: smartdoc-${space}
-         appName: smartdoc
-         displayName: smartdoc
-         description: A simple CAP project.
-         #category: 'Category'
-         appUrls:
-            onSubscription: ~{mtx-api/mtx-url}/mtx/v1/provisioning/tenant/{tenantId}
-            onSubscriptionAsync: false
-            onUnSubscriptionAsync: false
-            callbackTimeoutMillis: 300000
-
+    

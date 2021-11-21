@@ -1,7 +1,11 @@
 {
     "_version": "1.32.0",
+    "sap.cloud": {
+        "public": true,
+        "service": "triporder-ui"
+    },
     "sap.app": {
-        "id": "airportmanage",
+        "id": "airports",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
@@ -11,7 +15,7 @@
         "description": "{{appDescription}}",
         "dataSources": {
             "mainService": {
-                "uri": "/draft/",
+                "uri": "draft/",
                 "type": "OData",
                 "settings": {
                     "odataVersion": "4.0"
@@ -26,15 +30,16 @@
         },
         "crossNavigation": {
             "inbounds": {
-                "airportmanage-inbound": {
+                "airports-inbound": {
                     "signature": {
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "manage_airport",
-                    "action": "manage",
+                    "semanticObject": "airports_configuration",
+                    "action": "manage_airports",
                     "title": "{{flpTitle}}",
                     "subTitle": "{{flpSubtitle}}",
+                    "info": "{{flpInfo}}",
                     "icon": ""
                 }
             }

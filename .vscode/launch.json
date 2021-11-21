@@ -1,8 +1,11 @@
 {
-  // Use IntelliSense to learn about possible attributes.
-  // Hover to view descriptions of existing attributes.
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-  "version": "0.2.0",
+  "inputs": [
+    {
+      "id": "UI5VersionV4",
+      "type": "command",
+      "command": "sap.ux.appGenerator.ui5VersionV4"
+    }
+  ],
   "configurations": [
     {
       "command": "cds run --with-mocks --in-memory?",
@@ -12,6 +15,69 @@
       "skipFiles": [
         "<node_internals>/**"
       ]
+    },
+    {
+      "name": "Start airport_manage",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "cwd": "${workspaceFolder}/airport_manage",
+      "windows": {
+        "runtimeExecutable": "npm.cmd"
+      },
+      "runtimeArgs": [
+        "run-script",
+        "start"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "port": 9229,
+      "env": {
+        "DEBUG": "--inspect",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/smartDOC/app/airport_manage\"}"
+      }
+    },
+    {
+      "name": "Start airport_manage Mock",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/airport_manage",
+      "runtimeExecutable": "npm",
+      "windows": {
+        "runtimeExecutable": "npm.cmd"
+      },
+      "runtimeArgs": [
+        "run-script",
+        "start-mock"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "port": 9229,
+      "env": {
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/smartDOC/app/airport_manage\"}"
+      }
+    },
+    {
+      "name": "Start airport_manage Local",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/airport_manage",
+      "runtimeExecutable": "npm",
+      "windows": {
+        "runtimeExecutable": "npm.cmd"
+      },
+      "runtimeArgs": [
+        "run-script",
+        "start-local"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "port": 9229,
+      "env": {
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/smartDOC/app/airport_manage\"}"
+      }
     }
-  ]
+  ],
+  "compounds": [],
+  "version": "0.2.0"
 }

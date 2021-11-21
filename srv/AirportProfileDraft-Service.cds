@@ -25,10 +25,10 @@ service smartDOCDraft {
     entity Carriers 
     @(restrict: [ { grant: ['*'], to: 'Admin'}])
     as projection on smartdoc.Carriers_enh;
-    /*entity Plants
+    entity Plants
     @(restrict: [ { grant: ['READ'], to: 'Admin'}])
     as projection on PlantService.PlantSet;
-    entity CompanyCodes 
+    /*entity CompanyCodes 
     @(restrict: [ { grant: ['READ'], to: 'Admin'}])
     as projection on CompanyCodeService.A_CompanyCode;
     entity ControlKeys 

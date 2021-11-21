@@ -1,6 +1,6 @@
 specVersion: '2.4'
 metadata:
-  name: 'airport_manage'
+  name: 'airports'
 type: application
 server:
   customMiddleware:

@@ -1,0 +1,88 @@
+_schema-version: "3.1"
+ID: smartdoc
+description: A simple CAP project.
+version: 1.0.0
+modules:
+- name: smartdoc-srv
+  type: javascript.nodejs
+  path: .smartDOC_mta_build_tmp/smartdoc-srv/data.zip
+  properties:
+    SAP_JWT_TRUST_ACL:
+    - clientid: '*'
+      identityzone: sap-provisioning
+  requires:
+  - name: smartdoc-db-mt
+  - name: smartdoc-uaa-mt
+  - name: smartdoc-registry
+  - name: smartdoc-dest-srv
+  provides:
+  - name: srv-api
+    properties:
+      srv-url: ${default-url}
+  - name: mtx-api
+    properties:
+      mtx-url: ${default-url}
+  parameters:
+    buildpack: nodejs_buildpack
+    memory: 256M
+resources:
+- name: smartdoc-db-mt
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: service-manager
+    service-plan: container
+  properties:
+    hdi-service-name: ${service-name}
+- name: smartdoc-uaa-mt
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      tenant-mode: shared
+      xsappname: smartdoc-${space}
+    path: ./xs-security.json
+    service: xsuaa
+    service-plan: application
+- name: smartdoc-registry
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      appName: smartdoc
+      appUrls:
+        callbackTimeoutMillis: 300000
+        getDependencies: ~{mtx-api/mtx-url}/mtx/v1/provisioning/dependencies
+        onSubscription: ~{mtx-api/mtx-url}/mtx/v1/provisioning/tenant/{tenantId}
+        onSubscriptionAsync: false
+        onUnSubscriptionAsync: false
+      description: A simple CAP project.
+      displayName: smartdoc
+      xsappname: smartdoc-${space}
+    service: saas-registry
+    service-plan: application
+  requires:
+  - name: smartdoc-uaa-mt
+  - name: mtx-api
+    properties:
+      prop: ~{mtx-url}
+    parameters:
+      param: ~{mtx-url}
+- name: smartdoc-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: smartdoc-html5-srv
+    service-plan: app-host
+- name: smartdoc-dest-srv
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: destination
+    service-name: smartdoc-dest-srv
+    service-plan: lite
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+  - builder: custom
+    commands:
+    - npm install --production
+    - npx -p @sap/cds-dk cds build --production
