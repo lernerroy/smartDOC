@@ -1,0 +1,59 @@
+{
+  "services": [
+    {
+      "name": "smartdoc-srv",
+      "category": "LegState Engineering",
+      "description": "smartDOC",
+      "bindable": true,
+      "metadata": {
+        "displayName": "smartDOC",
+        "category": "LegState Engineering",
+        "sapservice": {
+          "sap.cloud.service": "smartdoc-ui",
+          "saasregistryenabled": true,
+          "grant_type": "user_token"
+        }
+      },
+      "plans": [
+        {
+          "name": "default",
+          "description": "Basic plan",
+          "metadata": {
+            "sapservice": {
+              "sap.cloud.service": "smartdoc-ui",
+              "saasregistryenabled": true,
+              "grant_type": "user_token"
+            },
+            "supportedPlatforms": [
+              "cloudfoundry"
+            ],
+            "auto-subscription": {
+              "saasregistryenabled": true,
+              "app_name": "smartdoc-xsapp"
+            }
+          },
+          "id": ""
+        },
+        {
+          "name": "api",
+          "description": "API service plan (after subscription)",
+          "metadata": {
+            "supportedPlatforms": [
+              "cloudfoundry"
+            ],
+            "sapservice": {
+              "grant_type": "client_credentials",
+              "saasregistryenabled": true
+            },
+            "auto-subscription": {
+              "saasregistryenabled": true,
+              "app_name": "smartdoc-xsapp"
+            }
+          },
+          "id": ""
+        }
+      ],
+      "id": ""
+    }
+  ]
+}

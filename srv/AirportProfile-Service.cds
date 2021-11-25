@@ -1,7 +1,5 @@
 using com.legstate.smartdoc as smartdoc
         from '../db/data-model';
-using { ZGW_LS_FO_PLANT_SRV as PlantService } 
-        from './external/ZGW_LS_FO_PLANT_SRV';
 
 
 annotate smartdoc with @(requires : [

@@ -1,7 +1,7 @@
 {
     "name": "smartdoc",
     "version": "1.0.0",
-    "description": "A simple CAP project.",
+    "description": "Simplified Direct Operating Cost Management",
     "repository": "<Add your repository here>",
     "license": "UNLICENSED",
     "private": true,
@@ -117,28 +117,22 @@
             "TripService": {
                 "kind": "odata",
                 "model": "srv/external/cat-service",
-                "[development]": {
+                "[sap]": {
                     "credentials": {
                         "destination": "TripRecord",
-                        "path": "/browse/"
-                    },
-                    "destinationOptions": {
-                        "selectionStrategy": "alwaysSubscriber"
+                        "path": "/browse"
                     }
                 },
                 "[production]": {
                     "credentials": {
                         "destination": "TripRecord",
-                        "path": "/browse/"
-                    },
-                    "destinationOptions": {
-                        "selectionStrategy": "alwaysSubscriber"
+                        "path": "/browse"
                     }
                 }
             },
             "ZGW_LS_FO_PLANT_SRV": {
                 "kind": "odata-v2",
-                "model": "srv/external/Plant",
+                "model": "srv/external/ZGW_LS_FO_PLANT_SRV",
                 "[sap]": {
                     "credentials": {
                         "destination": "DAK_1",
@@ -155,7 +149,7 @@
             "ZGW_LS_FO_PURCHASE_ORG_SRV": {
                 "kind": "odata-v2",
                 "model": "srv/external/PurchaseOrg",
-                "[development]": {
+                "[sap]": {
                     "credentials": {
                         "destination": "DAK_1",
                         "path": "/sap/opu/odata/sap/ZGW_LS_FO_PURCHASE_ORG_SRV"
@@ -171,7 +165,7 @@
             "ZGW_LS_FO_ORDER_TYPE_SRV": {
                 "kind": "odata-v2",
                 "model": "srv/external/OrderType",
-                "[development]": {
+                "[sap]": {
                     "credentials": {
                         "destination": "DAK_1",
                         "path": "/sap/opu/odata/sap/ZGW_LS_FO_ORDER_TYPE_SRV"
@@ -187,7 +181,7 @@
             "API_PRODUCTGROUP_SRV": {
                 "kind": "odata-v2",
                 "model": "srv/external/OP_API_PRODUCTGROUP_SRV_0001",
-                "[development]": {
+                "[sap]": {
                     "credentials": {
                         "destination": "DAK_1",
                         "path": "/sap/opu/odata/sap/ZGW_LS_FO_PROD_GROUP_SRV"
@@ -203,7 +197,7 @@
             "API_COMPANYCODE_SRV": {
                 "kind": "odata-v2",
                 "model": "srv/external/OP_API_COMPANYCODE_SRV",
-                "[development]": {
+                "[sap]": {
                     "credentials": {
                         "destination": "DAK_1",
                         "path": "/sap/opu/odata/sap/ZGW_LS_FO_COMPANY_CODE_SRV"
@@ -219,7 +213,7 @@
             "ZGW_LS_FO_WORK_CENTER_SRV": {
                 "kind": "odata-v2",
                 "model": "srv/external/WORKCENTER",
-                "[development]": {
+                "[sap]": {
                     "credentials": {
                         "destination": "DAK_1",
                         "path": "/sap/opu/odata/sap/ZGW_LS_FO_WORK_CENTER_SRV"
@@ -235,7 +229,7 @@
             "ZGW_LS_FO_CONTROL_KEY_SRV": {
                 "kind": "odata-v2",
                 "model": "srv/external/ControlKey",
-                "[development]": {
+                "[sap]": {
                     "credentials": {
                         "destination": "DAK_1",
                         "path": "/sap/opu/odata/sap/ZGW_LS_FO_CONTROL_KEY_SRV"
@@ -251,6 +245,7 @@
         }
     },
     "sapux": [
-        "app/airports"
+        "app/airports",
+        "app/airports_enh"
     ]
 }
