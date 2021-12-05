@@ -1,6 +1,6 @@
 specVersion: '2.4'
 metadata:
-  name: 'airports_enh'
+  name: 'airports'
 type: application
 server:
   customMiddleware:

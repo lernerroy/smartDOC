@@ -24,11 +24,11 @@ applications:
 #     SBF_TENANT_ID: 65ca0b3f-5fa6-4e1c-a50b-947ca4754f1f
       #https://www.npmjs.com/package/@sap/sbf#service-broker-hashed-credentials
       #https://www.npmjs.com/package/@sap/sbf#generate-a-secure-broker-password 
-      #LVZi715Vah0gmKqmtji+2dnCFIcHnyVJ
+      #z+kIPVYCnbZ9/pKIOFxDjNFoogYAMBhk
       # dot set this when updating after deployment from mta
       SBF_BROKER_CREDENTIALS_HASH: >
         {
-          "smartdoc-sbf-user": "sha256:5mR4kbvPF6C+1FBmhyCU6laKgIvvIjmDfsgZSsayo5k=:m6i1Cg8GxgK9gGhpVg1tsljudSvGRJJ06HOfGJqj928="
+          "smartdoc-sbf-user": "sha256:jdw4KfEpb29j9Pd82NUyMj080EKYitNydL8snIP5v5g=:ceX//BVqq4uZu6Qj4U3xe11JddU9e/wv4cf47fD7zXY="
         }
 
       #https://www.npmjs.com/package/@sap/sbf#create-the-service-catalog

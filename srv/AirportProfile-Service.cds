@@ -29,8 +29,8 @@ annotate smartdoc with @(restrict : [
 @path : '/browse'
 service smartDOCService { 
 
-    entity Airports as projection on smartdoc.Airports_enh;
-    entity Carriers as projection on smartdoc.Carriers_enh;
+    entity Airports as projection on smartdoc.Airports;
+    entity Carriers as projection on smartdoc.Carriers;
 }
 
 

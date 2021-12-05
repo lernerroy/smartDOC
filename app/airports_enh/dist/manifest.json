@@ -1,4 +1,8 @@
 {
+    "sap.cloud": {
+        "public": true,
+        "service": "smartdoc-ui"
+    },
     "_version": "1.32.0",
     "sap.app": {
         "id": "airportsenh",
@@ -35,6 +39,7 @@
                     "action": "Manage",
                     "title": "{{flpTitle}}",
                     "subTitle": "{{flpSubtitle}}",
+                    "info": "{{flpInfo}}",
                     "icon": ""
                 }
             }

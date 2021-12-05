@@ -2,7 +2,9 @@
 @cds.external : true
 service ZGW_LS_FO_PLANT_SRV {};
 
-entity ZGW_LS_FO_PLANT_SRV.PlantSet {
+// @cds.odata.valuelist
+@cds.autoexpose @readonly
+ entity ZGW_LS_FO_PLANT_SRV.PlantSet {
   key Werks : String(4);
   Sort2 : String(20);
   Sort1 : String(20);
@@ -14,4 +16,6 @@ entity ZGW_LS_FO_PLANT_SRV.PlantSet {
   McName1 : String(25);
   Nation : String(1);
 };
+
+ 
 

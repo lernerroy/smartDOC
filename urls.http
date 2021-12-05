@@ -1,0 +1,12 @@
+###
+http://localhost:4004/draft/Airports(ID=2d1f3996-26a2-4cef-b4f5-c123a9126155,IsActiveEntity=true)/airport
+###
+https://localhost:4004/draft/Airports(ID=2d1f3996-26a2-4cef-b4f5-c123a9126155,IsActiveEntity=true)/plant
+###
+http://localhost:4004/draft/Airports(ID=2d1f3996-26a2-4cef-b4f5-c123a9126155,IsActiveEntity=true)
+###
+http://localhost:4004/draft/Airports?$expand=plant
+###
+http://localhost:4004/draft/Airports?$expand=airport
+###
+http://localhost:4004/draft/Airports?$expand=airport,plant

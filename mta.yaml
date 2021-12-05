@@ -55,9 +55,25 @@ modules:
       - airportsenh.zip
       name: airportsenh
       target-path: resources/
+    - artifacts:
+      - carrierenh.zip
+      name: carrierenh
+      target-path: resources/   
+
 - name: airportsenh
   type: html5
   path: app/airports_enh
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+
+- name: carrierenh
+  type: html5
+  path: app/carrier_enh
   build-parameters:
     build-result: dist
     builder: custom

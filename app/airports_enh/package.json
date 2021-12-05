@@ -1,7 +1,7 @@
 {
-    "name": "airports_enh",
+    "name": "airports",
     "version": "0.0.1",
-    "description": "Airport Description",
+    "description": "Airports Description",
     "keywords": [
         "ui5",
         "openui5",

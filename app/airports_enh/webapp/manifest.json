@@ -5,7 +5,7 @@
     },
     "_version": "1.32.0",
     "sap.app": {
-        "id": "airportsenh",
+        "id": "airports",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
@@ -30,12 +30,12 @@
         },
         "crossNavigation": {
             "inbounds": {
-                "airportsenh-inbound": {
+                "airports-inbound": {
                     "signature": {
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "Airports_enh",
+                    "semanticObject": "Airports",
                     "action": "Manage",
                     "title": "{{flpTitle}}",
                     "subTitle": "{{flpSubtitle}}",
@@ -97,42 +97,42 @@
             "routes": [
                 {
                     "pattern": ":?query:",
-                    "name": "Airports_enhList",
-                    "target": "Airports_enhList"
+                    "name": "AirportsList",
+                    "target": "AirportsList"
                 },
                 {
-                    "pattern": "Airports_enh({key}):?query:",
-                    "name": "Airports_enhObjectPage",
-                    "target": "Airports_enhObjectPage"
+                    "pattern": "Airports({key}):?query:",
+                    "name": "AirportsObjectPage",
+                    "target": "AirportsObjectPage"
                 }
             ],
             "targets": {
-                "Airports_enhList": {
+                "AirportsList": {
                     "type": "Component",
-                    "id": "Airports_enhList",
+                    "id": "AirportsList",
                     "name": "sap.fe.templates.ListReport",
                     "options": {
                         "settings": {
-                            "entitySet": "Airports_enh",
+                            "entitySet": "Airports",
                             "variantManagement": "Page",
                             "navigation": {
-                                "Airports_enh": {
+                                "Airports": {
                                     "detail": {
-                                        "route": "Airports_enhObjectPage"
+                                        "route": "AirportsObjectPage"
                                     }
                                 }
                             }
                         }
                     }
                 },
-                "Airports_enhObjectPage": {
+                "AirportsObjectPage": {
                     "type": "Component",
-                    "id": "Airports_enhObjectPage",
+                    "id": "AirportsObjectPage",
                     "name": "sap.fe.templates.ObjectPage",
                     "options": {
                         "settings": {
                             "editableHeaderContent": false,
-                            "entitySet": "Airports_enh"
+                            "entitySet": "Airports"
                         }
                     }
                 }

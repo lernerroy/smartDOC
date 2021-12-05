@@ -2,6 +2,7 @@
 @cds.external : true
 service API_COMPANYCODE_SRV {};
 
+@cds.odata.valuelist
 entity API_COMPANYCODE_SRV.A_CompanyCode {
   key CompanyCode : String(4);
   CompanyCodeName : String(25);

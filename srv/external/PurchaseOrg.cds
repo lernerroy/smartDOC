@@ -2,6 +2,7 @@
 @cds.external : true
 service ZGW_LS_FO_PURCHASE_ORG_SRV {};
 
+@cds.odata.valuelist
 entity ZGW_LS_FO_PURCHASE_ORG_SRV.PurchasingOrganizationSet {
   key PurchasingOrg : String(4);
   Description : String(20);
