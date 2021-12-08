@@ -1,4 +1,4 @@
-using smartDOCDraft as smartDOCService 
+using smartDOCService 
     from './AirportProfile-Service';
 using com.legstate.smartdoc as smartdoc 
     from '../db/data-model';
@@ -54,33 +54,33 @@ annotate smartDOCService.Carriers with {
 
     companyCode @(
         title                  : '{i18n>CompanyCode}',         
-        common.Text            : companyCode.Name,
-        common.TextArrangement : #TextFirst,
+        Common.Text            : companyCode.Name,
+        Common.TextArrangement : #TextFirst,
     );
 
 
     mainWorkCenter @(
         title                  : '{i18n>mainworkcenter}',         
-        common.Text            : mainWorkCenter.Name,
-        common.TextArrangement : #TextFirst,
+        Common.Text            : mainWorkCenter.Name,
+        Common.TextArrangement : #TextFirst,
     );
 
     orderType @(
         title                  : '{i18n>ordertype}',         
-        common.Text            : orderType.Name,
-        common.TextArrangement : #TextFirst,
+        Common.Text            : orderType.Name,
+        Common.TextArrangement : #TextFirst,
     );
 
     awbOrderType @(
         title                  : '{i18n>awbordertype}',         
-        common.Text            : orderType.Name,
-        common.TextArrangement : #TextFirst,
+        Common.Text            : orderType.Name,
+        Common.TextArrangement : #TextFirst,
     );
 
     purchaseOrganization @(
         title                  : '{i18n>purchaseOrganization}',         
-        common.Text            : purchaseOrganization.Name,
-        common.TextArrangement : #TextFirst,
+        Common.Text            : purchaseOrganization.Name,
+        Common.TextArrangement : #TextFirst,
     );
 
     plant @(
@@ -91,14 +91,14 @@ annotate smartDOCService.Carriers with {
 
     materialGroup @(
         title                  : '{i18n>materialGroup}',         
-        common.Text            : materialGroup.Name,
-        common.TextArrangement : #TextFirst,
+        Common.Text            : materialGroup.Name,
+        Common.TextArrangement : #TextFirst,
     );
 
     controlKey @(
         title                  : '{i18n>controlKey}',         
-        common.Text            : controlKey.Name,
-        common.TextArrangement : #TextFirst,
+        Common.Text            : controlKey.Name,
+        Common.TextArrangement : #TextFirst,
     );
 
 };
@@ -134,7 +134,7 @@ annotate smartDOCService.OrderTypes with {
     OrderCategory @Common : {Label : '{i18n>OrderCategory}'};
 };
 
-annotate smartDOCService.PurchaseOrgs with {
+annotate smartDOCService.PurchaseOrganizations with {
     ID @Common : {Label : '{i18n>PurchasingOrgCode}'};
     Name @Common : {Label : '{i18n>PurchasingOrgName}'};
 };
@@ -154,7 +154,7 @@ annotate smartDOCService.MaterialGroups{ };
 @cds.odata.valuelist
 annotate smartDOCService.OrderTypes{ };
 @cds.odata.valuelist
-annotate smartDOCService.PurchaseOrgs{ };
+annotate smartDOCService.PurchaseOrganizations{ };
 @cds.odata.valuelist
 annotate smartDOCService.WorkCenters{ };
 @cds.odata.valuelist
@@ -378,7 +378,7 @@ annotate smartDOCService.Carriers with {
     
     purchaseOrganization @Common.ValueListForValidation : '' 
                          @Common.ValueList : {
-        CollectionPath  : 'PurchaseOrgs',
+        CollectionPath  : 'PurchaseOrganizations',
         Label           : '{i18n>Description}',
         Parameters      : [
             {
@@ -437,25 +437,24 @@ annotate smartDOCService.Carriers with @(
         SelectionFields : [
             carrier_ID,
             companyCode_ID,
-                //mainWorkCenter_ID,
-            //orderType_ID,
+            mainWorkCenter_ID,
+            orderType_ID,
             plant_ID,
-           // materialGroup_ID
+            materialGroup_ID
 
         ],
 
         LineItem        : [
 
             //{Value : ID, },
-            // {Value : plant_Werks, },
             {Value : carrier_ID},
             {Value : companyCode_ID },
             {Value : plant_ID, },
-           // {Value : mainWorkCenter_ID},
-           // {Value : orderType_ID},
-            //{Value : materialGroup_ID },
-            //{Value : purchaseOrganization_ID},
-            //{Value : controlKey_ID},
+            {Value : mainWorkCenter_ID},
+            {Value : orderType_ID},
+            {Value : materialGroup_ID },
+            {Value : purchaseOrganization_ID},
+            {Value : controlKey_ID},
         ],
         Facets          : [{
             $Type  : 'UI.ReferenceFacet',
@@ -468,13 +467,13 @@ annotate smartDOCService.Carriers with @(
             
             {Value : carrier_ID},
             {Value : companyCode_ID },
-            {Value : plant_ID, }/*,
+            {Value : plant_ID, },
             {Value : mainWorkCenter_ID},
             {Value : orderType_ID },
             {Value : awbOrderType_ID },
             {Value : materialGroup_ID},
             {Value : purchaseOrganization_ID},
-            {Value : controlKey_ID},*/
+            {Value : controlKey_ID},
         ]},
     },
 );

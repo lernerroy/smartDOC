@@ -31,14 +31,14 @@
         },
         {
             "name": "User",
-            "description": "User",
+            "description": "App User",
             "scope-references": [
                 "$XSAPPNAME.User"
             ]
         },
         {
             "name": "Admin",
-            "description": "Administrator users",
+            "description": "App Administrator",
             "scope-references": [
                 "$XSAPPNAME.Admin"
             ]
@@ -47,7 +47,7 @@
     "role-collections": [
         {
             "name": "smartDOC_API_user",
-            "description": "smartDOC App Administrator",
+            "description": "smartDOC API User",
             "role-template-references": [
                 "$XSAPPNAME.API_user",
                 "$XSAPPNAME.User"

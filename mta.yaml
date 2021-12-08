@@ -41,6 +41,7 @@ modules:
   - name: mtx-api      # potentially required by approuter
     properties:
       mtx-url: ${default-url}
+      
 - name: smartdoc-app-content
   type: com.sap.application.content
   path: .
@@ -52,17 +53,17 @@ modules:
     build-result: resources
     requires:
     - artifacts:
-      - airportsenh.zip
-      name: airportsenh
+      - airportseh.zip
+      name: airportseh
       target-path: resources/
     - artifacts:
-      - carrierenh.zip
-      name: carrierenh
+      - carrierseh.zip
+      name: carrierseh
       target-path: resources/   
 
-- name: airportsenh
+- name: airportseh
   type: html5
-  path: app/airports_enh
+  path: app/airports_eh
   build-parameters:
     build-result: dist
     builder: custom
@@ -70,10 +71,9 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
-
-- name: carrierenh
+- name: carrierseh
   type: html5
-  path: app/carrier_enh
+  path: app/carriers_eh
   build-parameters:
     build-result: dist
     builder: custom
@@ -81,6 +81,7 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
+    
 
 resources:
  # services extracted from CAP configuration
@@ -100,7 +101,7 @@ resources:
   type: org.cloudfoundry.managed-service
   parameters:
     service: xsuaa
-    service-plan: application
+    service-plan: broker
     path: ./xs-security.json
     config:
       xsappname: smartdoc-${space}
@@ -152,4 +153,3 @@ resources:
     service: connectivity
     service-name: smartdoc-conn
     service-plan: lite
-

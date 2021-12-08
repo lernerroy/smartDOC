@@ -2,8 +2,6 @@
 @cds.external : true
 service ZGW_LS_FO_PLANT_SRV {};
 
-// @cds.odata.valuelist
-
  entity ZGW_LS_FO_PLANT_SRV.PlantSet {
   key Werks : String(4);
   Sort2 : String(20);

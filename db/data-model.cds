@@ -12,17 +12,6 @@ using {ZGW_LS_FO_WORK_CENTER_SRV as WorkCenterService} from '../srv/external/WOR
 using {ZGW_LS_FO_CONTROL_KEY_SRV as ControlKeyService} from '../srv/external/ControlKey';
 
 
-// Begin of Comment Should not be needed -- Nuvneet
-// type plant : Association to PlantService.PlantSet;
-// type companyCode : Association to CompanyCodeService.A_CompanyCode;
-// type materialGroup : Association to materialGroupService.A_ProductGroup;
-// type orderType : Association to OrderTypeService.A_OrderTypeSet;
-// type purchaseOrganization : Association to purchaseOrgService.PurchasingOrganizationSet;
-// type WorkCenter : Association to WorkCenterService.WorkCenterSet;
-// type ControlKey : Association to ControlKeyService.ControlKeySet;
-// type airportCode : Association to TripService.Airports;
-// type carrierCode : Association to TripService.Carriers;
-// End of Comment
 
 
 /////////////////////////////////////////////////////////////
@@ -46,9 +35,9 @@ view CompanyCodes as
     };
 
 view MaterialGroups as
-    select from materialGroupService.A_ProductGroup {
+    select from materialGroupService.A_ProductGroupText {
         key MaterialGroup  as ID,
-        AuthorizationGroup as Name
+        MaterialGroupName as Name
     };
     
 view OrderTypes as
@@ -99,8 +88,7 @@ entity Airports : managed {
     key ID      : UUID @(Core.Computed : true);
         airport : Association to one TR_Airports;
         plant   : Association to one Plants;
-}
-//,
+};
     //companyCode : [companyCode]
 @assert.unique : {carrier     : [carrier], }
 entity Carriers : managed {
@@ -116,4 +104,4 @@ entity Carriers : managed {
         controlKey           : Association to one ControlKeys;
 // purchasingGroup       : String(3);
 // profitCenter          : String(10);
-}
+};

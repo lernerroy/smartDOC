@@ -27,7 +27,7 @@ annotate smartdoc with @(restrict : [
 ]);
 
 @path : '/draft'
-service smartDOCDraft { 
+service smartDOCService { 
 
     entity Airports @(restrict : [{
         grant : ['*'],
@@ -39,6 +39,12 @@ service smartDOCDraft {
         to    : 'Admin'
     }]) as projection on smartdoc.Carriers;
 
+    @cds.odata.valuelist
+    @cds.autoexpose  @readonly
+    entity Plants @(restrict : [{
+        grant : ['READ'],
+        to    : 'Admin'
+    }]) as projection on smartdoc.Plants;
 
     @cds.odata.valuelist
     @cds.autoexpose  @readonly
@@ -70,7 +76,7 @@ service smartDOCDraft {
 
     @cds.odata.valuelist
     @cds.autoexpose  @readonly
-    entity PurchaseOrgs @(restrict : [{
+    entity PurchaseOrganizations @(restrict : [{
         grant : ['READ'],
         to    : 'Admin'
     }]) as projection on smartdoc.PurchaseOrganizations;
@@ -81,13 +87,6 @@ service smartDOCDraft {
         grant : ['READ'],
         to    : 'Admin'
     }]) as projection on smartdoc.WorkCenters;
-
-    @cds.odata.valuelist
-    @cds.autoexpose  @readonly
-    entity Plants @(restrict : [{
-        grant : ['READ'],
-        to    : 'Admin'
-    }]) as projection on smartdoc.Plants;
 
     @cds.odata.valuelist
     @cds.autoexpose  @readonly

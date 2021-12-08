@@ -3,51 +3,6 @@ ID: smartdoc
 description: Simplified Direct Operating Cost Management
 version: 1.0.0
 modules:
-- name: smartdoc-broker
-  type: javascript.nodejs
-  path: .smartDOC_mta_build_tmp/smartdoc-broker/data.zip
-  properties:
-    SBF_BROKER_CREDENTIALS_HASH: '{ "~{smartdoc-broker-credentials/user}": "~{smartdoc-broker-credentials/hash}"
-      }'
-    SBF_CREDENTIALS_PROVIDER_SERVICE: smartdoc-uaa-mt
-    SBF_ENABLE_AUDITLOG: false
-  requires:
-  - name: smartdoc-broker-credentials
-  - name: smartdoc-uaa-mt
-  - name: smartdoc-repo-host
-  - name: srv-api
-    properties:
-      SBF_SERVICE_CONFIG:
-        smartdoc-srv:
-          extend_credentials:
-            per_plan:
-              api:
-                grant_type: client_credentials
-                url: ~{srv-url}
-              default:
-                grant_type: user_token
-                url: ~{srv-url}
-            shared:
-              endpoints:
-                root: ~{srv-url}
-              vendor: LegState Engineering
-          extend_xssecurity:
-            per_plan:
-              api:
-                authorities:
-                - $XSMASTERAPPNAME.API_User
-              default:
-                authorities:
-                - $XSMASTERAPPNAME.User
-                - $XSMASTERAPPNAME.API_User
-                - $XSMASTERAPPNAME.Admin
-            shared:
-              oauth2-configuration:
-                credential-types:
-                - binding-secret
-  parameters:
-    disk-quota: 512M
-    memory: 128M
 - name: smartdoc-srv
   type: javascript.nodejs
   path: smartdoc-srv
@@ -70,20 +25,15 @@ modules:
       mtx-url: ${default-url}
   parameters:
     buildpack: nodejs_buildpack
-    disk-quota: 512M
-    memory: 128M
+    memory: 256M
 - name: smartdoc-app-content
   type: com.sap.application.content
-  path: smartdoc-app-content
+  path: .smartDOC_mta_build_tmp/smartdoc-app-content/data.zip
   requires:
   - name: smartdoc-repo-host
     parameters:
       content-target: true
 resources:
-- name: smartdoc-broker-credentials
-  properties:
-    hash: sha256:jdw4KfEpb29j9Pd82NUyMj080EKYitNydL8snIP5v5g=:ceX//BVqq4uZu6Qj4U3xe11JddU9e/wv4cf47fD7zXY=
-    user: smartdoc-sbf-user
 - name: smartdoc-db-mt
   type: org.cloudfoundry.managed-service
   parameters:
@@ -99,7 +49,7 @@ resources:
       xsappname: smartdoc-${space}
     path: ./xs-security.json
     service: xsuaa
-    service-plan: application
+    service-plan: broker
 - name: smartdoc-registry
   type: org.cloudfoundry.managed-service
   parameters:

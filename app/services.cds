@@ -1,3 +1,3 @@
 
-using from './airports_enh/annotations';
-using from './carrier_enh/annotations';
+using from './airports_eh/annotations';
+using from './carriers_eh/annotations';
