@@ -3,7 +3,7 @@
 service ZGW_LS_FO_PLANT_SRV {};
 
 // @cds.odata.valuelist
-@cds.autoexpose @readonly
+
  entity ZGW_LS_FO_PLANT_SRV.PlantSet {
   key Werks : String(4);
   Sort2 : String(20);

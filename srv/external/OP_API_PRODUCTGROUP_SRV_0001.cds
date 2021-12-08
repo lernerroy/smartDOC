@@ -1,7 +1,7 @@
 /* checksum : c56eea5ebd901c10f4ecc5ebd9602e16 */
 @cds.external : true
 service API_PRODUCTGROUP_SRV {};
-@cds.odata.valuelist
+
 entity API_PRODUCTGROUP_SRV.A_ProductGroup {
   key MaterialGroup : String(9);
   AuthorizationGroup : String(4);

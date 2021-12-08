@@ -2,7 +2,7 @@
 @cds.external : true
 service ZGW_LS_FO_CONTROL_KEY_SRV {};
 
-@cds.odata.valuelist
+
 entity ZGW_LS_FO_CONTROL_KEY_SRV.ControlKeySet {
   key ControlKey : String(4);
   Language : String(2);

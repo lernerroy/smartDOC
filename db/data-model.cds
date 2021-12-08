@@ -28,10 +28,53 @@ using {ZGW_LS_FO_CONTROL_KEY_SRV as ControlKeyService} from '../srv/external/Con
 /////////////////////////////////////////////////////////////
 // View Declaration for Remote Services
 /////////////////////////////////////////////////////////////
+
 view Plants as
     select from PlantService.PlantSet {
         key Werks as ID,
             Name1 as Name
+    };
+
+
+view CompanyCodes as
+    select from CompanyCodeService.A_CompanyCode {
+        key CompanyCode     as ID,
+            CompanyCodeName as Name,
+            CityName,
+            Country,
+            Currency
+    };
+
+view MaterialGroups as
+    select from materialGroupService.A_ProductGroup {
+        key MaterialGroup  as ID,
+        AuthorizationGroup as Name
+    };
+    
+view OrderTypes as
+    select from OrderTypeService.A_OrderTypeSet {
+        key  OrderType as ID,
+        OrderTypeDescription as Name,
+        OrderCategory
+    };
+
+view PurchaseOrganizations as
+    select from purchaseOrgService.PurchasingOrganizationSet {
+        key  PurchasingOrg as ID,
+        Description as Name
+    };
+
+view WorkCenters as
+    select from WorkCenterService.WorkCenterSet {
+        key  WorkCenter as ID,
+        Description as Name
+    };
+
+view ControlKeys as
+    select from ControlKeyService.ControlKeySet {
+        key  ControlKey as ID,
+        ControlKeyText as Name,
+        Application,
     };
 
 view TR_Airports as
@@ -49,36 +92,28 @@ view TR_Carriers as
             descr as descr,
     };
 
-view companyCode as select from CompanyCodeService.A_CompanyCode;
-view materialGroup as select from materialGroupService.A_ProductGroup;
-view orderType as select from OrderTypeService.A_OrderTypeSet;
-view purchaseOrganization as select from purchaseOrgService.PurchasingOrganizationSet;
-view WorkCenter as select from WorkCenterService.WorkCenterSet;
-view ControlKey as select from ControlKeyService.ControlKeySet;
-view carrierCode as select from TripService.Carriers;
+
 
 @assert.unique : {airport : [airport], }
 entity Airports : managed {
     key ID      : UUID @(Core.Computed : true);
-        //code    : String(3);
-       // @Common.ValueListForValidation : 'true'
-        airport : Association to one TR_Airports; //on code = airport.ID;
+        airport : Association to one TR_Airports;
         plant   : Association to one Plants;
 }
-
-@assert.unique : {carrier : [carrier], companyCode : [companyCode] }
+//,
+    //companyCode : [companyCode]
+@assert.unique : {carrier     : [carrier], }
 entity Carriers : managed {
     key ID                   : UUID @(Core.Computed : true);
-        //@Common.ValueListForValidation : 'true'
         carrier              : Association to one TR_Carriers;
-        companyCode          : Association to one companyCode;
-        mainWorkCenter       : Association to one WorkCenter;
-        orderType            : Association to one orderType;
-        awbOrderType         : Association to one orderType;
-        purchaseOrganization : Association to one purchaseOrganization;
+        companyCode          : Association to one CompanyCodes;
+        mainWorkCenter       : Association to one WorkCenters;
+        orderType            : Association to one OrderTypes;
+        awbOrderType         : Association to one OrderTypes;
+        purchaseOrganization : Association to one PurchaseOrganizations;
         plant                : Association to one Plants;
-        materialGroup        : Association to one materialGroup;
-        controlKey           : Association to one ControlKey;
+        materialGroup        : Association to one MaterialGroups;
+        controlKey           : Association to one ControlKeys;
 // purchasingGroup       : String(3);
 // profitCenter          : String(10);
 }

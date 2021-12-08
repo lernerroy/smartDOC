@@ -1,0 +1,194 @@
+using com.legstate.smartdoc as smartdoc 
+    from '../db/data-model';
+using smartDOCService
+    from './AirportProfile-Service-ui';
+using TripService 
+    from '../srv/external/cat-service';
+using {ZGW_LS_FO_PLANT_SRV as PlantService} 
+    from './external/ZGW_LS_FO_PLANT_SRV';
+using {API_COMPANYCODE_SRV as CompanyCodeService} 
+    from './external/OP_API_COMPANYCODE_SRV';
+using {ZGW_LS_FO_CONTROL_KEY_SRV as ControlKeysService} 
+    from './external/ControlKey';
+using {ZGW_LS_FO_ORDER_TYPE_SRV as OrderTypeService} 
+    from '../srv/external/OrderType';
+using {API_PRODUCTGROUP_SRV as materialGroupService} 
+    from '../srv/external/OP_API_PRODUCTGROUP_SRV_0001';
+using {ZGW_LS_FO_PURCHASE_ORG_SRV as purchaseOrgService} 
+    from '../srv/external/PurchaseOrg';
+using {ZGW_LS_FO_WORK_CENTER_SRV as WorkCenterService} 
+    from '../srv/external/WORKCENTER';
+
+
+@path : '/draft'
+service smartDOCDraft {
+
+    entity Airports @(restrict : [{
+        grant : ['*'],
+        to    : 'Admin'
+    }]) as projection on smartDOCService.Airports;
+
+    entity Carriers @(restrict : [{
+        grant : ['*'],
+        to    : 'Admin'
+    }]) as projection on smartDOCService.Carriers;
+
+}
+
+
+// Enable Draft For Airport and Carrier
+annotate smartdoc.Carriers with @fiori.draft.enabled;
+annotate smartdoc.Airports with @fiori.draft.enabled;
+
+
+/////////////////////////////////////////////////////////////
+// Start of Carrier Draft UI
+/////////////////////////////////////////////////////////////
+annotate smartDOCDraft.Carriers with @(
+    Common.SemanticKey : [ID],
+    UI                 : {
+        HeaderInfo      : {
+            TypeName       : '{i18n>Carrier}',
+            TypeNamePlural : '{i18n>Carriers}',
+            Title          : {
+                $Type : 'UI.DataField',
+                Value : carrier_ID
+            },
+            Description    : {
+                $Type : 'UI.DataField',
+                Value : carrier.name
+            }
+        },
+        Identification  : [{Value : ID}],
+        SelectionFields : [
+            carrier_ID,
+            companyCode_CompanyCode,
+            mainWorkCenter_WorkCenter,
+            orderType_OrderType,
+            plant_ID,
+            materialGroup_MaterialGroup
+
+        ],
+
+        LineItem        : [
+
+            //{Value : ID, },
+            // {Value : plant_Werks, },
+            {Value : carrier_ID, Label : '{i18n>carrier_id}'},
+            {Value : mainWorkCenter_WorkCenter, Label : '{i18n>mainworkcenter}' },
+            {Value : orderType_OrderType, Label : '{i18n>ordertype}'},
+            {Value : materialGroup_MaterialGroup, Label : '{i18n>materialgroup}'  },
+        ],
+        Facets          : [{
+            $Type  : 'UI.ReferenceFacet',
+            Label  : 'General',
+            Target : '@UI.FieldGroup'
+        }, ],
+        FieldGroup      : {Data : [
+
+            //{Value : ID, },
+            // {Value : plant_Werks, },
+            {Value : carrier_ID, Label : '{i18n>carrier_id}'},
+            {Value : companyCode_CompanyCode, Label : '{i18n>companycode}' },
+            {Value : mainWorkCenter_WorkCenter, Label : '{i18n>mainworkcenter}' },
+            {Value : orderType_OrderType, Label : '{i18n>ordertype}' },
+            {Value : awbOrderType_OrderType, Label : '{i18n>awbordertype}' },
+            {Value : materialGroup_MaterialGroup, Label : '{i18n>materialgroup} '},
+            {Value : purchaseOrganization_PurchasingOrg, Label : '{i18n>purorg}' },
+            {Value : controlKey_ControlKey, Label : '{i18n>controlkey}' },
+        ]},
+    },
+);
+
+
+
+
+
+/////////////////////////////////////////////////////////////
+// Start of Airport Draft UI
+/////////////////////////////////////////////////////////////
+annotate smartDOCDraft.Airports {
+    airport @Common.ValueListForValidation : ''  @Common.ValueList : {
+        CollectionPath  : 'TR_Airports',
+        Label           : '{i18n>Description}',
+        Parameters      : [
+            {
+                $Type             : 'Common.ValueListParameterInOut',
+                LocalDataProperty : airport_ID,
+                ValueListProperty : 'ID'
+            }, // local data property is the foreign key
+            {
+                $Type             : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty : 'name'
+            },
+            {
+                $Type             : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty : 'aptcd_icao'
+            },
+        ],
+        SearchSupported : true
+    };
+
+
+    plant   @Common.ValueListForValidation : ''  @Common.ValueList : {
+        CollectionPath  : 'Plants',
+        Label           : '{i18n>Description}',
+        Parameters      : [
+            {
+                $Type             : 'Common.ValueListParameterInOut',
+                LocalDataProperty : plant_ID,
+                ValueListProperty : 'ID'
+            }, // local data property is the foreign key
+            {
+                $Type             : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty : 'Name'
+            },
+        ],
+        SearchSupported : true
+    };
+};
+
+annotate smartDOCDraft.Airports with @(
+    Common.SemanticKey : [airport_ID],
+    UI                 : {
+        HeaderInfo      : {
+            TypeName       : '{i18n>Airport}',
+            TypeNamePlural : '{i18n>Airports}',
+            Title          : {
+                $Type : 'UI.DataField',
+                Value : airport_ID
+            },
+            Description    : {
+                $Type : 'UI.DataField',
+                Value : airport.name
+            }
+        },
+        Identification  : [{Value : airport_ID}],
+
+        SelectionFields : [
+            airport_ID,
+            plant_ID
+        ],
+
+        LineItem        : [
+            {Value : airport_ID},
+            {Value : plant_ID}
+        ],
+        Facets          : [{
+            $Type  : 'UI.ReferenceFacet',
+            Label  : 'General',
+            Target : '@UI.FieldGroup'
+        }],
+        FieldGroup      : {
+            Label : '{i18n>AirportDetails}',
+            Data  : [
+                {Value : airport_ID, Label : '{i18n>AirportCode}' },
+                //{Value : airport.name, Label : 'Airport Name' },
+                {Value : plant_ID, Label : '{i18n>PlantCode}' },
+                //{Value : plant.Name, Label : 'Plant Name' },
+                {Value : airport.aptcd_icao, Label : '{i18n>AirportICAOCode}' },
+            ]
+        },
+    },
+);
+
