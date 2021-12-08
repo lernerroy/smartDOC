@@ -38,7 +38,7 @@ modules:
     - name: srv-api
       properties:
          SBF_SERVICE_CONFIG:
-            triporder-srv:
+            smartdoc-srv:
               extend_credentials:
                 shared:
                   vendor: LegState Engineering
