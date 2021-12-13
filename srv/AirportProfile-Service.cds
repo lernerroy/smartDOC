@@ -2,105 +2,81 @@ using com.legstate.smartdoc as smartdoc
     from '../db/data-model';
 
 
-annotate smartdoc with @(requires : [
-    'Admin',
-    'API_user',
-    'User'
-]);
-
-annotate smartdoc with @(restrict : [
-    {
-        grant : [
-            'READ',
-            'WRITE'
-        ],
-        to    : 'API_user'
-    },
-    {
-        grant : ['*'],
-        to    : 'User'
-    },
-    {
-        grant : ['*'],
-        to    : 'Admin'
-    }
-]);
 
 @path : '/draft'
 service smartDOCService { 
 
-    entity Airports @(restrict : [{
-        grant : ['*'],
-        to    : 'Admin'
-    }]) as projection on smartdoc.Airports;
+    entity Airports 
+    // @(restrict: [ { grant: ['*'], to: ['Admin','User']},
+    //              { grant: ['READ'], to: ['API_user']}])    
+    as projection on smartdoc.Airports;
 
-    entity Carriers @(restrict : [{
-        grant : ['*'],
-        to    : 'Admin'
-    }]) as projection on smartdoc.Carriers;
+    entity Carriers 
+    // @(restrict: [ { grant: ['*'], to: ['Admin','User']},
+    //              { grant: ['READ'], to: ['API_user']}])
+    as projection on smartdoc.Carriers;
+    
+    @cds.odata.valuelist
+    @cds.autoexpose  @readonly
+    entity Plants
+    // @(restrict: [ { grant: ['READ'], to: ['Admin','User']},
+    //               { grant: ['READ'], to: ['API_user']}])
+    as projection on smartdoc.Plants;
 
     @cds.odata.valuelist
     @cds.autoexpose  @readonly
-    entity Plants @(restrict : [{
-        grant : ['READ'],
-        to    : 'Admin'
-    }]) as projection on smartdoc.Plants;
+    entity CompanyCodes 
+    // @(restrict: [ { grant: ['READ'], to: ['Admin','User']},
+    //               { grant: ['READ'], to: ['API_user']}])
+    as projection on smartdoc.CompanyCodes;
 
     @cds.odata.valuelist
     @cds.autoexpose  @readonly
-    entity CompanyCodes @(restrict : [{
-        grant : ['READ'],
-        to    : 'Admin'
-    }]) as projection on smartdoc.CompanyCodes;
+    entity ControlKeys
+    // @(restrict: [ { grant: ['READ'], to: ['Admin','User']},
+    //               { grant: ['READ'], to: ['API_user']}])
+    as projection on smartdoc.ControlKeys;
 
     @cds.odata.valuelist
     @cds.autoexpose  @readonly
-    entity ControlKeys @(restrict : [{
-        grant : ['READ'],
-        to    : 'Admin'
-    }]) as projection on smartdoc.ControlKeys;
+    entity MaterialGroups 
+    // @(restrict: [ { grant: ['READ'], to: ['Admin','User']},
+    //               { grant: ['READ'], to: ['API_user']}])
+    as projection on smartdoc.MaterialGroups;
 
     @cds.odata.valuelist
     @cds.autoexpose  @readonly
-    entity MaterialGroups @(restrict : [{
-        grant : ['READ'],
-        to    : 'Admin'
-    }]) as projection on smartdoc.MaterialGroups;
+    entity OrderTypes 
+    // @(restrict: [ { grant: ['READ'], to: ['Admin','User']},
+    //               { grant: ['READ'], to: ['API_user']}])
+    as projection on smartdoc.OrderTypes;
 
     @cds.odata.valuelist
     @cds.autoexpose  @readonly
-    entity OrderTypes @(restrict : [{
-        grant : ['READ'],
-        to    : 'Admin'
-    }]) as projection on smartdoc.OrderTypes;
+    entity PurchaseOrganizations 
+    // @(restrict: [ { grant: ['READ'], to: ['Admin','User']},
+    //               { grant: ['READ'], to: ['API_user']}])
+    as projection on smartdoc.PurchaseOrganizations;
 
     @cds.odata.valuelist
     @cds.autoexpose  @readonly
-    entity PurchaseOrganizations @(restrict : [{
-        grant : ['READ'],
-        to    : 'Admin'
-    }]) as projection on smartdoc.PurchaseOrganizations;
+    entity WorkCenters 
+    // @(restrict: [ { grant: ['READ'], to: ['Admin','User']},
+    //               { grant: ['READ'], to: ['API_user']}])
+    as projection on smartdoc.WorkCenters;
 
     @cds.odata.valuelist
     @cds.autoexpose  @readonly
-    entity WorkCenters @(restrict : [{
-        grant : ['READ'],
-        to    : 'Admin'
-    }]) as projection on smartdoc.WorkCenters;
+    entity TR_Carriers
+    // @(restrict: [ { grant: ['READ'], to: ['Admin','User']},
+    //               { grant: ['READ'], to: ['API_user']}])
+    as projection on smartdoc.TR_Carriers;
 
     @cds.odata.valuelist
-    @cds.autoexpose  @readonly
-    entity TR_Carriers @(restrict : [{
-        grant : ['READ'],
-        to    : 'Admin'
-    }]) as projection on smartdoc.TR_Carriers;
-
-    @cds.odata.valuelist
-    @cds.autoexpose  @readonly
-    entity TR_Airports @(restrict : [{
-        grant : ['READ'],
-        to    : 'Admin'
-    }]) as projection on smartdoc.TR_Airports;
+    entity TR_Airports 
+    // @(restrict: [ { grant: ['READ'], to: ['Admin','User']},
+    //               { grant: ['READ'], to: ['API_user']}])
+    as projection on smartdoc.TR_Airports;
 
 
 // Enable Draft For Airport and Carrier

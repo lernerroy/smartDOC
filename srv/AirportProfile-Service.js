@@ -41,9 +41,15 @@ module.exports = cds.service.impl(async function () {
 
   // Airports?$expand=TR_Airports
   this.on("READ", "Airports", async (req, next) => {
+    // const expandIndex = req.query.SELECT.columns?.findIndex(
+    //   ({ expand, ref }) => expand && ref[0] === "airport"
+    // )??-1;
+
     const expandIndex = req.query.SELECT.columns.findIndex(
       ({ expand, ref }) => expand && ref[0] === "airport"
     );
+    
+
     if (expandIndex < 0) return next();
 
     // Remove expand from query

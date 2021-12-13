@@ -13,8 +13,10 @@ build-parameters:
   before-all:
   - builder: custom
     commands:
-    - npm install --production
+    - npm ci 
+    #- npm install --production
     - npx -p @sap/cds-dk cds build --production
+    #- cp package-lock.json ./gen/srv 
 
 modules:
 # ------------------------------------------------------------

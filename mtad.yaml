@@ -3,9 +3,54 @@ ID: smartdoc
 description: Simplified Direct Operating Cost Management
 version: 1.0.0
 modules:
+- name: smartdoc-broker
+  type: javascript.nodejs
+  path: smartdoc-broker
+  properties:
+    SBF_BROKER_CREDENTIALS_HASH: '{ "~{smartdoc-broker-credentials/user}": "~{smartdoc-broker-credentials/hash}"
+      }'
+    SBF_CREDENTIALS_PROVIDER_SERVICE: smartdoc-uaa-mt
+    SBF_ENABLE_AUDITLOG: false
+  requires:
+  - name: smartdoc-broker-credentials
+  - name: smartdoc-uaa-mt
+  - name: smartdoc-repo-host
+  - name: srv-api
+    properties:
+      SBF_SERVICE_CONFIG:
+        smartdoc-srv:
+          extend_credentials:
+            per_plan:
+              api:
+                grant_type: client_credentials
+                url: ~{srv-url}
+              default:
+                grant_type: user_token
+                url: ~{srv-url}
+            shared:
+              endpoints:
+                root: ~{srv-url}
+              vendor: LegState Engineering
+          extend_xssecurity:
+            per_plan:
+              api:
+                authorities:
+                - $XSMASTERAPPNAME.API_User
+              default:
+                authorities:
+                - $XSMASTERAPPNAME.User
+                - $XSMASTERAPPNAME.API_User
+                - $XSMASTERAPPNAME.Admin
+            shared:
+              oauth2-configuration:
+                credential-types:
+                - binding-secret
+  parameters:
+    disk-quota: 512M
+    memory: 128M
 - name: smartdoc-srv
   type: javascript.nodejs
-  path: smartdoc-srv
+  path: .smartDOC_mta_build_tmp/smartdoc-srv/data.zip
   properties:
     SAP_JWT_TRUST_ACL:
     - clientid: '*'
@@ -28,7 +73,7 @@ modules:
     memory: 256M
 - name: smartdoc-app-content
   type: com.sap.application.content
-  path: .smartDOC_mta_build_tmp/smartdoc-app-content/data.zip
+  path: smartdoc-app-content
   requires:
   - name: smartdoc-repo-host
     parameters:
@@ -92,6 +137,10 @@ resources:
     service: connectivity
     service-name: smartdoc-conn
     service-plan: lite
+- name: smartdoc-broker-credentials
+  properties:
+    hash: sha256:jdw4KfEpb29j9Pd82NUyMj080EKYitNydL8snIP5v5g=:ceX//BVqq4uZu6Qj4U3xe11JddU9e/wv4cf47fD7zXY=
+    user: smartdoc-sbf-user
 parameters:
   deploy_mode: html5-repo
   enable-parallel-deployments: true
@@ -101,3 +150,4 @@ build-parameters:
     commands:
     - npm install --production
     - npx -p @sap/cds-dk cds build --production
+    - cp package-lock.json ./gen/srv

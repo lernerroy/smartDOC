@@ -86,22 +86,33 @@ view TR_Carriers as
 @assert.unique : {airport : [airport], }
 entity Airports : managed {
     key ID      : UUID @(Core.Computed : true);
-        airport : Association to one TR_Airports;
-        plant   : Association to one Plants;
+    airport : Association to one TR_Airports 
+        @assert.integrity:false;
+    plant   : Association to one Plants 
+        @assert.integrity:false;
 };
     //companyCode : [companyCode]
 @assert.unique : {carrier     : [carrier], }
 entity Carriers : managed {
     key ID                   : UUID @(Core.Computed : true);
-        carrier              : Association to one TR_Carriers;
-        companyCode          : Association to one CompanyCodes;
-        mainWorkCenter       : Association to one WorkCenters;
-        orderType            : Association to one OrderTypes;
-        awbOrderType         : Association to one OrderTypes;
-        purchaseOrganization : Association to one PurchaseOrganizations;
-        plant                : Association to one Plants;
-        materialGroup        : Association to one MaterialGroups;
-        controlKey           : Association to one ControlKeys;
+        carrier              : Association to one TR_Carriers 
+            @assert.integrity:false;
+        companyCode          : Association to one CompanyCodes
+            @assert.integrity:false;
+        mainWorkCenter       : Association to one WorkCenters
+            @assert.integrity:false;
+        orderType            : Association to one OrderTypes
+            @assert.integrity:false;
+        awbOrderType         : Association to one OrderTypes
+            @assert.integrity:false;
+        purchaseOrganization : Association to one PurchaseOrganizations
+            @assert.integrity:false;
+        plant                : Association to one Plants
+            @assert.integrity:false;
+        materialGroup        : Association to one MaterialGroups
+            @assert.integrity:false;
+        controlKey           : Association to one ControlKeys
+            @assert.integrity:false;
 // purchasingGroup       : String(3);
 // profitCenter          : String(10);
 };
