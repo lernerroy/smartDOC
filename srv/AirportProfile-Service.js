@@ -45,9 +45,9 @@ module.exports = cds.service.impl(async function () {
     //   ({ expand, ref }) => expand && ref[0] === "airport"
     // )??-1;
 
-    const expandIndex = req.query.SELECT.columns.findIndex(
+    const expandIndex = req.query.SELECT.columns?.findIndex(
       ({ expand, ref }) => expand && ref[0] === "airport"
-    );
+    )??-1;
     
 
     if (expandIndex < 0) return next();
@@ -129,9 +129,10 @@ module.exports = cds.service.impl(async function () {
 
   // Carriers?$expand=TR_Carriers
   this.on("READ", "Carriers", async (req, next) => {
-    const expandIndex = req.query.SELECT.columns.findIndex(
+
+    const expandIndex = req.query.SELECT.columns?.findIndex(
       ({ expand, ref }) => expand && ref[0] === "carrier"
-    );
+    )??-1;
     if (expandIndex < 0) return next();
 
     // Remove expand from query
@@ -279,9 +280,9 @@ module.exports = cds.service.impl(async function () {
 
   // Carriers?$expand=plants
   this.on("READ", "Carriers", async (req, next) => {
-    const expandIndex = req.query.SELECT.columns.findIndex(
+    const expandIndex = req.query.SELECT.columns?.findIndex(
       ({ expand, ref }) => expand && ref[0] === "plant"
-    );
+    )??-1;
     if (expandIndex < 0) return next();
 
     // Remove expand from query
@@ -365,9 +366,9 @@ module.exports = cds.service.impl(async function () {
   
   // Carriers?$expand=companyCodes
   this.on("READ", "Carriers", async (req, next) => {
-    const expandIndex = req.query.SELECT.columns.findIndex(
+    const expandIndex = req.query.SELECT.columns?.findIndex(
       ({ expand, ref }) => expand && ref[0] === "companyCode"
-    );
+    )??-1;
     if (expandIndex < 0) return next();
 
     // Remove expand from query
@@ -451,9 +452,9 @@ module.exports = cds.service.impl(async function () {
   
   // Carriers?$expand=controlKeys
   this.on("READ", "Carriers", async (req, next) => {
-    const expandIndex = req.query.SELECT.columns.findIndex(
+    const expandIndex = req.query.SELECT.columns?.findIndex(
       ({ expand, ref }) => expand && ref[0] === "controlKey"
-    );
+    )??-1;
     if (expandIndex < 0) return next();
 
     // Remove expand from query
@@ -532,9 +533,9 @@ module.exports = cds.service.impl(async function () {
   
   // Carriers?$expand=orderTypes
   this.on("READ", "Carriers", async (req, next) => {
-    const expandIndex = req.query.SELECT.columns.findIndex(
+    const expandIndex = req.query.SELECT.columns?.findIndex(
       ({ expand, ref }) => expand && ref[0] === "orderType"
-    );
+    )??-1;
     if (expandIndex < 0) return next();
 
     // Remove expand from query
@@ -612,9 +613,9 @@ module.exports = cds.service.impl(async function () {
   
   // Carriers?$expand=materialGroups
   this.on("READ", "Carriers", async (req, next) => {
-    const expandIndex = req.query.SELECT.columns.findIndex(
+    const expandIndex = req.query.SELECT.columns?.findIndex(
       ({ expand, ref }) => expand && ref[0] === "materialGroup"
-    );
+    )??-1;
     if (expandIndex < 0) return next();
 
     // Remove expand from query
@@ -695,9 +696,9 @@ module.exports = cds.service.impl(async function () {
   
   // Carriers?$expand=purchaseOrganizations
   this.on("READ", "Carriers", async (req, next) => {
-    const expandIndex = req.query.SELECT.columns.findIndex(
+    const expandIndex = req.query.SELECT.columns?.findIndex(
       ({ expand, ref }) => expand && ref[0] === "purchaseOrganization"
-    );
+    )??-1;
     if (expandIndex < 0) return next();
 
     // Remove expand from query
@@ -779,9 +780,9 @@ module.exports = cds.service.impl(async function () {
   
   // Carriers?$expand=workCenters
   this.on("READ", "Carriers", async (req, next) => {
-    const expandIndex = req.query.SELECT.columns.findIndex(
+    const expandIndex = req.query.SELECT.columns?.findIndex(
       ({ expand, ref }) => expand && ref[0] === "mainWorkCenter"
-    );
+    )??-1;
     if (expandIndex < 0) return next();
 
     // Remove expand from query

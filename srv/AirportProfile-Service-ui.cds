@@ -73,7 +73,7 @@ annotate smartDOCService.Carriers with {
 
     awbOrderType @(
         title                  : '{i18n>awbordertype}',         
-        Common.Text            : orderType.Name,
+        Common.Text            : awbOrderType.Name,
         Common.TextArrangement : #TextFirst,
     );
 
@@ -134,6 +134,12 @@ annotate smartDOCService.OrderTypes with {
     OrderCategory @Common : {Label : '{i18n>OrderCategory}'};
 };
 
+// annotate smartDOCService.awbOrderTypes with {
+//     ID @Common : {Label : '{i18n>OrderTypeCode}'};
+//     Name @Common : {Label : '{i18n>OrderTypeName}'};
+//     OrderCategory @Common : {Label : '{i18n>OrderCategory}'};
+// };
+
 annotate smartDOCService.PurchaseOrganizations with {
     ID @Common : {Label : '{i18n>PurchasingOrgCode}'};
     Name @Common : {Label : '{i18n>PurchasingOrgName}'};
@@ -153,6 +159,8 @@ annotate smartDOCService.CompanyCodes{ };
 annotate smartDOCService.MaterialGroups{ };
 @cds.odata.valuelist
 annotate smartDOCService.OrderTypes{ };
+// @cds.odata.valuelist
+// annotate smartDOCService.awbOrderTypes{ };
 @cds.odata.valuelist
 annotate smartDOCService.PurchaseOrganizations{ };
 @cds.odata.valuelist
@@ -220,6 +228,15 @@ annotate smartdoc.OrderTypes with {
         TextArrangement : #TextFirst,
     }
 };
+
+// annotate smartdoc.awbOrderTypes with {
+//         ID @Common : { 
+//         Label : '{i18n>awborderType}',
+//         //for the editable form and selection in valuelists
+//         Text            : Name,
+//         TextArrangement : #TextFirst,
+//     }
+// };
 
 annotate smartdoc.PurchaseOrganizations with {
         ID @Common : { 
@@ -376,6 +393,27 @@ annotate smartDOCService.Carriers with {
         SearchSupported : true
     };
     
+    // awbOrderType @Common.ValueListForValidation : ''  @Common.ValueList : {
+    //     CollectionPath  : 'OrderTypes',
+    //     Label           : '{i18n>Description}',
+    //     Parameters      : [
+    //         {
+    //             $Type             : 'Common.ValueListParameterInOut',
+    //             LocalDataProperty : awbOrderType_ID,
+    //             ValueListProperty : 'ID'
+    //         }, // local data property is the foreign key
+    //         {
+    //             $Type             : 'Common.ValueListParameterDisplayOnly',
+    //             ValueListProperty : 'Name'
+    //         },
+    //         {
+    //             $Type             : 'Common.ValueListParameterDisplayOnly',
+    //             ValueListProperty : 'OrderCategory'
+    //         }
+    //     ],
+    //     SearchSupported : true
+    // };
+    
     purchaseOrganization @Common.ValueListForValidation : '' 
                          @Common.ValueList : {
         CollectionPath  : 'PurchaseOrganizations',
@@ -470,7 +508,7 @@ annotate smartDOCService.Carriers with @(
             {Value : plant_ID, },
             {Value : mainWorkCenter_ID},
             {Value : orderType_ID },
-            {Value : awbOrderType_ID },
+            // {Value : awbOrderType_ID },
             {Value : materialGroup_ID},
             {Value : purchaseOrganization_ID},
             {Value : controlKey_ID},

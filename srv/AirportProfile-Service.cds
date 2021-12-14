@@ -5,6 +5,9 @@ using com.legstate.smartdoc as smartdoc
 
 @path : '/draft'
 service smartDOCService { 
+    
+    entity Full_Airports
+    as projection on smartdoc.Full_Airports;
 
     entity Airports 
     // @(restrict: [ { grant: ['*'], to: ['Admin','User']},
@@ -50,6 +53,13 @@ service smartDOCService {
     // @(restrict: [ { grant: ['READ'], to: ['Admin','User']},
     //               { grant: ['READ'], to: ['API_user']}])
     as projection on smartdoc.OrderTypes;
+
+    // @cds.odata.valuelist
+    // @cds.autoexpose  @readonly
+    // entity awbOrderTypes 
+    // // @(restrict: [ { grant: ['READ'], to: ['Admin','User']},
+    // //               { grant: ['READ'], to: ['API_user']}])
+    // as projection on smartdoc.awbOrderTypes;
 
     @cds.odata.valuelist
     @cds.autoexpose  @readonly

@@ -47,6 +47,13 @@ view OrderTypes as
         OrderCategory
     };
 
+// view awbOrderTypes as
+//     select from OrderTypeService.A_OrderTypeSet {
+//         key  OrderType as ID,
+//         OrderTypeDescription as Name,
+//         OrderCategory
+//     };
+
 view PurchaseOrganizations as
     select from purchaseOrgService.PurchasingOrganizationSet {
         key  PurchasingOrg as ID,
@@ -81,6 +88,14 @@ view TR_Carriers as
             descr as descr,
     };
 
+view Full_Airports as
+    select from Airports as sDOC_Airports {
+        key sDOC_Airports.airport as ID,
+            sDOC_Airports.airport.name as name,
+            sDOC_Airports.airport.descr as descr,
+            sDOC_Airports.airport.aptcd_icao as aptcd_icao,
+            sDOC_Airports.plant
+    };
 
 
 @assert.unique : {airport : [airport], }
@@ -103,7 +118,7 @@ entity Carriers : managed {
             @assert.integrity:false;
         orderType            : Association to one OrderTypes
             @assert.integrity:false;
-        awbOrderType         : Association to one OrderTypes
+        awbOrderType         : Association to one OrderTypes 
             @assert.integrity:false;
         purchaseOrganization : Association to one PurchaseOrganizations
             @assert.integrity:false;
@@ -116,3 +131,20 @@ entity Carriers : managed {
 // purchasingGroup       : String(3);
 // profitCenter          : String(10);
 };
+
+// entity PurHeader : managed {
+//     key ID                   : UUID @(Core.Computed : true);
+//         objectType           : Association to one ObjectType;
+//         documentDate         : Date;
+//         description          : String;
+//         airport              : Association to one TR_Airports;
+//         origin               : Association to one TR_Airports;
+//         destination          : Association to one TR_Airports;
+//         status               : Association to one Status;
+//         validityFrom         : Date;
+//         validityTo           : Date;
+//         carrier              : Association to one TR_Carriers;
+//         purchaseOrganization : Association to one PurchaseOrganizations;
+//         documentType         : Association to one DocumentType;
+//         vendor               : Association to one BusinessPartner;
+// };

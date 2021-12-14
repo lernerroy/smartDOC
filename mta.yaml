@@ -104,7 +104,11 @@ modules:
     - artifacts:
       - carrierseh.zip
       name: carrierseh
-      target-path: resources/   
+      target-path: resources/         
+    - artifacts:
+      - airportprofile.zip
+      name: airportprofile
+      target-path: resources/
 
 - name: airportseh
   type: html5
@@ -126,7 +130,16 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
-    
+- name: airportprofile
+  type: html5
+  path: app/airport_profile
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
 
 resources:
  # services extracted from CAP configuration
