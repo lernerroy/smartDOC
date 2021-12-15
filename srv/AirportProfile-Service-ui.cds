@@ -1,5 +1,5 @@
-using smartDOCService 
-    from './AirportProfile-Service';
+using smartDOCDraft as smartDOCService
+    from './AirportProfile-Draft';
 using com.legstate.smartdoc as smartdoc 
     from '../db/data-model';
 

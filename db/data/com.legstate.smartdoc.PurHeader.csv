@@ -1,0 +1,2 @@
+ID;objectType;documentDate;description;airport_ID;origin_ID;destination_ID;status;validityFrom;validityTo;carrier_ID;purchaseOrganization_ID;documentType;vendor_ID
+08cda5d5-e570-476b-8a23-4f5a59a25c03;contract;2021-12-01;First  Contract;FRA;;;active;2021-12-01;2023-12-01;AV;1000;airport;51059

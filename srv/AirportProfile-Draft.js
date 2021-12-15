@@ -15,7 +15,7 @@ module.exports = cds.service.impl(async function () {
 
     if (
       select.from.ref.length === 2 &&
-      select.from.ref[0].id === "smartDOCService.Airports" &&
+      select.from.ref[0].id === "smartDOCDraft.Airports" &&
       (select.from.ref[1] == "airport" || select.from.ref[1].id === "airport")
     ) {
       // Get supplier ID from risk
@@ -27,7 +27,7 @@ module.exports = cds.service.impl(async function () {
 
       // Select all risks for a supplier
       const cql = SELECT(select.columns)
-        .from("smartDOCService.TR_Airports")
+        .from("smartDOCDraft.TR_Airports")
         .where("ID = ", airport_ID)
         .limit(select.limit?.rows?.val, select.limit?.offset?.val);
       cql.SELECT.count = !!select.count;
@@ -72,7 +72,7 @@ module.exports = cds.service.impl(async function () {
       (airport) => airport.airport_ID
     );
     const TR_airports = await AirportsAPI.run(
-      SELECT.from("smartDOCService.TR_Airports").where({ ID: TR_airportIds })
+      SELECT.from("smartDOCDraft.TR_Airports").where({ ID: TR_airportIds })
     );
 
     // Convert in a map for easier lookup
@@ -103,7 +103,7 @@ module.exports = cds.service.impl(async function () {
 
     if (
       select.from.ref.length === 2 &&
-      select.from.ref[0].id === "smartDOCService.Carriers" &&
+      select.from.ref[0].id === "smartDOCDraft.Carriers" &&
       (select.from.ref[1] == "carrier" || select.from.ref[1].id === "carrier")
     ) {
       // Get supplier ID from risk
@@ -115,7 +115,7 @@ module.exports = cds.service.impl(async function () {
 
       // Select all risks for a supplier
       const cql = SELECT(select.columns)
-        .from("smartDOCService.TR_Carriers")
+        .from("smartDOCDraft.TR_Carriers")
         .where("ID = ", carrier_ID)
         .limit(select.limit?.rows?.val, select.limit?.offset?.val);
       cql.SELECT.count = !!select.count;
@@ -155,7 +155,7 @@ module.exports = cds.service.impl(async function () {
       (carrier) => carrier.carrier_ID
     );
     const TR_carriers = await CarriersAPI.run(
-      SELECT.from("smartDOCService.TR_Carriers").where({ ID: TR_carrierIds })
+      SELECT.from("smartDOCDraft.TR_Carriers").where({ ID: TR_carrierIds })
     );
 
     // Convert in a map for easier lookup
@@ -187,7 +187,7 @@ module.exports = cds.service.impl(async function () {
 
     if (
       select.from.ref.length === 2 &&
-      select.from.ref[0].id === "smartDOCService.Airports" &&
+      select.from.ref[0].id === "smartDOCDraft.Airports" &&
       (select.from.ref[1] == "plant" || select.from.ref[1].id === "plant")
     ) {
       // Get supplier ID from risk
@@ -197,7 +197,7 @@ module.exports = cds.service.impl(async function () {
 
       // Select all risks for a supplier
       const cql = SELECT(select.columns)
-        .from("smartDOCService.Plants")
+        .from("smartDOCDraft.Plants")
         .where("ID = ", plant_ID)
         .limit(select.limit?.rows?.val, select.limit?.offset?.val);
       cql.SELECT.count = !!select.count;
@@ -234,7 +234,7 @@ module.exports = cds.service.impl(async function () {
     // Request all associated suppliers
     const plantIds = asArray(airports).map((airport) => airport.plant_ID);
     const plants = await plantsAPI.run(
-      SELECT.from("smartDOCService.Plants").where({ ID: plantIds })
+      SELECT.from("smartDOCDraft.Plants").where({ ID: plantIds })
     );
 
     // Convert in a map for easier lookup
@@ -256,7 +256,7 @@ module.exports = cds.service.impl(async function () {
 
     if (
       select.from.ref.length === 2 &&
-      select.from.ref[0].id === "smartDOCService.Carriers" &&
+      select.from.ref[0].id === "smartDOCDraft.Carriers" &&
       (select.from.ref[1] == "plant" || select.from.ref[1].id === "plant")
     ) {
       // Get supplier ID from risk
@@ -266,7 +266,7 @@ module.exports = cds.service.impl(async function () {
 
       // Select all risks for a supplier
       const cql = SELECT(select.columns)
-        .from("smartDOCService.Plants")
+        .from("smartDOCDraft.Plants")
         .where("ID = ", plant_ID)
         .limit(select.limit?.rows?.val, select.limit?.offset?.val);
       cql.SELECT.count = !!select.count;
@@ -303,7 +303,7 @@ module.exports = cds.service.impl(async function () {
     // Request all associated suppliers
     const plantIds = asArray(FromEntity_s).map((FromEntity) => FromEntity.plant_ID);
     const plants = await plantsAPI.run(
-      SELECT.from("smartDOCService.Plants").where({ ID: plantIds })
+      SELECT.from("smartDOCDraft.Plants").where({ ID: plantIds })
     );
 
     // Convert in a map for easier lookup
@@ -342,7 +342,7 @@ module.exports = cds.service.impl(async function () {
 
     if (
       select.from.ref.length === 2 &&
-      select.from.ref[0].id === "smartDOCService.Carriers" &&
+      select.from.ref[0].id === "smartDOCDraft.Carriers" &&
       (select.from.ref[1] == "companyCode" || select.from.ref[1].id === "companyCode")
     ) {
       // Get supplier ID from risk
@@ -352,7 +352,7 @@ module.exports = cds.service.impl(async function () {
 
       // Select all risks for a supplier
       const cql = SELECT(select.columns)
-        .from("smartDOCService.CompanyCodes")
+        .from("smartDOCDraft.CompanyCodes")
         .where("ID = ", companyCode_ID)
         .limit(select.limit?.rows?.val, select.limit?.offset?.val);
       cql.SELECT.count = !!select.count;
@@ -389,7 +389,7 @@ module.exports = cds.service.impl(async function () {
     // Request all associated suppliers
     const plantIds = asArray(FromEntity_s).map((FromEntity) => FromEntity.companyCode_ID);
     const plants = await CompanyCodesAPI.run(
-      SELECT.from("smartDOCService.CompanyCodes").where({ ID: plantIds })
+      SELECT.from("smartDOCDraft.CompanyCodes").where({ ID: plantIds })
     );
 
     // Convert in a map for easier lookup
@@ -428,7 +428,7 @@ module.exports = cds.service.impl(async function () {
 
     if (
       select.from.ref.length === 2 &&
-      select.from.ref[0].id === "smartDOCService.Carriers" &&
+      select.from.ref[0].id === "smartDOCDraft.Carriers" &&
       (select.from.ref[1] == "controlKey" || select.from.ref[1].id === "controlKey")
     ) {
       // Get supplier ID from risk
@@ -438,7 +438,7 @@ module.exports = cds.service.impl(async function () {
 
       // Select all risks for a supplier
       const cql = SELECT(select.columns)
-        .from("smartDOCService.ControlKeys")
+        .from("smartDOCDraft.ControlKeys")
         .where("ID = ", controlKey_ID)
         .limit(select.limit?.rows?.val, select.limit?.offset?.val);
       cql.SELECT.count = !!select.count;
@@ -475,7 +475,7 @@ module.exports = cds.service.impl(async function () {
     // Request all associated suppliers
     const plantIds = asArray(FromEntity_s).map((FromEntity) => FromEntity.controlKey_ID);
     const plants = await ControlKeysAPI.run(
-      SELECT.from("smartDOCService.ControlKeys").where({ ID: plantIds })
+      SELECT.from("smartDOCDraft.ControlKeys").where({ ID: plantIds })
     );
 
     // Convert in a map for easier lookup
@@ -509,7 +509,7 @@ module.exports = cds.service.impl(async function () {
 
     if (
       select.from.ref.length === 2 &&
-      select.from.ref[0].id === "smartDOCService.Carriers" &&
+      select.from.ref[0].id === "smartDOCDraft.Carriers" &&
       (select.from.ref[1] == "orderType" || select.from.ref[1].id === "orderType")
     ) {
       // Get supplier ID from risk
@@ -519,7 +519,7 @@ module.exports = cds.service.impl(async function () {
 
       // Select all risks for a supplier
       const cql = SELECT(select.columns)
-        .from("smartDOCService.OrderTypes")
+        .from("smartDOCDraft.OrderTypes")
         .where("ID = ", orderType_ID)
         .limit(select.limit?.rows?.val, select.limit?.offset?.val);
       cql.SELECT.count = !!select.count;
@@ -556,7 +556,7 @@ module.exports = cds.service.impl(async function () {
     // Request all associated suppliers
     const plantIds = asArray(FromEntity_s).map((FromEntity) => FromEntity.orderType_ID);
     const plants = await OrderTypesAPI.run(
-      SELECT.from("smartDOCService.OrderTypes").where({ ID: plantIds })
+      SELECT.from("smartDOCDraft.OrderTypes").where({ ID: plantIds })
     );
 
     // Convert in a map for easier lookup
@@ -589,7 +589,7 @@ module.exports = cds.service.impl(async function () {
 
     if (
       select.from.ref.length === 2 &&
-      select.from.ref[0].id === "smartDOCService.Carriers" &&
+      select.from.ref[0].id === "smartDOCDraft.Carriers" &&
       (select.from.ref[1] == "materialGroup" || select.from.ref[1].id === "materialGroup")
     ) {
       // Get supplier ID from risk
@@ -599,7 +599,7 @@ module.exports = cds.service.impl(async function () {
 
       // Select all risks for a supplier
       const cql = SELECT(select.columns)
-        .from("smartDOCService.MaterialGroups")
+        .from("smartDOCDraft.MaterialGroups")
         .where("ID = ", materialGroup_ID)
         .limit(select.limit?.rows?.val, select.limit?.offset?.val);
       cql.SELECT.count = !!select.count;
@@ -636,7 +636,7 @@ module.exports = cds.service.impl(async function () {
     // Request all associated suppliers
     const plantIds = asArray(FromEntity_s).map((FromEntity) => FromEntity.materialGroup_ID);
     const plants = await MaterialGroupsAPI.run(
-      SELECT.from("smartDOCService.MaterialGroups").where({ ID: plantIds })
+      SELECT.from("smartDOCDraft.MaterialGroups").where({ ID: plantIds })
     );
 
     // Convert in a map for easier lookup
@@ -672,7 +672,7 @@ module.exports = cds.service.impl(async function () {
 
     if (
       select.from.ref.length === 2 &&
-      select.from.ref[0].id === "smartDOCService.Carriers" &&
+      select.from.ref[0].id === "smartDOCDraft.Carriers" &&
       (select.from.ref[1] == "purchaseOrganization" || select.from.ref[1].id === "purchaseOrganization")
     ) {
       // Get supplier ID from risk
@@ -682,7 +682,7 @@ module.exports = cds.service.impl(async function () {
 
       // Select all risks for a supplier
       const cql = SELECT(select.columns)
-        .from("smartDOCService.PurchaseOrganizations")
+        .from("smartDOCDraft.PurchaseOrganizations")
         .where("ID = ", purchaseOrganization_ID)
         .limit(select.limit?.rows?.val, select.limit?.offset?.val);
       cql.SELECT.count = !!select.count;
@@ -719,7 +719,7 @@ module.exports = cds.service.impl(async function () {
     // Request all associated suppliers
     const plantIds = asArray(FromEntity_s).map((FromEntity) => FromEntity.purchaseOrganization_ID);
     const plants = await PurchaseOrganizationsAPI.run(
-      SELECT.from("smartDOCService.PurchaseOrganizations").where({ ID: plantIds })
+      SELECT.from("smartDOCDraft.PurchaseOrganizations").where({ ID: plantIds })
     );
 
     // Convert in a map for easier lookup
@@ -756,7 +756,7 @@ module.exports = cds.service.impl(async function () {
 
     if (
       select.from.ref.length === 2 &&
-      select.from.ref[0].id === "smartDOCService.Carriers" &&
+      select.from.ref[0].id === "smartDOCDraft.Carriers" &&
       (select.from.ref[1] == "mainWorkCenter" || select.from.ref[1].id === "mainWorkCenter")
     ) {
       // Get supplier ID from risk
@@ -766,7 +766,7 @@ module.exports = cds.service.impl(async function () {
 
       // Select all risks for a supplier
       const cql = SELECT(select.columns)
-        .from("smartDOCService.WorkCenters")
+        .from("smartDOCDraft.WorkCenters")
         .where("ID = ", mainWorkCenter_ID)
         .limit(select.limit?.rows?.val, select.limit?.offset?.val);
       cql.SELECT.count = !!select.count;
@@ -803,7 +803,7 @@ module.exports = cds.service.impl(async function () {
     // Request all associated suppliers
     const plantIds = asArray(FromEntity_s).map((FromEntity) => FromEntity.mainWorkCenter_ID);
     const plants = await WorkCentersAPI.run(
-      SELECT.from("smartDOCService.WorkCenters").where({ ID: plantIds })
+      SELECT.from("smartDOCDraft.WorkCenters").where({ ID: plantIds })
     );
 
     // Convert in a map for easier lookup

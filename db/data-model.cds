@@ -10,7 +10,7 @@ using {API_PRODUCTGROUP_SRV as materialGroupService} from '../srv/external/OP_AP
 using {ZGW_LS_FO_PURCHASE_ORG_SRV as purchaseOrgService} from '../srv/external/PurchaseOrg';
 using {ZGW_LS_FO_WORK_CENTER_SRV as WorkCenterService} from '../srv/external/WORKCENTER';
 using {ZGW_LS_FO_CONTROL_KEY_SRV as ControlKeyService} from '../srv/external/ControlKey';
-
+using {API_BUSINESS_PARTNER as BusPrtnrService} from '../srv/external/ZGW_LS_GW_BusinesPartner';
 
 
 
@@ -73,12 +73,26 @@ view ControlKeys as
         Application,
     };
 
+view BusinessPartners as
+    select from BusPrtnrService.A_BusinessPartner {
+        key BusinessPartner as ID,
+        BusinessPartnerFullName as Name
+    };
+
 view TR_Airports as
     select from TripService.Airports {
         key code  as ID,
             name  as name,
             descr as descr,
             aptcd_icao,
+            country_code,
+            lat_coord,
+            lat_coord_sign_code,
+            lat_coord_sign,
+            lon_coord,
+            lon_coord_sign_code,
+            lon_coord_sign,
+            country_code_code
     };
 
 view TR_Carriers as
@@ -86,15 +100,6 @@ view TR_Carriers as
         key code  as ID,
             name  as name,
             descr as descr,
-    };
-
-view Full_Airports as
-    select from Airports as sDOC_Airports {
-        key sDOC_Airports.airport as ID,
-            sDOC_Airports.airport.name as name,
-            sDOC_Airports.airport.descr as descr,
-            sDOC_Airports.airport.aptcd_icao as aptcd_icao,
-            sDOC_Airports.plant
     };
 
 
@@ -113,7 +118,7 @@ entity Carriers : managed {
         carrier              : Association to one TR_Carriers 
             @assert.integrity:false;
         companyCode          : Association to one CompanyCodes
-            @assert.integrity:false;
+            @assdert.integrity:false;
         mainWorkCenter       : Association to one WorkCenters
             @assert.integrity:false;
         orderType            : Association to one OrderTypes
@@ -132,19 +137,23 @@ entity Carriers : managed {
 // profitCenter          : String(10);
 };
 
-// entity PurHeader : managed {
-//     key ID                   : UUID @(Core.Computed : true);
-//         objectType           : Association to one ObjectType;
-//         documentDate         : Date;
-//         description          : String;
-//         airport              : Association to one TR_Airports;
-//         origin               : Association to one TR_Airports;
-//         destination          : Association to one TR_Airports;
-//         status               : Association to one Status;
-//         validityFrom         : Date;
-//         validityTo           : Date;
-//         carrier              : Association to one TR_Carriers;
-//         purchaseOrganization : Association to one PurchaseOrganizations;
-//         documentType         : Association to one DocumentType;
-//         vendor               : Association to one BusinessPartner;
-// };
+type Status : String enum { deleted; inactive; active; };
+type ObjectType : String enum { contract; profile; };
+type DocumentType : String enum { airport; catering; };
+
+entity PurHeader : managed {
+    key ID                   : UUID @(Core.Computed : true);
+        objectType           : ObjectType;
+        documentDate         : Date;
+        description          : String;
+        airport              : Association to one TR_Airports;
+        origin               : Association to one TR_Airports;
+        destination          : Association to one TR_Airports;
+        status               : Status;
+        validityFrom         : Date;
+        validityTo           : Date;
+        carrier              : Association to one TR_Carriers;
+        purchaseOrganization : Association to one PurchaseOrganizations;
+        documentType         : DocumentType;
+        vendor               : Association to one BusinessPartners;
+};
