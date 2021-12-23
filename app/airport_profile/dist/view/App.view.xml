@@ -1,5 +1,11 @@
 <mvc:View controllerName="airportprofile.controller.App"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:f="sap.f"
     xmlns="sap.m">
-    <App id="app"></App>
+
+    <App id="app" busy="{appView>/busy}" busyIndicatorDelay="{appView>/delay}">
+        <f:FlexibleColumnLayout id="layout" layout="{appView>/layout}" backgroundDesign="Translucent">
+        </f:FlexibleColumnLayout>
+
+    </App>
 </mvc:View>

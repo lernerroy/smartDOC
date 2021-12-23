@@ -50,7 +50,7 @@ modules:
     memory: 128M
 - name: smartdoc-srv
   type: javascript.nodejs
-  path: .smartDOC_mta_build_tmp/smartdoc-srv/data.zip
+  path: smartdoc-srv
   properties:
     SAP_JWT_TRUST_ACL:
     - clientid: '*'
@@ -73,7 +73,7 @@ modules:
     memory: 256M
 - name: smartdoc-app-content
   type: com.sap.application.content
-  path: smartdoc-app-content
+  path: .smartDOC_mta_build_tmp/smartdoc-app-content/data.zip
   requires:
   - name: smartdoc-repo-host
     parameters:
@@ -148,6 +148,5 @@ build-parameters:
   before-all:
   - builder: custom
     commands:
-    - npm install --production
+    - npm ci
     - npx -p @sap/cds-dk cds build --production
-    - cp package-lock.json ./gen/srv

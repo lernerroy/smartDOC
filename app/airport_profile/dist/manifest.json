@@ -102,12 +102,12 @@
         },
         "routing": {
             "config": {
-                "routerClass": "sap.m.routing.Router",
+                "routerClass": "sap.f.routing.Router",
                 "viewType": "XML",
                 "async": true,
                 "viewPath": "airportprofile.view",
-                "controlAggregation": "pages",
-                "controlId": "app",
+                "controlAggregation": "midColumnPages",
+                "controlId": "layout",
                 "clearControlAggregation": false
             },
             "routes": [
@@ -119,11 +119,18 @@
                     ]
                 },
                 {
-                    "name": "AirportDetails",
-                    "pattern": "airport/{id}",
+                    "name": "Vendors",
+                    "pattern": "airport/:id:",
                     "target": [
-                        "AirportsTarget",
-                        "AirportDetailsTarget"
+                        "VendorsTarget"
+                    ]
+                },
+                {
+                    "name": "Charges",
+                    "pattern": "airport/:id:/vendorcontract/:vid:",
+                    "target": [
+                        "VendorsTarget",
+                        "ChargesTarget"
                     ]
                 }
             ],
@@ -131,16 +138,26 @@
                 "AirportsTarget": {
                     "viewType": "XML",
                     "transition": "slide",
-                    "clearControlAggregation": false,
+                    "viewLevel": 1,
+                    "controlAggregation": "midColumnPages",
                     "viewId": "Airports",
                     "viewName": "Airports"
                 },
-                "AirportDetailsTarget": {
+                "VendorsTarget": {
                     "viewType": "XML",
                     "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewId": "AirportDetails",
-                    "viewName": "AirportDetails"
+                    "viewLevel": 2,
+                    "controlAggregation": "beginColumnPages",
+                    "viewId": "Vendors",
+                    "viewName": "Vendors"
+                },
+                "ChargesTarget": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "viewLevel": 2,
+                    "controlAggregation": "midColumnPages",
+                    "viewId": "Charges",
+                    "viewName": "Charges"
                 }
             }
         }

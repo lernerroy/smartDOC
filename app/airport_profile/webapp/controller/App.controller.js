@@ -1,15 +1,34 @@
-sap.ui.define([
-    "sap/ui/core/mvc/Controller"
-],
-    /**
-     * @param {typeof sap.ui.core.mvc.Controller} Controller
-     */
-    function (Controller) {
-        "use strict";
+sap.ui.define(
+  ["./BaseController", "sap/ui/model/json/JSONModel", "sap/f/LayoutType"],
+  /**
+   * @param {typeof sap.ui.core.mvc.Controller} Controller
+   */
+  function (BaseController, JSONModel, LayoutType) {
+    "use strict";
 
-        return Controller.extend("airportprofile.controller.App", {
-            onInit: function () {
+    return BaseController.extend("airportprofile.controller.App", {
+      onInit: function () {
+        var oViewModel,
+          fnSetAppNotBusy,
+          iOriginalBusyDelay = this.getView().getBusyIndicatorDelay();
 
-            }
+        oViewModel = new JSONModel({
+          busy: false,
+          delay: 0,
+          layout: LayoutType.MidColumnFullScreen,
+          previousLayout: "",
+          actionButtonsInfo: {
+            midColumn: {
+              fullScreen: false,
+            },
+          },
         });
+        this.setModel(oViewModel, "appView");
+        fnSetAppNotBusy = function () {
+          oViewModel.setProperty("/busy", false);
+          oViewModel.setProperty("/delay", iOriginalBusyDelay);
+        };
+      },
     });
+  }
+);

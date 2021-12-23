@@ -229,14 +229,14 @@ annotate smartdoc.OrderTypes with {
     }
 };
 
-// annotate smartdoc.awbOrderTypes with {
-//         ID @Common : { 
-//         Label : '{i18n>awborderType}',
-//         //for the editable form and selection in valuelists
-//         Text            : Name,
-//         TextArrangement : #TextFirst,
-//     }
-// };
+annotate smartdoc.awbOrderTypes with {
+        ID @Common : { 
+        Label : '{i18n>awborderType}',
+        //for the editable form and selection in valuelists
+        Text            : Name,
+        TextArrangement : #TextFirst,
+    }
+};
 
 annotate smartdoc.PurchaseOrganizations with {
         ID @Common : { 
@@ -393,26 +393,26 @@ annotate smartDOCService.Carriers with {
         SearchSupported : true
     };
     
-    // awbOrderType @Common.ValueListForValidation : ''  @Common.ValueList : {
-    //     CollectionPath  : 'OrderTypes',
-    //     Label           : '{i18n>Description}',
-    //     Parameters      : [
-    //         {
-    //             $Type             : 'Common.ValueListParameterInOut',
-    //             LocalDataProperty : awbOrderType_ID,
-    //             ValueListProperty : 'ID'
-    //         }, // local data property is the foreign key
-    //         {
-    //             $Type             : 'Common.ValueListParameterDisplayOnly',
-    //             ValueListProperty : 'Name'
-    //         },
-    //         {
-    //             $Type             : 'Common.ValueListParameterDisplayOnly',
-    //             ValueListProperty : 'OrderCategory'
-    //         }
-    //     ],
-    //     SearchSupported : true
-    // };
+    awbOrderType @Common.ValueListForValidation : ''  @Common.ValueList : {
+        CollectionPath  : 'OrderTypes',
+        Label           : '{i18n>Description}',
+        Parameters      : [
+            {
+                $Type             : 'Common.ValueListParameterInOut',
+                LocalDataProperty : awbOrderType_ID,
+                ValueListProperty : 'ID'
+            }, // local data property is the foreign key
+            {
+                $Type             : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty : 'Name'
+            },
+            {
+                $Type             : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty : 'OrderCategory'
+            }
+        ],
+        SearchSupported : true
+    };
     
     purchaseOrganization @Common.ValueListForValidation : '' 
                          @Common.ValueList : {
@@ -508,7 +508,7 @@ annotate smartDOCService.Carriers with @(
             {Value : plant_ID, },
             {Value : mainWorkCenter_ID},
             {Value : orderType_ID },
-            // {Value : awbOrderType_ID },
+            {Value : awbOrderType_ID },
             {Value : materialGroup_ID},
             {Value : purchaseOrganization_ID},
             {Value : controlKey_ID},

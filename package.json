@@ -88,6 +88,7 @@
           "strategy": "mock",
           "users": {
             "roy.lerner@legstate.com": {
+              "password": "123",
               "roles": [
                 "API_user",
                 "Admin",
@@ -105,6 +106,7 @@
             "strategy": "mock",
             "users": {
               "roy.lerner@legstate.com": {
+                "password": "123",
                 "roles": [
                   "API_user",
                   "Admin",
@@ -245,7 +247,35 @@
       },
       "API_BUSINESS_PARTNER": {
         "kind": "odata-v2",
-        "model": "srv/external/ZGW_LS_GW_BusinesPartner"
+        "model": "srv/external/ZGW_LS_FO_BUSINESSPARTNER_SRV",
+        "[sap]": {
+          "credentials": {
+            "destination": "DAK_1",
+            "path": "/sap/opu/odata/sap/ZGW_LS_FO_BUSINESSPARTNER_SRV"
+          }
+        },
+        "[production]": {
+          "credentials": {
+            "destination": "DAK_1",
+            "path": "/sap/opu/odata/sap/ZGW_LS_FO_BUSINESSPARTNER_SRV"
+          }
+        }
+      },
+      "ZGW_LS_FO_SERVICE_SRV": {
+        "kind": "odata-v2",
+        "model": "srv/external/ServiceData",
+        "[sap]": {
+          "credentials": {
+            "destination": "DAK_1",
+            "path": "/sap/opu/odata/sap/ZGW_LS_FO_SERVICE_SRV"
+          }
+        },
+        "[production]": {
+          "credentials": {
+            "destination": "DAK_1",
+            "path": "/sap/opu/odata/sap/ZGW_LS_FO_SERVICE_SRV"
+          }
+        }
       }
     }
   },

@@ -1,3 +1,4 @@
+
 /* checksum : 2c287419c8cb77066b03e3ff5aff14db */
 entity TripService.triprecord {
   createdAt : Timestamp;

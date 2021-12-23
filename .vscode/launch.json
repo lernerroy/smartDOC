@@ -8,6 +8,15 @@
   ],
   "configurations": [
     {
+      "command": "cds run --profile sap",
+      "name": "cds run profile sap",
+      "request": "launch",
+      "type": "node-terminal",
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
+    },
+    {
       "command": "cds run --with-mocks --in-memory?",
       "name": "cds run",
       "request": "launch",

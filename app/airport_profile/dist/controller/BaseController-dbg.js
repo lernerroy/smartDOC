@@ -14,6 +14,14 @@ sap.ui.define([
             return this.getOwnerComponent().getRouter();
         },
 
+        getEventBus: function() {
+            return this.getOwnerComponent().getEventBus();
+        },
+
+        showBusyIndicator: function(busy){
+            this.getModel("appView").setProperty("/busy", busy);
+        },
+
         /**
          * Convenience method for getting the view model by name in every controller of the application.
          * @public

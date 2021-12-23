@@ -6,11 +6,24 @@ using com.legstate.smartdoc as smartdoc
 @path : '/draft'
 service smartDOCDraft { 
     
+//////////////////////////////////////////////////////////////////
+// Airport Profile Services
+//////////////////////////////////////////////////////////////////
     entity PurHeader
     // @(restrict: [ { grant: ['*'], to: ['Admin','User']},
     //              { grant: ['READ'], to: ['API_user']}])
     as projection on smartdoc.PurHeader;
 
+    entity PurItems
+    // @(restrict: [ { grant: ['*'], to: ['Admin','User']},
+    //              { grant: ['READ'], to: ['API_user']}])
+    as projection on smartdoc.PurItems;
+
+
+
+//////////////////////////////////////////////////////////////////
+// smartDOC Services
+//////////////////////////////////////////////////////////////////
     entity Airports 
     // @(restrict: [ { grant: ['*'], to: ['Admin','User']},
     //              { grant: ['READ'], to: ['API_user']}])    
@@ -21,6 +34,13 @@ service smartDOCDraft {
     //              { grant: ['READ'], to: ['API_user']}])
     as projection on smartdoc.Carriers;
     
+
+
+
+
+//////////////////////////////////////////////////////////////////
+// SAP Services
+//////////////////////////////////////////////////////////////////
     @cds.odata.valuelist
     @cds.autoexpose  @readonly
     entity Plants
@@ -56,13 +76,6 @@ service smartDOCDraft {
     //               { grant: ['READ'], to: ['API_user']}])
     as projection on smartdoc.OrderTypes;
 
-    // @cds.odata.valuelist
-    // @cds.autoexpose  @readonly
-    // entity awbOrderTypes 
-    // // @(restrict: [ { grant: ['READ'], to: ['Admin','User']},
-    // //               { grant: ['READ'], to: ['API_user']}])
-    // as projection on smartdoc.awbOrderTypes;
-
     @cds.odata.valuelist
     @cds.autoexpose  @readonly
     entity PurchaseOrganizations 
@@ -72,11 +85,29 @@ service smartDOCDraft {
 
     @cds.odata.valuelist
     @cds.autoexpose  @readonly
-    entity WorkCenters 
+    entity WorkCenters
     // @(restrict: [ { grant: ['READ'], to: ['Admin','User']},
     //               { grant: ['READ'], to: ['API_user']}])
     as projection on smartdoc.WorkCenters;
 
+    @cds.odata.valuelist
+    @cds.autoexpose  @readonly
+    entity BusinessPartners
+    // @(restrict: [ { grant: ['READ'], to: ['Admin','User']},
+    //               { grant: ['READ'], to: ['API_user']}])
+    as projection on smartdoc.BusinessPartners;
+    
+    @cds.odata.valuelist
+    @cds.autoexpose  @readonly
+    entity ServiceData
+    // @(restrict: [ { grant: ['READ'], to: ['Admin','User']},
+    //               { grant: ['READ'], to: ['API_user']}])
+    as projection on smartdoc.ServiceData;
+
+
+//////////////////////////////////////////////////////////////////
+// Trip Record Services
+//////////////////////////////////////////////////////////////////
     @cds.odata.valuelist
     @cds.autoexpose  @readonly
     entity TR_Carriers
@@ -90,10 +121,22 @@ service smartDOCDraft {
     //               { grant: ['READ'], to: ['API_user']}])
     as projection on smartdoc.TR_Airports;
 
+    @cds.odata.valuelist
+    @cds.autoexpose  @readonly
+    entity TR_Currencies
+    // @(restrict: [ { grant: ['READ'], to: ['Admin','User']},
+    //               { grant: ['READ'], to: ['API_user']}])
+    as projection on smartdoc.TR_Currencies;
+
+
 
 // Enable Draft For Airport and Carrier
     annotate smartdoc.Carriers with @fiori.draft.enabled;
     annotate smartdoc.Airports with @fiori.draft.enabled;
+    annotate smartdoc.PurHeader with @fiori.draft.enabled;
+    annotate smartdoc.PurItems with @fiori.draft.enabled;
+    annotate PurHeader with @odata.draft.enabled;
+    annotate PurItems with @odata.draft.enabled;
     annotate Airports with @odata.draft.enabled;
     annotate Carriers with @odata.draft.enabled;
 };

@@ -1,9 +1,10 @@
 sap.ui.define([
         "sap/ui/core/UIComponent",
         "sap/ui/Device",
-        "airportprofile/model/models"
+        "airportprofile/model/models",
+        "airportprofile/libs/moment"
     ],
-    function (UIComponent, Device, models) {
+    function (UIComponent, Device, models, moment) {
         "use strict";
 
         return UIComponent.extend("airportprofile.Component", {

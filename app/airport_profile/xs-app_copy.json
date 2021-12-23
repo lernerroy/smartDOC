@@ -1,0 +1,23 @@
+
+{
+    "welcomeFile": "/index.html",
+    "authenticationMethod": "route",
+    "routes": [
+      {
+        // "source": "^/draft/(.*)$",
+        "source": "^(/.*)",
+        // "target": "draft/$1",
+        "target": "$1",
+        "authenticationType": "xsuaa",
+        "service": "smartdoc-ui",
+        "endpoint": "root"
+      },
+      {
+        "source": "^(.*)$",
+        "target": "$1",
+        "service": "html5-apps-repo-rt",
+        "authenticationType": "xsuaa"
+      }
+    ]
+  }
+  

@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "airports_eh-Manage": {
+            "additionalInformation": "SAPUI5.Component=airportseh",
+            "applicationType": "URL",
+            "url": "../resources/airportseh"
+        },
+        "carriers_eh-Manage": {
+            "additionalInformation": "SAPUI5.Component=carrierseh",
+            "applicationType": "URL",
+            "url": "../resources/carrierseh"
+        }
+    }
+}

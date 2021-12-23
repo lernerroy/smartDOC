@@ -1,0 +1,251 @@
+<mvc:View controllerName="airportprofile.controller.Charges"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:core="sap.ui.core"
+    xmlns:semantic="sap.f.semantic"
+    xmlns:f="sap.ui.layout.form"
+    xmlns="sap.m">
+    <semantic:SemanticPage id="masterPage" preserveHeaderStateOnScroll="true" toggleHeaderOnTitleClick="false">
+        <semantic:titleHeading>
+            <Title text="{detailsViewModel>/title}" level="H2"/>
+        </semantic:titleHeading>
+        <semantic:titleBreadcrumbs>
+            <Breadcrumbs currentLocationText="{vendorsView>/airportId}" separatorStyle="GreaterThan">
+            </Breadcrumbs>
+        </semantic:titleBreadcrumbs>
+        <semantic:content>
+            <VBox>
+                <f:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
+                    <f:content>
+                        <core:Title text="{i18n>generalInfoTitle}" />
+                        <Label text="{i18n>extId}" />
+                        <Text text="{detailsModel>/header/extenalID}" />
+                        <Label text="{i18n>statusField}" />
+                        <ObjectStatus text="{path: 'detailsModel>/header/status', formatter: '.formatter.capitalizeText'}" state="{path: 'detailsModel>/header/status', formatter: '.formatter.vendorContratStatusState'}" />
+                        <Label text="{i18n>descriptionField}" />
+                        <Text text="{detailsModel>/header/description}" />
+                        <Label text="{i18n>docDate}" />
+                        <Text text="{ path: 'detailsModel>/header/documentDate',
+                                    formatter: '.formatter.convertDate' }" />
+                        <Label text="{i18n>validFromField}" />
+                        <Text text="{ path: 'detailsModel>/header/validityFrom',
+                                    formatter: '.formatter.convertDate' }" />
+                        <Label text="{i18n>validToField}" />
+                        <Text text="{ path: 'detailsModel>/header/validityTo',
+                                    formatter: '.formatter.convertDate' }" />
+                        <core:Title text="{i18n>carrierInfoTitle}" />
+                        <Label text="{i18n>carrrierIdField}" />
+                        <Text text="{detailsModel>/header/carrier/ID}" />
+                        <Label text="{i18n>carrierNameField}" />
+                        <Text text="{detailsModel>/header/carrier/name}" />
+                        <Label text="{i18n>carrierDecsField}" />
+                        <Text text="{detailsModel>/header/carrier/descr}" />
+                        <core:Title text="{i18n>purchaseOrgTitle}" />
+                        <Label text="{i18n>poIdField}" />
+                        <Text text="{detailsModel>/header/purchaseOrganization/ID}" />
+                        <Label text="{i18n>poNameField}" />
+                        <Text text="{detailsModel>/header/purchaseOrganization/Name}" />
+                        <core:Title text="{i18n>vendorInfoTitle}" />
+                        <Label text="{i18n>vendorIdField}" />
+                        <Text text="{detailsModel>/header/vendor/ID}" />
+                        <Label text="{i18n>vendorNameField}" />
+                        <Text text="{detailsModel>/header/vendor/Name}" />
+                    </f:content>
+                </f:SimpleForm>
+
+                <IconTabBar expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding sapUiTinyMarginTop">
+                    <items>
+                        <IconTabFilter text="Airport Charges" icon="sap-icon://travel-expense" key="airport_charges">
+
+                            <Table inset="false" items="{detailsModel>/header/airportCharges}">
+                                <columns>
+                                    <Column width="12em">
+                                        <Text text="ID" />
+                                    </Column>
+                                    <Column width="12em">
+                                        <Text text="Status" />
+                                    </Column>
+                                    <Column minScreenWidth="Tablet" demandPopin="true">
+                                        <Text text="Description" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="Valid From" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="Valid To" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="Quantity" />
+                                    </Column>
+                                    <Column hAlign="End">
+                                        <Text text="Price" />
+                                    </Column>
+
+                                </columns>
+                                <items>
+                                    <ColumnListItem vAlign="Middle">
+                                        <cells>
+                                            <Text text="{detailsModel>ID}" />
+                                            <ObjectStatus text="{path: 'detailsModel>status', formatter: '.formatter.capitalizeText'}" state="{path: 'detailsModel>status', formatter: '.formatter.vendorContratStatusState'}" />
+                                            <Text text="{detailsModel>description}" />
+
+                                            <Text text="{ path: 'detailsModel>validityFrom',
+                                    formatter: '.formatter.convertDate' }" />
+                                            <Text text="{ path: 'detailsModel>validityTo',
+                                    formatter: '.formatter.convertDate' }" />
+                                            <Text text="{detailsModel>quantity}" />
+                                            <ObjectNumber number="{detailsModel>price}" unit="{detailsModel>currency_ID}" />
+
+
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </IconTabFilter>
+                        <IconTabFilter text="Cargo" key="cargo" icon="sap-icon://sap-box">
+                            <Table inset="false" items="{detailsModel>/header/cargos}">
+                                <columns>
+                                    <Column width="12em">
+                                        <Text text="ID" />
+                                    </Column>
+                                    <Column width="12em">
+                                        <Text text="Status" />
+                                    </Column>
+                                    <Column minScreenWidth="Tablet" demandPopin="true">
+                                        <Text text="Description" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="Valid From" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="Valid To" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="Quantity" />
+                                    </Column>
+                                    <Column hAlign="End">
+                                        <Text text="Price" />
+                                    </Column>
+
+                                </columns>
+                                <items>
+                                    <ColumnListItem vAlign="Middle">
+                                        <cells>
+                                            <Text text="{detailsModel>ID}" />
+                                            <ObjectStatus text="{path: 'detailsModel>status', formatter: '.formatter.capitalizeText'}" state="{path: 'detailsModel>status', formatter: '.formatter.vendorContratStatusState'}" />
+                                            <Text text="{detailsModel>description}" />
+
+                                            <Text text="{ path: 'detailsModel>validityFrom',
+                                    formatter: '.formatter.convertDate' }" />
+                                            <Text text="{ path: 'detailsModel>validityTo',
+                                    formatter: '.formatter.convertDate' }" />
+                                            <Text text="{detailsModel>quantity}" />
+                                            <ObjectNumber number="{detailsModel>price}" unit="{detailsModel>currency_ID}" />
+
+
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </IconTabFilter>
+                        <IconTabFilter text="Engineering" key="engineering" icon="sap-icon://wrench">
+                            <Table inset="false" items="{detailsModel>/header/engs}">
+                                <columns>
+                                    <Column width="12em">
+                                        <Text text="ID" />
+                                    </Column>
+                                    <Column width="12em">
+                                        <Text text="Status" />
+                                    </Column>
+                                    <Column minScreenWidth="Tablet" demandPopin="true">
+                                        <Text text="Description" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="Valid From" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="Valid To" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="Quantity" />
+                                    </Column>
+                                    <Column hAlign="End">
+                                        <Text text="Price" />
+                                    </Column>
+
+                                </columns>
+                                <items>
+                                    <ColumnListItem vAlign="Middle">
+                                        <cells>
+                                            <Text text="{detailsModel>ID}" />
+                                            <ObjectStatus text="{path: 'detailsModel>status', formatter: '.formatter.capitalizeText'}" state="{path: 'detailsModel>status', formatter: '.formatter.vendorContratStatusState'}" />
+                                            <Text text="{detailsModel>description}" />
+
+                                            <Text text="{ path: 'detailsModel>validityFrom',
+                                    formatter: '.formatter.convertDate' }" />
+                                            <Text text="{ path: 'detailsModel>validityTo',
+                                    formatter: '.formatter.convertDate' }" />
+                                            <Text text="{detailsModel>quantity}" />
+                                            <ObjectNumber number="{detailsModel>price}" unit="{detailsModel>currency_ID}" />
+
+
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </IconTabFilter>
+
+                        <IconTabFilter text="Catering" key="categring" icon="sap-icon://meal">
+                            <Table inset="false" items="{detailsModel>/header/caterings}">
+                                <columns>
+                                    <Column width="12em">
+                                        <Text text="ID" />
+                                    </Column>
+                                    <Column width="12em">
+                                        <Text text="Status" />
+                                    </Column>
+                                    <Column minScreenWidth="Tablet" demandPopin="true">
+                                        <Text text="Description" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="Valid From" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="Valid To" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="Quantity" />
+                                    </Column>
+                                    <Column hAlign="End">
+                                        <Text text="Price" />
+                                    </Column>
+
+                                </columns>
+                                <items>
+                                    <ColumnListItem vAlign="Middle">
+                                        <cells>
+                                            <Text text="{detailsModel>ID}" />
+                                            <ObjectStatus text="{path: 'detailsModel>status', formatter: '.formatter.capitalizeText'}" state="{path: 'detailsModel>status', formatter: '.formatter.vendorContratStatusState'}" />
+                                            <Text text="{detailsModel>description}" />
+
+                                            <Text text="{ path: 'detailsModel>validityFrom',
+                                    formatter: '.formatter.convertDate' }" />
+                                            <Text text="{ path: 'detailsModel>validityTo',
+                                    formatter: '.formatter.convertDate' }" />
+                                            <Text text="{detailsModel>quantity}" />
+                                            <ObjectNumber number="{detailsModel>price}" unit="{detailsModel>currency_ID}" />
+
+
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </IconTabFilter>
+                    </items>
+                </IconTabBar>
+            </VBox>
+
+        </semantic:content>
+    </semantic:SemanticPage>
+
+
+</mvc:View>

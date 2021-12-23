@@ -1,0 +1,70 @@
+<mvc:View controllerName="airportprofile.controller.Vendors"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:core="sap.ui.core"
+    xmlns:semantic="sap.f.semantic"
+    xmlns="sap.m">
+    <semantic:SemanticPage id="masterPage" preserveHeaderStateOnScroll="true" toggleHeaderOnTitleClick="false">
+        <semantic:titleHeading>
+            <Title id="masterPageTitle" text="Contracts" level="H2"/>
+        </semantic:titleHeading>
+        <semantic:titleBreadcrumbs>
+            <Breadcrumbs currentLocationText="{vendorsView>/airportId}" separatorStyle="GreaterThan">
+                <Link press="navToAirports" text="Airports"/>
+            </Breadcrumbs>
+        </semantic:titleBreadcrumbs>
+        <semantic:content>
+            <VBox items="{vendorContracts>/vendorContracts}">
+                <Panel headerText="{vendorContracts>vendor_ID}" width="auto" class="sapUiResponsiveMargin" expandable="true" backgroundDesign="Transparent" expanded="true">
+                    <content>
+                        <List id="airportList" items="{vendorContracts>contracts}" itemPress="onContractItemClicked">
+                            <CustomListItem type="Navigation" highlight="{= ${vendorContracts>selected} ? 'Information' : 'None'}">
+                                <VBox width="100%">
+                                    <HBox class="sapUiContentPadding" width="100%">
+                                        <VBox height="100%">
+                                            <layoutData>
+                                                <FlexItemData growFactor="1"/>
+                                            </layoutData>
+                                            <Text text="{vendorContracts>extenalID}" />
+                                            <Text text="{vendorContracts>description}" class="sapUiTinyMarginTop" />
+                                            <HBox class="sapUiSmallMarginTop">
+                                                <Text text="{i18n>validFrom}" class="sapUiTinyMarginEnd" />
+                                                <Text text="{
+                                                path: 'vendorContracts>validityFrom',
+                                                formatter: '.formatter.convertDate'
+                                            }" />
+                                            </HBox>
+                                            <HBox class="sapUiTinyMarginTop">
+                                                <Text text="{i18n>validTo}" class="sapUiTinyMarginEnd" />
+                                                <Text text="{
+                                                path: 'vendorContracts>validityTo',
+                                                formatter: '.formatter.convertDate'
+                                            }" />
+                                            </HBox>
+
+                                            <HBox class="sapUiTinyMarginTop">
+                                                <Text text="{i18n>aribaIndicator}" class="sapUiTinyMarginEnd" />
+                                                <Text text="{vendorContracts>aribaIndicator}" />
+                                            </HBox>
+                                        </VBox>
+                                        <VBox justifyContent="Center">
+                                            <ObjectStatus text="{path: 'vendorContracts>status', formatter: '.formatter.capitalizeText'}" state="{path: 'vendorContracts>status', formatter: '.formatter.vendorContratStatusState'}" />
+                                            <Text text="{
+                                                path: 'vendorContracts>documentDate',
+                                                formatter: '.formatter.convertDate'
+                                            }" />
+                                        </VBox>
+
+                                    </HBox>
+                                </VBox>
+                            </CustomListItem>
+                        </List>
+                    </content>
+                </Panel>
+            </VBox>
+
+        </semantic:content>
+    </semantic:SemanticPage>
+
+
+</mvc:View>
+

@@ -1,45 +1,55 @@
 <mvc:View controllerName="airportprofile.controller.Airports"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns:core="sap.ui.core"
+    xmlns:semantic="sap.f.semantic"
     xmlns="sap.m">
-    <Page title="Airport List" titleAlignment="Center">
-        <headerContent>
-            <Button icon="sap-icon://add" text="Add Airport" tooltip="Add Airport" press="onAddAirport" />
-        </headerContent>
-        <List items="{
+    <semantic:SemanticPage id="masterPage" preserveHeaderStateOnScroll="true" toggleHeaderOnTitleClick="false">
+        <semantic:titleHeading>
+            <Title id="masterPageTitle" text="{i18n>airportsList}" level="H2"/>
+        </semantic:titleHeading>
+
+        <semantic:titleCustomTextActions>
+            <Button icon= "sap-icon://add" text="Add Airport" press="onAddAirport"/>
+        </semantic:titleCustomTextActions>
+
+        <semantic:content>
+
+            <List id="airportList" items="{
             path: '/Airports',
             parameters: {
                 '$expand': 'airport',
                 '$select': 'airport_ID,plant_ID'
             }
-        }" itemPress="onAirportClicked">
-            <CustomListItem type="Navigation">
-                <VBox width="100%">
-                    <HBox class="sapUiContentPadding" width="100%">
-                        <VBox>
-                            <Label text="{airport_ID}" class="sapUiTinyMarginBottom" />
-                            <HBox class="sapUiMediumMarginBottom" alignContent="Center" alignItems="Center">
-                                <core:Icon size="2rem" src="sap-icon://flight" class="sapUiSmallMarginEnd" color="Marker" />
-                                <Link text="{airport/name}" emphasized="false" class="airport_link" />
-                            </HBox>
+        }" visible="false" itemPress="onAirportClicked">
+                <CustomListItem type="Navigation">
+                    <VBox width="100%">
+                        <HBox class="sapUiContentPadding" width="100%">
+                            <VBox>
+                                <Label text="{airport_ID}" class="sapUiTinyMarginBottom" />
+                                <HBox class="sapUiMediumMarginBottom" alignContent="Center" alignItems="Center">
+                                    <core:Icon size="2rem" src="sap-icon://flight" class="sapUiSmallMarginEnd" color="Marker" />
+                                    <Link text="{airport/name}" emphasized="false" class="airport_link" />
+                                </HBox>
 
-                            <Label text="Latituddinal: +0.91600700000" class="sapUiTinyMarginBottom"/>
-                            <Label text="Longtiudinal: +0.91600700000" class="sapUiTinyMarginBottom"/>
-                        </VBox>
-                        <VBox alignItems="End">
-                            <layoutData>
-                                <FlexItemData growFactor="1"/>
-                            </layoutData>
-                            <VBox justifyContent="End" height="100%">
-                                <Label text="Country Code: DE" class="sapUiTinyMarginBottom"/>
-
-                                <Link text="{i18n>plantCode} {plant_ID}" emphasized="false" class="sapUiTinyMarginBottom"/>
+                                <Label text="Latituddinal: +0.91600700000" class="sapUiTinyMarginBottom"/>
+                                <Label text="Longtiudinal: +0.91600700000" class="sapUiTinyMarginBottom"/>
                             </VBox>
-                        </VBox>
-                    </HBox>
-                </VBox>
-            </CustomListItem>
-        </List>
-    </Page>
+                            <VBox alignItems="End">
+                                <layoutData>
+                                    <FlexItemData growFactor="1"/>
+                                </layoutData>
+                                <VBox justifyContent="End" height="100%">
+                                    <Label text="Country Code: DE" class="sapUiTinyMarginBottom"/>
+
+                                    <Link text="{i18n>plantCode} {plant_ID}" emphasized="false" class="sapUiTinyMarginBottom"/>
+                                </VBox>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </CustomListItem>
+            </List>
+        </semantic:content>
+    </semantic:SemanticPage>
+
 
 </mvc:View>
