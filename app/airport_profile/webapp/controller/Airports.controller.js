@@ -13,7 +13,7 @@ sap.ui.define(
           .attachPatternMatched(this._onObjectMatched, this);
       },
       _onObjectMatched: function (oEvent) {
-
+        this.getModel("appView").setProperty("/mainTabsVisible", false);
         this.getModel("appView").setProperty("/layout", LayoutType.MidColumnFullScreen);
 
         var oList = this.getView().byId("airportList");

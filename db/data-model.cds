@@ -1,5 +1,7 @@
 namespace com.legstate.smartdoc;
 
+//using { SAP_CF_BusinessRules_Repository } from '../srv/external/SAP_CF_BusinessRules_Repository';
+
 using {managed} 
     from '@sap/cds/common';
 using cuid 
@@ -121,8 +123,16 @@ view TR_Carriers as
             name  as name,
             descr as descr,
     };
-     
-     
+    
+
+/////////////////////////////////////////////////////////////
+// View Declaration for BRF services
+/////////////////////////////////////////////////////////////
+// view BRF_Pricing as
+//     select from BRFService.BRFs {
+//         key code  as ID,
+//             name  as Name
+//     };
 
      
 
@@ -163,6 +173,7 @@ entity Carriers : managed {
 // profitCenter          : String(10);
 };
 
+    
 
 /////////////////////////////////////////////////////////////
 // Entities Declaration of Airport Profile 
@@ -221,4 +232,5 @@ entity PurItems : managed {
         additionalIndicator  : AdditionalIndicator;
         price                : Decimal(11,2);
         currency             : Association to one TR_Currencies;
+        brf_id               : String; //Association to one BRF_Pricing;
 };

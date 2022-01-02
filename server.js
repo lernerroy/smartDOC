@@ -1,4 +1,7 @@
-const cds = require ('@sap/cds');
+//import { createRequire } from 'module'
+//const require = createRequire(import.meta.url);
+
+const cds = require('@sap/cds');
 
 //module.exports = cds.server;
 module.exports = (o)=>{

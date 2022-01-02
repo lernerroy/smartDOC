@@ -1,0 +1,1 @@
+{"version":3,"file":"managed-system-response-object.d.ts","sourceRoot":"","sources":["managed-system-response-object.ts"],"names":[],"mappings":"AAKI,OAAO,KAAK,EAAE,mBAAmB,EAAE,MAAM,yBAAyB,CAAC;AACnE;;GAEG;AACH,oBAAY,2BAA2B,GAAG,mBAAmB,GAAG;IAC9D;;;OAGG;IACH,WAAW,CAAC,EAAE,MAAM,CAAC;IACrB;;OAEG;IACH,WAAW,CAAC,EAAE,MAAM,CAAC;CACtB,GAAG,MAAM,CAAC,MAAM,EAAE,GAAG,CAAC,CAAC"}

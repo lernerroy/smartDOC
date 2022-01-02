@@ -9,6 +9,7 @@
     "node": "14.18.x"
   },
   "dependencies": {
+    "@sap-cloud-sdk/core": "^1.53.0",
     "@sap/cds": "^5.7.2",
     "@sap/cds-mtx": "^2.5.1",
     "@sap/hana-client": "^2.11.14",
@@ -88,7 +89,6 @@
           "strategy": "mock",
           "users": {
             "roy.lerner@legstate.com": {
-              "password": "123",
               "roles": [
                 "API_user",
                 "Admin",
@@ -106,7 +106,6 @@
             "strategy": "mock",
             "users": {
               "roy.lerner@legstate.com": {
-                "password": "123",
                 "roles": [
                   "API_user",
                   "Admin",
@@ -276,7 +275,38 @@
             "path": "/sap/opu/odata/sap/ZGW_LS_FO_SERVICE_SRV"
           }
         }
-      }
+      },
+      "SAP_CF_BusinessRules_Repository": {
+        "kind": "rest",
+        "[sap]": {
+          "kind": "rest",
+          "credentials": {
+            "destination": "brf-dest"
+          }
+        },
+        "[production]": {
+          "kind": "rest",
+          "credentials": {
+            "destination": "brf-dest"
+          }
+        }
+      },
+      "ZGW_LS_FO_TAXCODE_SRV": {
+        "kind": "odata-v2",
+        "model": "srv/external/ServiceData",
+        "[sap]": {
+          "credentials": {
+            "destination": "DAK_1",
+            "path": "/sap/opu/odata/sap/ZGW_LS_FO_TAXCODE_SRV"
+          }
+        },
+        "[production]": {
+          "credentials": {
+            "destination": "DAK_1",
+            "path": "/sap/opu/odata/sap/ZGW_LS_FO_TAXCODE_SRV"
+          }
+        }
+      }      
     }
   },
   "sapux": [

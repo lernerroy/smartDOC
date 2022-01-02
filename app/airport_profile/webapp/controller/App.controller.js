@@ -14,6 +14,7 @@ sap.ui.define(
 
         oViewModel = new JSONModel({
           busy: false,
+          mainTabsVisible: false,
           delay: 0,
           layout: LayoutType.MidColumnFullScreen,
           previousLayout: "",

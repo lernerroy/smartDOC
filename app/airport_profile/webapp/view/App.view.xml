@@ -3,9 +3,25 @@
     xmlns:f="sap.f"
     xmlns="sap.m">
 
-    <App id="app" busy="{appView>/busy}" busyIndicatorDelay="{appView>/delay}">
-        <f:FlexibleColumnLayout id="layout" layout="{appView>/layout}" backgroundDesign="Translucent">
-        </f:FlexibleColumnLayout>
+    <VBox>
+        <IconTabBar expanded="{device>/isNoPhone}" visible="{appView>/mainTabsVisible}" applyContentPadding="false">
+            <items>
+                <IconTabFilter text="Vendor" icon="sap-icon://travel-expense" key="vendor" design="Horizontal">
+                </IconTabFilter>
+                <IconTabFilter text="Arrival" icon="sap-icon://journey-arrive" key="vendor" design="Horizontal">
+                </IconTabFilter>
+                <IconTabFilter text="Departure" icon="sap-icon://journey-depart" key="vendor" design="Horizontal">
+                </IconTabFilter>
+            </items>
 
-    </App>
+        </IconTabBar>
+
+        <App id="app" busy="{appView>/busy}" busyIndicatorDelay="{appView>/delay}">
+            <f:FlexibleColumnLayout id="layout" layout="{appView>/layout}" backgroundDesign="Translucent">
+            </f:FlexibleColumnLayout>
+
+        </App>
+    </VBox>
+
+
 </mvc:View>

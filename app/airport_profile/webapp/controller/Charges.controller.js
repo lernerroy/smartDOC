@@ -4,7 +4,7 @@ sap.ui.define(
     "sap/f/LayoutType",
     "sap/ui/model/json/JSONModel",
     "../utils/formatters",
-    "airportprofile/libs/lodash"
+    "airportprofile/libs/lodash",
   ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
@@ -33,6 +33,7 @@ sap.ui.define(
           .attachPatternMatched(this._onObjectMatched, this);
       },
       _onObjectMatched: function (oEvent) {
+        this.getModel("appView").setProperty("/mainTabsVisible", true);
         this.getEventBus().publish(
           "route",
           "charges",

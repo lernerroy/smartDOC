@@ -4,6 +4,7 @@ using com.legstate.smartdoc as smartdoc
 
 
 @path : '/draft'
+@impl : './AirportProfile-Draft.js'
 service smartDOCDraft { 
     
 //////////////////////////////////////////////////////////////////
@@ -18,7 +19,7 @@ service smartDOCDraft {
     // @(restrict: [ { grant: ['*'], to: ['Admin','User']},
     //              { grant: ['READ'], to: ['API_user']}])
     as projection on smartdoc.PurItems;
-
+     
 
 
 //////////////////////////////////////////////////////////////////

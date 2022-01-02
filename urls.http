@@ -141,6 +141,8 @@ http://localhost:4004/draft/PurItems(purHeader_ID=08cda5d5-e570-476b-8a23-4f5a59
 http://localhost:4004/draft/PurItems(purHeader_ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00010')/carrier
 ###
 http://localhost:4004/draft/PurItems(purHeader_ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00010')/currency
+###
+http://localhost:4004/draft/PurItems(purHeader_ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00010')/brf_id
 
 
 

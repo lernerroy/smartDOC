@@ -28,7 +28,7 @@ sap.ui.define(
         });
 
         this.setModel(viewModel, "vendorsView");
-
+        
         this.getRouter()
           .getRoute("Vendors")
           .attachPatternMatched(this._onObjectMatched, this);
@@ -47,7 +47,7 @@ sap.ui.define(
         );
       },
 
-      _onItemChanged: function (channel, eventId, data) {
+      _onItemChanged: function (channel, eventId, data) {        
         if (!this.dataLoaded) {
           if (!this.getModel("vendorsView").getProperty("/airportId")) {
             this.getModel("vendorsView").setProperty("/airportId", data.id);
@@ -63,7 +63,8 @@ sap.ui.define(
       },
 
       _onObjectMatched: function (oEvent) {
-        this.getModel("appView").setProperty("/layout", LayoutType.OneColumn);
+        this.getModel("appView").setProperty("/layout", LayoutType.OneColumn);        
+        this.getModel("appView").setProperty("/mainTabsVisible", true);
         var airportId = oEvent.getParameter("arguments").id;
         this.getModel("vendorsView").setProperty("/airportId", airportId);
         this.loadData(airportId);
