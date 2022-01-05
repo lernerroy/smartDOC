@@ -79,6 +79,7 @@ modules:
   - name: smartdoc-registry
   - name: smartdoc-dest-srv
   - name: smartdoc-conn
+  - name: smartdoc-business-rules
   provides:
   - name: srv-api      # required by consumers of CAP services (e.g. approuter)
     properties:
@@ -220,3 +221,11 @@ resources:
   properties:
     user: "smartdoc-sbf-user"
     hash: "sha256:jdw4KfEpb29j9Pd82NUyMj080EKYitNydL8snIP5v5g=:ceX//BVqq4uZu6Qj4U3xe11JddU9e/wv4cf47fD7zXY="
+# ------------------------------------------------------------
+- name: smartdoc-business-rules
+# ------------------------------------------------------------
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: business-rules
+    service-name: smartdoc-business-rules
+    service-plan: basic

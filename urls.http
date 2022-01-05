@@ -128,7 +128,7 @@ http://localhost:4004/draft/PurHeader(ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,Is
 http://localhost:4004/draft/PurItems
 
 ###
-http://localhost:4004/draft/PurItems(purHeader_ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00010')
+http://localhost:4004/draft/PurItems(purHeader_ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00020')
 
 ###
 http://localhost:4004/draft/PurItems(purHeader_ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00010')/status
@@ -142,7 +142,7 @@ http://localhost:4004/draft/PurItems(purHeader_ID=08cda5d5-e570-476b-8a23-4f5a59
 ###
 http://localhost:4004/draft/PurItems(purHeader_ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00010')/currency
 ###
-http://localhost:4004/draft/PurItems(purHeader_ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00010')/brf_id
+http://localhost:4004/draft/PurItems(purHeader_ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00020')/brf_id
 
 
 

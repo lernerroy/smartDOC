@@ -1,0 +1,14 @@
+<mvc:View controllerName="airportprofile.controller.Airport"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:f="sap.f"
+    xmlns="sap.m">
+
+    <IconTabBar expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding sapUiTinyMarginTop">
+        <items>
+            <IconTabFilter text="Airport Charges" icon="sap-icon://travel-expense" key="airport_charges">
+            </IconTabFilter>
+        </items>
+
+    </IconTabBar>
+
+</mvc:View>

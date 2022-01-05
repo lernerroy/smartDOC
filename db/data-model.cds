@@ -37,7 +37,6 @@ view Plants as
             Name1 as Name
     };
 
-
 view CompanyCodes as
     select from CompanyCodeService.A_CompanyCode {
         key CompanyCode     as ID,
@@ -216,7 +215,7 @@ entity PurHeader : managed {
 entity PurItems : managed {
     key purHeader            : Association to PurHeader;
     key ID                   : String(5);
-        description          : String;
+        description          : String;          
         serviceNumber        : Association to one ServiceData;
         status               : Status;
         validityFrom         : Date;
@@ -233,4 +232,40 @@ entity PurItems : managed {
         price                : Decimal(11,2);
         currency             : Association to one TR_Currencies;
         brf_id               : String; //Association to one BRF_Pricing;
+};
+
+
+
+entity TLHeader : managed {
+    key ID                   : UUID @(Core.Computed : true);
+        extenalID            : Integer;
+        objectType           : ObjectType;
+        documentDate         : Date;
+        description          : String;
+        origin               : Association to one TR_Airports;
+        destination          : Association to one TR_Airports;
+        status               : Status;
+        validityFrom         : Date;
+        validityTo           : Date;
+        documentType         : DocumentType;
+        items                : Association[1,*] to PurItems 
+            on items.purHeader = $self;
+};
+
+entity TLItems : managed {
+    key TLHeader             : Association to PurHeader;
+    key ID                   : String(5);
+        description          : String;          
+        purHeader            : Association to one PurHeader;
+        purItem              : Association to one PurItems 
+            on purItem.ID = $self.purItem and purHeader.ID = $self.purHeader;
+        serviceNumber        : Association to one ServiceData;
+        status               : Status;
+        validityFrom         : Date;
+        validityTo           : Date;
+        validityFromTime     : Time;
+        validityToTime       : Time;
+        lineOfBusiness       : LOB;
+        jobIndicator         : Boolean;
+        domesticIntl         : DomesticIntl;
 };
