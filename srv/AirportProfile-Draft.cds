@@ -10,17 +10,21 @@ service smartDOCDraft {
 //////////////////////////////////////////////////////////////////
 // Airport Profile Services
 //////////////////////////////////////////////////////////////////
-    entity PurHeader
+    entity PurDocs
     // @(restrict: [ { grant: ['*'], to: ['Admin','User']},
     //              { grant: ['READ'], to: ['API_user']}])
-    as projection on smartdoc.PurHeader;
+    as projection on smartdoc.PurDocs;
 
-    entity PurItems
+    /*entity PurItems
     // @(restrict: [ { grant: ['*'], to: ['Admin','User']},
     //              { grant: ['READ'], to: ['API_user']}])
     as projection on smartdoc.PurItems;
-     
-
+      */   
+    entity TaskLists
+    // @(restrict: [ { grant: ['*'], to: ['Admin','User']},
+    //              { grant: ['READ'], to: ['API_user']}])
+    as projection on smartdoc.TaskLists;
+ 
 
 //////////////////////////////////////////////////////////////////
 // smartDOC Services
@@ -134,10 +138,14 @@ service smartDOCDraft {
 // Enable Draft For Airport and Carrier
     annotate smartdoc.Carriers with @fiori.draft.enabled;
     annotate smartdoc.Airports with @fiori.draft.enabled;
-    annotate smartdoc.PurHeader with @fiori.draft.enabled;
-    annotate smartdoc.PurItems with @fiori.draft.enabled;
-    annotate PurHeader with @odata.draft.enabled;
-    annotate PurItems with @odata.draft.enabled;
+    annotate smartdoc.PurDocs with @fiori.draft.enabled;
+    //annotate smartdoc.PurItems with @fiori.draft.enabled;
+    annotate smartdoc.TaskLists with @fiori.draft.enabled;
+    //annotate smartdoc.TLItems with @fiori.draft.enabled;
+    annotate PurDocs with @odata.draft.enabled;
+    //annotate PurItems with @odata.draft.enabled;
+    annotate TaskLists with @odata.draft.enabled;
+    //annotate TLItems with @odata.draft.enabled;
     annotate Airports with @odata.draft.enabled;
     annotate Carriers with @odata.draft.enabled;
 };

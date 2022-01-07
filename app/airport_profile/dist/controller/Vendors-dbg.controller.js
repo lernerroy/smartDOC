@@ -92,7 +92,7 @@ sap.ui.define(
       loadData: function (airportId, contractId) {
         var oModel = this.getModel("vendorContracts");
         var self = this;
-        const sUrl = this.getModel().sServiceUrl + "PurHeader";
+        const sUrl = this.getModel().sServiceUrl + "PurDocs";
         $.get({
           url: sUrl,
           data: {

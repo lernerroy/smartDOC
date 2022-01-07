@@ -36,9 +36,9 @@
                     <ObjectStatus text="{path: 'detailsModel>status', formatter: '.formatter.capitalizeText'}" state="{path: 'detailsModel>status', formatter: '.formatter.vendorContratStatusState'}" />
                     <Text text="{detailsModel>description}" />
 
-                    <Text text="{ path: 'detailsModel>validityFrom',
+                    <Text text="{ path: 'detailsModel>validFrom',
                                     formatter: '.formatter.convertDate' }" />
-                    <Text text="{ path: 'detailsModel>validityTo',
+                    <Text text="{ path: 'detailsModel>validTo',
                                     formatter: '.formatter.convertDate' }" />
                     <Text text="{detailsModel>quantity}" />
                     <ObjectNumber number="{detailsModel>price}" unit="{detailsModel>currency_ID}" />

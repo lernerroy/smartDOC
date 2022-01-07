@@ -1,6 +1,0 @@
-purHeader_ID;ID;description;purHeader_ID;purItem_ID;serviceNumber_ID;status;validityFrom;validityTo;validityFromTime;validityToTime;lineOfBusiness;jobIndicator;domesticIntl
-17ca879d-1f2f-4bc6-9066-a42f6536dafa;10;First profile - Operation First Line;1000000001;00010;800104;active;2021-12-17;2023-12-01;;;airport;;international
-17ca879d-1f2f-4bc6-9066-a42f6536dafa;10;First profile - Operation First Line;1000000001;00040;800020;active;2021-12-17;2023-12-01;;;airport;ture;international
-17ca879d-1f2f-4bc6-9066-a42f6536dafa;10;First profile - Operation First Line;1000000001;00050;800012;active;2021-12-17;2023-12-01;;;airport;ture;domestic
-17ca879d-1f2f-4bc6-9066-a42f6536dafa;20;First profile - Operation Second Line;1000000001;00060;800045;active;2021-12-17;2023-12-01;;;airport;;international
-4e7723ca-ed9e-4b7f-b6ca-0b038848e712;10;Second profile- First Line;1000000001;00060;800000;active;2021-12-17;2023-12-01;;;airport;;international

@@ -28,10 +28,10 @@
                             <Text text="{ path: 'detailsModel>/header/documentDate',
                                     formatter: '.formatter.convertDate' }" />
                             <Label text="{i18n>validFromField}" />
-                            <Text text="{ path: 'detailsModel>/header/validityFrom',
+                            <Text text="{ path: 'detailsModel>/header/validFrom',
                                     formatter: '.formatter.convertDate' }" />
                             <Label text="{i18n>validToField}" />
-                            <Text text="{ path: 'detailsModel>/header/validityTo',
+                            <Text text="{ path: 'detailsModel>/header/validTo',
                                     formatter: '.formatter.convertDate' }" />
                             <core:Title text="{i18n>carrierInfoTitle}" />
                             <Label text="{i18n>carrrierIdField}" />

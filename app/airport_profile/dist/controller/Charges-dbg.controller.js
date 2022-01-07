@@ -50,12 +50,12 @@ sap.ui.define(
         var self = this;
         self.showBusyIndicator(true);
         var oModel = this.getModel("detailsModel");
-        const sUrl = this.getModel().sServiceUrl + "PurHeader";
+        const sUrl = this.getModel().sServiceUrl + "PurDocs";
         $.get({
           url: `${sUrl}(ID=${id},IsActiveEntity=true)`,
           data: {
             $select:
-              "extenalID,documentDate,description,status,validityFrom,validityTo,aribaIndicator",
+              "extenalID,documentDate,description,status,validFrom,validTo,aribaIndicator",
             $expand: "vendor,carrier,purchaseOrganization,items",
           },
           success: function (data) {

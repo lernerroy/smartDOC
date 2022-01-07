@@ -29,14 +29,14 @@
                                             <HBox class="sapUiSmallMarginTop">
                                                 <Text text="{i18n>validFrom}" class="sapUiTinyMarginEnd" />
                                                 <Text text="{
-                                                path: 'vendorContracts>validityFrom',
+                                                path: 'vendorContracts>validFrom',
                                                 formatter: '.formatter.convertDate'
                                             }" />
                                             </HBox>
                                             <HBox class="sapUiTinyMarginTop">
                                                 <Text text="{i18n>validTo}" class="sapUiTinyMarginEnd" />
                                                 <Text text="{
-                                                path: 'vendorContracts>validityTo',
+                                                path: 'vendorContracts>validTo',
                                                 formatter: '.formatter.convertDate'
                                             }" />
                                             </HBox>

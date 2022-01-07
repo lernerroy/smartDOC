@@ -10,16 +10,21 @@ service smartDOCService {
 //////////////////////////////////////////////////////////////////
 // Airport Profile Services
 //////////////////////////////////////////////////////////////////
-    entity PurHeader
+    entity PurDocs
     // @(restrict: [ { grant: ['*'], to: ['Admin','User']},
     //              { grant: ['READ'], to: ['API_user']}])
-    as projection on smartdoc.PurHeader;
+    as projection on smartdoc.PurDocs;
 
-    entity PurItems
+    // entity PurItems
+    // // @(restrict: [ { grant: ['*'], to: ['Admin','User']},
+    // //              { grant: ['READ'], to: ['API_user']}])
+    // as projection on smartdoc.PurItems;
+
+    entity TaskLists
     // @(restrict: [ { grant: ['*'], to: ['Admin','User']},
     //              { grant: ['READ'], to: ['API_user']}])
-    as projection on smartdoc.PurItems;
-
+    as projection on smartdoc.TaskLists;
+ 
 
 //////////////////////////////////////////////////////////////////
 // smartDOC Services

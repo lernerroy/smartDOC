@@ -1,7 +1,8 @@
 namespace com.legstate.smartdoc;
 
 //using { SAP_CF_BusinessRules_Repository } from '../srv/external/SAP_CF_BusinessRules_Repository';
-
+using {temporal} 
+    from '@sap/cds/common';
 using {managed} 
     from '@sap/cds/common';
 using cuid 
@@ -191,42 +192,87 @@ type AdditionalIndicator : String
     enum { routine; additional; };
 
 
-entity PurHeader : managed {
+// entity PurHeader : managed {
+//     key ID                   : UUID @(Core.Computed : true);
+//         extenalID            : Integer;
+//         objectType           : ObjectType;
+//         documentDate         : Date;
+//         description          : String;
+//         airport              : Association to one TR_Airports;
+//         origin               : Association to one TR_Airports;
+//         destination          : Association to one TR_Airports;
+//         status               : Status;
+//         validityFrom         : Date;
+//         validityTo           : Date;
+//         carrier              : Association to one TR_Carriers;
+//         purchaseOrganization : Association to one PurchaseOrganizations;
+//         documentType         : DocumentType;
+//         vendor               : Association to one BusinessPartners;
+//         //paymentTerms
+//         aribaIndicator       : String;
+//         items  : Association[1,*] to PurItems 
+//             on items.purHeader = $self;
+// };
+
+// entity PurItems : managed {
+//     key purHeader            : Association to PurHeader;
+//     key ID                   : String(5);
+//         description          : String;          
+//         serviceNumber        : Association to one ServiceData;
+//         status               : Status;
+//         validityFrom         : Date;
+//         validityTo           : Date;
+//         validityFromTime     : Time;
+//         validityToTime       : Time;
+//         lineOfBusiness       : LOB;
+//         vendor               : Association to one BusinessPartners;
+//         jobIndicator         : Boolean;
+//         domesticIntl         : DomesticIntl;
+//         carrier              : Association to one TR_Carriers;
+//         quantity             : Decimal(8,2);
+//         additionalIndicator  : AdditionalIndicator;
+//         price                : Decimal(11,2);
+//         currency             : Association to one TR_Currencies;
+//         brf_id               : String; //Association to one BRF_Pricing;
+// };
+
+
+entity PurDocs : managed, temporal {
     key ID                   : UUID @(Core.Computed : true);
         extenalID            : Integer;
         objectType           : ObjectType;
         documentDate         : Date;
         description          : String;
         airport              : Association to one TR_Airports;
-        origin               : Association to one TR_Airports;
-        destination          : Association to one TR_Airports;
+      //  origin               : Association to one TR_Airports;
+     //   destination          : Association to one TR_Airports;
         status               : Status;
-        validityFrom         : Date;
-        validityTo           : Date;
+        //validityFrom         : Date;
+        //validityTo           : Date;
         carrier              : Association to one TR_Carriers;
         purchaseOrganization : Association to one PurchaseOrganizations;
         documentType         : DocumentType;
         vendor               : Association to one BusinessPartners;
         //paymentTerms
         aribaIndicator       : String;
-        items  : Association[1,*] to PurItems on items.purHeader = $self;
+        items  : Composition of many PurItems;
 };
 
-entity PurItems : managed {
-    key purHeader            : Association to PurHeader;
+aspect PurItems : managed, temporal {
+    //key purHeader            : Association to PurHeader;
     key ID                   : String(5);
         description          : String;          
         serviceNumber        : Association to one ServiceData;
         status               : Status;
-        validityFrom         : Date;
-        validityTo           : Date;
-        validityFromTime     : Time;
-        validityToTime       : Time;
+        //validityFrom         : Date;
+        //validityTo           : Date;
+        validFromTime        : Time;
+        validToTime          : Time;
         lineOfBusiness       : LOB;
-        vendor               : Association to one BusinessPartners;
+      //  vendor               : Association to one BusinessPartners;
         jobIndicator         : Boolean;
-        domesticIntl         : DomesticIntl;
-        carrier              : Association to one TR_Carriers;
+     //   domesticIntl         : DomesticIntl;
+      //  carrier              : Association to one TR_Carriers;
         quantity             : Decimal(8,2);
         additionalIndicator  : AdditionalIndicator;
         price                : Decimal(11,2);
@@ -236,7 +282,8 @@ entity PurItems : managed {
 
 
 
-entity TLHeader : managed {
+
+entity TaskLists : managed, temporal  {
     key ID                   : UUID @(Core.Computed : true);
         extenalID            : Integer;
         objectType           : ObjectType;
@@ -245,26 +292,43 @@ entity TLHeader : managed {
         origin               : Association to one TR_Airports;
         destination          : Association to one TR_Airports;
         status               : Status;
-        validityFrom         : Date;
-        validityTo           : Date;
+        //validityFrom         : Date;
+        //validityTo           : Date;
         documentType         : DocumentType;
-        items                : Association[1,*] to PurItems 
-            on items.purHeader = $self;
+        //items                : Association[1,*] to TLItems on items.tlHeader = $self;
+        //items : Composition of many TLItems on items.tlHeader = $self;
+        items : Composition of many TaskListItems;
+/*
+        items : Composition of many {
+            key item_ID          : String(5);
+            item_desc            : String;
+            purHeader            : Association to one PurHeader;
+            purItem              : Association to one PurItems;// on purItem.ID = $self.ID and purItem.purHeader = $self.purHeader;
+            item_status          : Status;
+            //validityFrom         : Date;
+            //validityTo           : Date;
+            validFromTime        : Time;
+            validToTime          : Time;
+            lineOfBusiness       : LOB;
+            jobIndicator         : Boolean;
+            domesticIntl         : DomesticIntl;
+        }
+        */
 };
 
-entity TLItems : managed {
-    key TLHeader             : Association to PurHeader;
+
+aspect TaskListItems : managed, temporal {
+   // key tlHeader             : Association to TaskLists;
     key ID                   : String(5);
-        description          : String;          
-        purHeader            : Association to one PurHeader;
-        purItem              : Association to one PurItems 
-            on purItem.ID = $self.purItem and purHeader.ID = $self.purHeader;
-        serviceNumber        : Association to one ServiceData;
+        description          : String;
+        
+        
+        purItem              : Association to one PurDocs.items;// on purItem.ID = $self.ID and purItem.purHeader = $self.purHeader;
         status               : Status;
-        validityFrom         : Date;
-        validityTo           : Date;
-        validityFromTime     : Time;
-        validityToTime       : Time;
+        //validityFrom         : Date;
+        //validityTo           : Date;
+        validFromTime        : Time;
+        validToTime          : Time;
         lineOfBusiness       : LOB;
         jobIndicator         : Boolean;
         domesticIntl         : DomesticIntl;
