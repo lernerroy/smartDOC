@@ -1,0 +1,62 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:core="sap.ui.core" controllerName="airportprofile.controller.Charges">
+    <Table inset="false" items="{taskDetailsDataModel>/items}">
+        <columns>
+            <Column>
+                <Text text="Tail Number" />
+            </Column>
+            <Column width="12em">
+                <Text text="Status" />
+            </Column>
+            <Column>
+                <Text text="Domestic/Intenational" />
+            </Column>
+            <Column>
+                <Text text="Services" />
+            </Column>
+
+        </columns>
+        <items>
+            <ColumnListItem vAlign="Middle">
+                <cells>
+                    <Text text="{taskDetailsDataModel>ID}" />
+                    <ObjectStatus text="{path: 'taskDetailsDataModel>status', formatter: '.formatter.capitalizeText'}" state="{path: 'taskDetailsDataModel>status', formatter: '.formatter.vendorContratStatusState'}" />
+                    <Text text="{
+                        path: 'taskDetailsDataModel>domesticIntl',
+                        formatter: '.formatter.capitalizeText'
+                    }" />
+
+                    <Button text="Manage Services" press="onServicesButtonPressed" />
+
+                    <!-- 
+                    <Text text="{detailsModel>ID}" />
+                    <Text text="{detailsModel>ID}" />
+                    <Text text="{detailsModel>ID}" />
+                    <Text text="{detailsModel>ID}" />
+                    <Text text="{detailsModel>ID}" />
+                    <Text text="{detailsModel>ID}" />
+                    <Text text="{detailsModel>ID}" />
+                    <Text text="{detailsModel>ID}" />
+                    <Text text="{detailsModel>ID}" />
+                    <Text text="{detailsModel>ID}" />
+                    <Text text="{detailsModel>ID}" />
+                    <Text text="{detailsModel>ID}" />
+                    <Text text="{detailsModel>ID}" />
+                    <Text text="{detailsModel>ID}" /> -->
+                    <!-- <ObjectStatus text="{path: 'detailsModel>status', formatter: '.formatter.capitalizeText'}" state="{path: 'detailsModel>status', formatter: '.formatter.vendorContratStatusState'}" />
+                    <Text text="{detailsModel>description}" />
+
+                    <Text text="{ path: 'detailsModel>validFrom',
+                                    formatter: '.formatter.convertDate' }" />
+                    <Text text="{ path: 'detailsModel>validTo',
+                                    formatter: '.formatter.convertDate' }" />
+                    <Text text="{detailsModel>quantity}" />
+                    <ObjectNumber number="{detailsModel>price}" unit="{detailsModel>currency_ID}" /> -->
+
+
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+</core:FragmentDefinition>

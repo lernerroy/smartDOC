@@ -123,6 +123,8 @@ http://localhost:4004/draft/PurDocs(ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsAc
 ###
 http://localhost:4004/draft/PurDocs(ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true)?$select=ID&$expand=vendor
 ###
+http://localhost:4004/draft/PurDocs?$select=ID&$expand=items($select=ID,brf_id)
+###
 http://localhost:4004/draft/PurDocs(ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true)?$select=ID&$expand=items
 ###
 http://localhost:4004/draft/PurDocs(ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true)?$select=ID&$expand=items($select=ID,brf_id)
@@ -140,36 +142,36 @@ http://localhost:4004/draft/PurDocs(ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsAc
 
 
 ###
-http://localhost:4004/draft/PurDocs_items
+http://localhost:4004/draft/PurItems
 ###
-http://localhost:4004/draft/PurDocs_items(up__ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00020')
+http://localhost:4004/draft/PurItems(up__ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00020')
 ###
-http://localhost:4004/draft/PurDocs_items(up__ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00010')
+http://localhost:4004/draft/PurItems(up__ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00010')
 ###
-http://localhost:4004/draft/PurDocs_items(up__ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00010')/status
+http://localhost:4004/draft/PurItems(up__ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00010')/status
 ###
-http://localhost:4004/draft/PurDocs_items(up__ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00010')/serviceNumber_ID
+http://localhost:4004/draft/PurItems(up__ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00010')/serviceNumber_ID
 ###
-http://localhost:4004/draft/PurDocs_items(up__ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00020')/currency_ID
+http://localhost:4004/draft/PurItems(up__ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00020')/currency_ID
 
 
 
 ###
-http://localhost:4004/draft/PurDocs_items(up__ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00010')/serviceNumber
+http://localhost:4004/draft/PurItems(up__ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00010')/serviceNumber
 ###
-http://localhost:4004/draft/PurDocs_items(up__ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,ID='00010',IsActiveEntity=true)/currency
+http://localhost:4004/draft/PurItems(up__ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,ID='00010',IsActiveEntity=true)/currency
 ###
-http://localhost:4004/draft/PurDocs_items(up__ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00020')/brf_id
+http://localhost:4004/draft/PurItems(up__ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00020')/brf_id
 ###
-http://localhost:4004/draft/PurDocs_items(up__ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00010')/brf_id
+http://localhost:4004/draft/PurItems(up__ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00010')/brf_id
 
 
 ###
-http://localhost:4004/draft/PurDocs_items(up__ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00010')?$select=ID&$expand=serviceNumber($select=ID)
+http://localhost:4004/draft/PurItems(up__ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00010')?$select=ID&$expand=serviceNumber($select=ID)
 ###
-http://localhost:4004/draft/PurDocs_items(up__ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00010')?$select=ID&$expand=currency($select=ID)
+http://localhost:4004/draft/PurItems(up__ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00010')?$select=ID&$expand=currency($select=ID)
 ###
-http://localhost:4004/draft/PurDocs_items(up__ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00010')?$select=ID&$expand=currency($select=ID),serviceNumber($select=ID)
+http://localhost:4004/draft/PurItems(up__ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true,ID='00010')?$select=ID&$expand=currency($select=ID),serviceNumber($select=ID)
 
 
 
@@ -204,7 +206,8 @@ http://localhost:4004/draft/TaskLists(ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,Is
 http://localhost:4004/draft/TaskLists(ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true)/items(ID='00020',IsActiveEntity=true)/purItem_ID
 ###
 http://localhost:4004/draft/TaskLists(ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true)/items(ID='00020',IsActiveEntity=true)/purItem_up__ID
-
+###
+http://localhost:4004/draft/TaskLists(ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true)/items(ID='00020',IsActiveEntity=true)/purItem
 
 
 
@@ -233,21 +236,41 @@ http://localhost:4004/draft/TaskLists(ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,Is
 
 
 ###
-http://localhost:4004/draft/TaskLists_items
+http://localhost:4004/draft/TaskListItems
 ###
-http://localhost:4004/draft/TaskLists_items(up__ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true,ID='00010')
+http://localhost:4004/draft/TaskListItems(up__ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true,ID='00010')
 ###
-http://localhost:4004/draft/TaskLists_items(up__ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true,ID='00010')/purItem
+http://localhost:4004/draft/TaskListItems(up__ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true,ID='00010')/lineOfBusiness
 ###
-http://localhost:4004/draft/TaskLists_items(up__ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true,ID='00010')/lineOfBusiness
+http://localhost:4004/draft/TaskListItems(up__ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true,ID='00010')/status
 ###
-http://localhost:4004/draft/TaskLists_items(up__ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true,ID='00010')/status
+http://localhost:4004/draft/TaskListItems(up__ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true,ID='00010')/up_
 ###
-http://localhost:4004/draft/TaskLists_items(up__ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true,ID='00010')/up_
+http://localhost:4004/draft/TaskListItems(up__ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true,ID='00010')/purItem
+
+
+###
+http://localhost:4004/draft/TaskListItems(up__ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true,ID='00010')?$select=ID&$expand=up_
+###
+http://localhost:4004/draft/TaskListItems(up__ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true,ID='00010')?$select=ID&$expand=purItem($select=ID,description,serviceNumber)
 
 
 
+
 ###
-http://localhost:4004/draft/TaskLists_items(up__ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true,ID='00010')?$select=ID&$expand=up_
+curl -X POST http://localhost:4004/draft/PurDocs -H "Content-Type: application/json;IEEE754Compatible=true" -d '{"validFrom":"2021-12-01T00:00:00.000Z","validTo":"2023-12-01T00:00:00.000Z","objectType":"contract","documentDate":"2021-12-01","description":"Mai Contract","airport_ID":"FRA","status":"active","carrier_ID":"AV","purchaseOrganization_ID":"1000","documentType":"airport","vendor_ID":"0000001000","aribaIndicator":null}'
+
 ###
-http://localhost:4004/draft/TaskLists_items(up__ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true,ID='00010')?$select=ID&$expand=purItem($select=ID,description,serviceNumber)
+curl -X PATCH http://localhost:4004/draft/PurDocs(ID=903ebb15-1c8d-4a61-8605-b257784915f8,IsActiveEntity=false) -H "Content-Type: application/json;IEEE754Compatible=true" -d '{"validFrom":"2021-12-01T00:00:00.000Z","validTo":"2023-12-03T00:00:00.000Z","objectType":"contract","documentDate":"2021-12-01","description":"Mai Contract","airport_ID":"FRA","status":"active","carrier_ID":"AV","purchaseOrganization_ID":"1000","documentType":"airport","vendor_ID":"0000001000","aribaIndicator":null}'
+
+###
+http://localhost:4004/draft/PurDocs(ID=903ebb15-1c8d-4a61-8605-b257784915f8,IsActiveEntity=false)
+
+###
+curl -X POST http://localhost:4004/draft/PurDocs(ID=422e2701-6568-43a1-95da-e70cb2a4738a,IsActiveEntity=false)/smartDOCDraft.draftActivate -H "Content-Type: application/json;IEEE754Compatible=true"
+
+###
+http://localhost:4004/draft/PurDocs(ID=34296f81-0e08-43c3-8f3c-6bbeeb8d3e41,IsActiveEntity=true)
+
+###
+http://localhost:4004/draft/PurDocs(ID=34296f81-0e08-43c3-8f3c-6bbeeb8d3e41,IsActiveEntity=true)

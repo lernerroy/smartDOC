@@ -14,6 +14,8 @@
 
         <semantic:content>
 
+        <Text text="Tasks list" />
+
             <List id="airportList" items="{
             path: '/Airports',
             parameters: {
@@ -28,7 +30,7 @@
                                 <Label text="{airport_ID}" class="sapUiTinyMarginBottom" />
                                 <HBox class="sapUiMediumMarginBottom" alignContent="Center" alignItems="Center">
                                     <core:Icon size="2rem" src="sap-icon://flight" class="sapUiSmallMarginEnd" color="Marker" />
-                                    <Link text="{airport/name}" emphasized="false" class="airport_link" />
+                                    <Link text="{airport/name}" emphasized="false" class="airport_link" press="airportNamePressed" />
                                 </HBox>
 
                                 <Label text="Latituddinal: +0.91600700000" class="sapUiTinyMarginBottom"/>
@@ -41,7 +43,7 @@
                                 <VBox justifyContent="End" height="100%">
                                     <Label text="Country Code: DE" class="sapUiTinyMarginBottom"/>
 
-                                    <Link text="{i18n>plantCode} {plant_ID}" emphasized="false" class="sapUiTinyMarginBottom"/>
+                                    <Link text="{i18n>plantCode} {plant_ID}" emphasized="false" press="onPlantPressed" class="sapUiTinyMarginBottom"/>
                                 </VBox>
                             </VBox>
                         </HBox>

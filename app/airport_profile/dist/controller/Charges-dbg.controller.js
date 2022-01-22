@@ -4,18 +4,18 @@ sap.ui.define(
     "sap/f/LayoutType",
     "sap/ui/model/json/JSONModel",
     "../utils/formatters",
-    "airportprofile/libs/lodash",
   ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
-  function (BaseController, LayoutType, JSONModel, formatters, lodash) {
+  function (BaseController, LayoutType, JSONModel, formatters) {
     "use strict";
 
     return BaseController.extend("airportprofile.controller.Charges", {
       formatter: formatters,
 
       onInit: function () {
+
         var viewModel = new JSONModel({
           title: "",
         });
@@ -108,6 +108,8 @@ sap.ui.define(
 
           // get the item from the model 
           var oItem = this.getModel("detailsModel").getProperty(sPath);
+
+          debugger;
       }
     });
   }

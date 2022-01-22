@@ -1,0 +1,44 @@
+<mvc:View controllerName="airportprofile.controller.TaskDetails"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:core="sap.ui.core"
+    xmlns:semantic="sap.f.semantic"
+    xmlns:f="sap.ui.layout.form"
+    xmlns="sap.m">
+    <semantic:SemanticPage id="masterPage" preserveHeaderStateOnScroll="true" toggleHeaderOnTitleClick="false">
+        <semantic:titleHeading>
+            <Title text="{taskDetailsViewModel>/title}" level="H2"/>
+        </semantic:titleHeading>
+        <semantic:titleBreadcrumbs>
+            <Breadcrumbs currentLocationText="{appView>/currentAirportId}" separatorStyle="GreaterThan">
+            </Breadcrumbs>
+        </semantic:titleBreadcrumbs>
+        <semantic:content>
+            <VBox>
+
+
+                <IconTabBar expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding sapUiTinyMarginTop" selectedKey="{taskDetailsViewModel>/selectedTabKey}" select="onLobTabSelected">
+                    <items>
+                        <IconTabFilter text="Airport Charges" icon="sap-icon://travel-expense" key="airportCharges">
+
+                            <core:Fragment fragmentName="airportprofile.fragments.taskLobs" type="XML" />
+
+                        </IconTabFilter>
+                        <IconTabFilter text="Cargo Charges" key="cargoCharges" icon="sap-icon://sap-box">
+                            <core:Fragment fragmentName="airportprofile.fragments.taskLobs" type="XML" />
+                        </IconTabFilter>
+                        <!-- <IconTabFilter text="Engineering" key="engs" icon="sap-icon://wrench">
+                            <core:Fragment fragmentName="airportprofile.fragments.lobs" type="XML" />
+                        </IconTabFilter>
+
+                        <IconTabFilter text="Catering" key="caterings" icon="sap-icon://meal">
+                            <core:Fragment fragmentName="airportprofile.fragments.lobs" type="XML" />
+                        </IconTabFilter> -->
+                    </items>
+                </IconTabBar>
+            </VBox>
+
+        </semantic:content>
+    </semantic:SemanticPage>
+
+
+</mvc:View>

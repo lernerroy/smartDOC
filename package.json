@@ -306,7 +306,11 @@
             "path": "/sap/opu/odata/sap/ZGW_LS_FO_TAXCODE_SRV"
           }
         }
-      }      
+      },
+      "TAX_CODE": {
+        "kind": "odata-v2",
+        "model": "srv/external/TAX_CODE"
+      }
     }
   },
   "sapux": [

@@ -43,7 +43,7 @@
                     <Text text="{detailsModel>quantity}" />
                     <ObjectNumber number="{detailsModel>price}" unit="{detailsModel>currency_ID}" />
 
-                    <Button text="BRF" press="onBrfButtonPressed" visible="{= ${detailsModel>brf_id} ? true : false }"/>
+                    <Button text="Formula" press="onBrfButtonPressed" visible="{= ${detailsModel>brf_id} ? true : false }"/>
                 </cells>
             </ColumnListItem>
         </items>

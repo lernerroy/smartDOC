@@ -15,6 +15,8 @@ sap.ui.define(
         oViewModel = new JSONModel({
           busy: false,
           mainTabsVisible: false,
+          currentSelectedTabKey: "vendor",
+          currentAirportId: null,
           delay: 0,
           layout: LayoutType.MidColumnFullScreen,
           previousLayout: "",
@@ -29,6 +31,22 @@ sap.ui.define(
           oViewModel.setProperty("/busy", false);
           oViewModel.setProperty("/delay", iOriginalBusyDelay);
         };
+      },
+      onMainTabSelected() {
+        var appModel = this.getModel("appView");
+
+        var type = appModel.getProperty("/currentSelectedTabKey");
+        var airportId = appModel.getProperty("/currentAirportId");
+
+        if (type === "vendor") {
+          this.getRouter().navTo("Vendors", { id: airportId }, false);
+        } else {
+          this.getRouter().navTo(
+            "TasksList",
+            { id: airportId, type: type },
+            false
+          );
+        }
       },
     });
   }

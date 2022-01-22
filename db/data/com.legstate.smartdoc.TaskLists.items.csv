@@ -1,6 +1,11 @@
-up__ID;ID;description;purItem_up__ID;purItem_ID;status;validFrom;validTo;validFromTime;validToTime;lineOfBusiness;jobIndicator;domesticIntl
-17ca879d-1f2f-4bc6-9066-a42f6536dafa;00010;First profile - Operation First Line;08cda5d5-e570-476b-8a23-4f5a59a25c03;00010;active;2021-12-17;2023-12-01;;;airport;;international
-17ca879d-1f2f-4bc6-9066-a42f6536dafa;00020;First profile - Operation First Line;08cda5d5-e570-476b-8a23-4f5a59a25c03;00010;active;2021-12-17;2023-12-01;;;airport;true;international
-17ca879d-1f2f-4bc6-9066-a42f6536dafa;00030;First profile - Operation First Line;08cda5d5-e570-476b-8a23-4f5a59a25c03;00010;active;2021-12-17;2023-12-01;;;airport;true;domestic
-17ca879d-1f2f-4bc6-9066-a42f6536dafa;00040;First profile - Operation Second Line;08cda5d5-e570-476b-8a23-4f5a59a25c03;00010;active;2021-12-17;2023-12-01;;;airport;;international
-4e7723ca-ed9e-4b7f-b6ca-0b038848e712;00010;Second profile- First Line;08cda5d5-e570-476b-8a23-4f5a59a25c03;00010;active;2021-12-17;2023-12-01;;;airport;;international
+up__ID;ID;description;purItem_up__ID;purItem_ID;status;validFrom;validTo;lineOfBusiness;jobIndicator;domesticIntl
+17ca879d-1f2f-4bc6-9066-a42f6536dafa;00010;First profile - Operation First Line;08cda5d5-e570-476b-8a23-4f5a59a25c03;00010;active;2021-12-17;2023-12-01;airport;;international
+17ca879d-1f2f-4bc6-9066-a42f6536dafa;00020;First profile - Operation First Line;08cda5d5-e570-476b-8a23-4f5a59a25c03;00010;active;2021-12-17;2023-12-01;airport;true;international
+17ca879d-1f2f-4bc6-9066-a42f6536dafa;00030;First profile - Operation First Line;08cda5d5-e570-476b-8a23-4f5a59a25c03;00010;active;2021-12-17;2023-12-01;airport;true;domestic
+17ca879d-1f2f-4bc6-9066-a42f6536dafa;00040;First profile - Operation Second Line;08cda5d5-e570-476b-8a23-4f5a59a25c03;00010;active;2021-12-17;2023-12-01;airport;;international
+4e7723ca-ed9e-4b7f-b6ca-0b038848e712;00010;Second profile- First Line;08cda5d5-e570-476b-8a23-4f5a59a25c03;00010;active;2021-12-17;2023-12-01;airport;;international
+1a576d02-5702-4d19-92cd-90ade0d94294;00010;Third profile - Operation First Line;08cda5d5-e570-476b-8a23-4f5a59a25c03;00010;active;2021-12-17;2023-12-01;airport;;international
+1a576d02-5702-4d19-92cd-90ade0d94294;00020;Third profile - Operation First Line;08cda5d5-e570-476b-8a23-4f5a59a25c03;00010;active;2021-12-17;2023-12-01;airport;true;international
+1a576d02-5702-4d19-92cd-90ade0d94294;00030;Third profile - Operation First Line;08cda5d5-e570-476b-8a23-4f5a59a25c03;00010;active;2021-12-17;2023-12-01;airport;true;domestic
+c0706964-b830-491c-993f-a39f60d22d8d;00040;Fourth profile - Operation Second Line;08cda5d5-e570-476b-8a23-4f5a59a25c03;00010;active;2021-12-17;2023-12-01;airport;;international
+c0706964-b830-491c-993f-a39f60d22d8d;00010;Fourth profile- First Line;08cda5d5-e570-476b-8a23-4f5a59a25c03;00010;active;2021-12-17;2023-12-01;airport;;international

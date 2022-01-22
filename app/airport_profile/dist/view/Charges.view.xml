@@ -4,7 +4,7 @@
     xmlns:semantic="sap.f.semantic"
     xmlns:f="sap.ui.layout.form"
     xmlns="sap.m">
-    <semantic:SemanticPage id="masterPage" preserveHeaderStateOnScroll="true" toggleHeaderOnTitleClick="false">
+    <semantic:SemanticPage preserveHeaderStateOnScroll="true" toggleHeaderOnTitleClick="false">
         <semantic:titleHeading>
             <Title text="{detailsViewModel>/title}" level="H2"/>
         </semantic:titleHeading>

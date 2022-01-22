@@ -28,9 +28,13 @@ sap.ui.define(
         });
 
         this.setModel(viewModel, "vendorsView");
-        
+
         this.getRouter()
           .getRoute("Vendors")
+          .attachPatternMatched(this._onObjectMatched, this);
+
+        this.getRouter()
+          .getRoute("Charges")
           .attachPatternMatched(this._onObjectMatched, this);
 
         var vendorsModel = new JSONModel({
@@ -38,36 +42,36 @@ sap.ui.define(
         });
 
         this.setModel(vendorsModel, "vendorContracts");
-
-        this.getEventBus().subscribe(
-          "route",
-          "charges",
-          this._onItemChanged,
-          this
-        );
       },
 
-      _onItemChanged: function (channel, eventId, data) {        
-        if (!this.dataLoaded) {
-          if (!this.getModel("vendorsView").getProperty("/airportId")) {
-            this.getModel("vendorsView").setProperty("/airportId", data.id);
+      _onObjectMatched: function (oEvent) {
+        var routeName = oEvent.getParameter("name");
+        var oRouteParams = oEvent.getParameter("arguments");
+        var airportId = oEvent.getParameter("arguments").id;
+
+        this.getModel("appView").setProperty("/currentAirportId", airportId);
+
+        if (routeName === "Vendors") {
+          this.getModel("appView").setProperty("/layout", LayoutType.OneColumn);
+          this.getModel("appView").setProperty("/mainTabsVisible", true);
+
+          this.getModel("vendorsView").setProperty(
+            "/airportId",
+            oRouteParams.id
+          );
+
+          this.loadData(oRouteParams.id);
+        } else if (routeName === "Charges") {
+          if (!this.dataLoaded) {
+            this.loadData(oRouteParams.id, oRouteParams.vid);
+          } else {
+            this._setSelectedListItem(oRouteParams.vid);
           }
-          this.loadData(data.id, data.vid);
-        } else {
-            this._setSelectedListItem(data.vid);
         }
       },
 
       navToAirports: function () {
         this.getRouter().navTo("Airports", {}, true);
-      },
-
-      _onObjectMatched: function (oEvent) {
-        this.getModel("appView").setProperty("/layout", LayoutType.OneColumn);        
-        this.getModel("appView").setProperty("/mainTabsVisible", true);
-        var airportId = oEvent.getParameter("arguments").id;
-        this.getModel("vendorsView").setProperty("/airportId", airportId);
-        this.loadData(airportId);
       },
       onNavBack: function () {
         var sPreviousHash = History.getInstance().getPreviousHash();

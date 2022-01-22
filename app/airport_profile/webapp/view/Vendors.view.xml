@@ -16,7 +16,7 @@
             <VBox items="{vendorContracts>/vendorContracts}">
                 <Panel headerText="{vendorContracts>vendor_ID}" width="auto" class="sapUiResponsiveMargin" expandable="true" backgroundDesign="Transparent" expanded="true">
                     <content>
-                        <List id="airportList" items="{vendorContracts>contracts}" itemPress="onContractItemClicked">
+                        <List items="{vendorContracts>contracts}" itemPress="onContractItemClicked">
                             <CustomListItem type="Navigation" highlight="{= ${vendorContracts>selected} ? 'Information' : 'None'}">
                                 <VBox width="100%">
                                     <HBox class="sapUiContentPadding" width="100%">

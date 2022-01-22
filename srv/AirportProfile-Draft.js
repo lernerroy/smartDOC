@@ -2,43 +2,74 @@ const cds = require("@sap/cds");
 
 const SequenceHelper = require("./lib/SequenceHelper.js");
 
-module.exports = cds.service.impl(async (service) => {
-  const db = await cds.connect.to("db");
-  const { PurDoc } = service.entities;
+// module.exports = cds.service.impl(async (service) => {
+//   const db = await cds.connect.to("db");
+//   const { PurDoc } = service.entities;
 
-  service.before("CREATE", PurDoc, async (context) => {
-    const PurDocId = new SequenceHelper({
-      db: db,
-      sequence: "CONTRACT_ID",
-      table: "PurDocs",
-      field: "extenalID",
-    });
+//   service.before("CREATE", PurDoc, async (context) => {
+//     const PurDocId = new SequenceHelper({
+//       db: db,
+//       sequence: "CONTRACT_ID",
+//       table: "PurDocs",
+//       field: "extenalID",
+//     });
 
-    context.data.ID = await PurDocId.getNextNumber();
-  });
-});
+//     context.data.ID = await PurDocId.getNextNumber();
+//   });
+// });
 
-module.exports = cds.service.impl(async (service) => {
-  const db = await cds.connect.to("db");
-  const { TaskLists } = service.entities;
+// module.exports = cds.service.impl(async (service) => {
+//   const db = await cds.connect.to("db");
+//   const { TaskLists } = service.entities;
 
-  service.before("CREATE", TaskLists, async (context) => {
-    const TaskListsId = new SequenceHelper({
-      db: db,
-      sequence: "TL_ID",
-      table: "TaskLists",
-      field: "extenalID",
-    });
+//   service.before("CREATE", TaskLists, async (context) => {
+//     const TaskListsId = new SequenceHelper({
+//       db: db,
+//       sequence: "TL_ID",
+//       table: "TaskLists",
+//       field: "extenalID",
+//     });
 
-    context.data.ID = await TaskListsId.getNextNumber();
-  });
-});
+//     context.data.ID = await TaskListsId.getNextNumber();
+//   });
+// });
 
 /**
  * Implementation for Airport Profile service in ./AirportProfile-Draft.cds
  */
 
 module.exports = cds.service.impl(async function () {
+
+
+    this.after("CREATE", "PurDocs", async (req, next) => {
+        const db = await cds.connect.to("db");
+
+        const TaskListsId = new SequenceHelper({
+            db: db,
+            sequence: "CONTRACT_ID",
+            table: "PurDocs",
+            field: "extenalID",
+          });
+
+          req.extenalID = await TaskListsId.getNextNumber();
+          
+          return req;
+    });
+    
+
+    this.after("CREATE", "TaskLists", async (req, next) => {
+        const db = await cds.connect.to("db");
+
+        const TaskListsId = new SequenceHelper({
+            db: db,
+            sequence: "TL_ID",
+            table: "TaskLists",
+            field: "extenalID",
+          });
+      
+          req.extenalID = await TaskListsId.getNextNumber();
+    });
+
   ////////////////////////////////////////////////////////////
   // TR_Airports
   ////////////////////////////////////////////////////////////
@@ -1541,46 +1572,107 @@ module.exports = cds.service.impl(async function () {
   // BRF Data
   ////////////////////////////////////////////////////////////
 
-  //   // PurItems('...')/brf_id
-  //   this.on("READ", "brf_id", async (req, next) => {
-  //     const select = req.query.SELECT;
+    // // PurItems('...')/brf_id
+    // this.on("READ", "brf_id", async (req, next) => {
+    //   const select = req.query.SELECT;
 
-  //     const BRF = await cds.connect.to("SAP_CF_BusinessRules_Repository");
-  //     const response = await BRF.get("/v1/projects?Name=AP_AV&$top=100");
+    //   const BRF = await cds.connect.to("SAP_CF_BusinessRules_Repository");
+    //   const response = await BRF.get("/v1/projects?Name=AP_AV&$top=100");
 
-  //     const response1 = await BRF.get(
-  //       "/v1/projects/" +
-  //         response[0].Id +
-  //         "/ruleservices?Name=rserv_ac_fra_landing&$top=100"
-  //     );
+    //   const response1 = await BRF.get(
+    //     "/v1/projects/" +
+    //       response[0].Id +
+    //       "/ruleservices?Name=rserv_ac_fra_landing&$top=100"
+    //   );
 
-  //     if (
-  //       select.from.ref.length === 2 &&
-  //       select.from.ref[0].id === "smartDOCDraft.PurItems" &&
-  //       (select.from.ref[1] == "brf_id" || select.from.ref[1].id === "brf_id")
-  //     ) {
-  //       // Get object ID from sDOC
-  //       const { serviceNumber_ID } = await this.run(
-  //         SELECT.one("serviceNumber_ID")
-  //           .from("PurItems")
-  //           .where(select.from.ref[0].where)
-  //       );
+    //   if (
+    //     select.from.ref.length === 2 &&
+    //     select.from.ref[0].id === "smartDOCDraft.PurItems" &&
+    //     (select.from.ref[1] == "brf_id" || select.from.ref[1].id === "brf_id")
+    //   ) {
+    //     // Get object ID from sDOC
+    //     const { serviceNumber_ID } = await this.run(
+    //       SELECT.one("serviceNumber_ID")
+    //         .from("PurItems")
+    //         .where(select.from.ref[0].where)
+    //     );
 
-  //       // Select all sDOC for a object
-  //       const cql = SELECT(select.columns)
-  //         .from("smartDOCDraft.ServiceData")
-  //         .where("ID = ", serviceNumber_ID)
-  //         .limit(select.limit?.rows?.val, select.limit?.offset?.val);
-  //       cql.SELECT.count = !!select.count;
-  //       const vendor = await ServiceDataAPI.run(cql);
+    //     // Select all sDOC for a object
+    //     const cql = SELECT(select.columns)
+    //       .from("smartDOCDraft.ServiceData")
+    //       .where("ID = ", serviceNumber_ID)
+    //       .limit(select.limit?.rows?.val, select.limit?.offset?.val);
+    //     cql.SELECT.count = !!select.count;
+    //     const vendor = await ServiceDataAPI.run(cql);
 
-  //       return vendor;
-  //     } else {
-  //       return next();
-  //     }
-  //   });
+    //     return vendor;
+    //   } else {
+    //     return next();
+    //   }
+    // });
 
-  this.after("READ", "PurDocs.items", async (req) => {
+  // PurDocs?$expand=items
+  this.on("READ", "PurDocs", async (req, next) => {
+
+    // const asArray = (x) => (Array.isArray(x) ? x : [x]);
+
+    // for (const header of req)
+    //     for (const items of header.items)
+        
+    //     const plantIds = asArray(FromEntity_s).map(
+    //            (FromEntity) => FromEntity.ID
+    //          );
+
+     const expandIndex =
+       req.query.SELECT.columns?.findIndex(
+         ({ expand, ref }) => expand && ref[0] === "items"
+       ) ?? -1;
+     if (expandIndex < 0) return next();
+
+    // Remove expand from query
+    req.query.SELECT.columns.splice(expandIndex, 1);
+
+    // Make sure object_ID will be returned
+    if (
+      !req.query.SELECT.columns.find((column) =>
+        column.ref.find((ref) => ref == "ID")
+      )
+    )
+      req.query.SELECT.columns.push({ ref: ["ID"] });
+
+    const FromEntity_s = await next();
+
+    const asArray = (x) => (Array.isArray(x) ? x : [x]);
+
+    // Request all associated objects
+    const plantIds = asArray(FromEntity_s).map(
+      (FromEntity) => FromEntity.ID
+    );
+    const plants  = await this.run(
+      SELECT.from("smartDOCDraft.PurItems").where({ up__ID: plantIds })
+    );
+
+
+    // Convert in a map for easier lookup
+    const plantsMap = [] ;
+    const plantsMap2 = {} ;
+    var count = 0;
+    for (const plant of plants) 
+    {   
+        
+        //plantsMap[plant.up__ID] = plant;
+        plantsMap[count++] = plant;
+        plantsMap2[plant.up__ID] = plantsMap;
+    }
+    // Add objects to result
+    for (const FromEntity of asArray(FromEntity_s)) {
+      FromEntity.items = plantsMap2[FromEntity.ID];
+    }
+
+    return FromEntity_s;
+  });
+
+  this.after("READ", "PurItems", async (req) => {
     if (req == null || req === null) {
       return req;
     }
@@ -1601,7 +1693,7 @@ module.exports = cds.service.impl(async function () {
           // Get object ID from sDOC
           const { brf_id } = await this.run(
             SELECT.one("*")
-              .from("PurDocs.items")
+              .from("PurItems")
               .where(
                 "up__ID = '" +
                   PurDocs_ID +
@@ -1609,7 +1701,7 @@ module.exports = cds.service.impl(async function () {
                   " and " +
                   " ID = '" +
                   PurItem["ID"] +
-                  "'"
+                  "'" + " and IsActiveEntity=true"
               )
           );
 
@@ -1708,7 +1800,7 @@ module.exports = cds.service.impl(async function () {
 
     if (
       select.from.ref.length === 2 &&
-      select.from.ref[0].id === "smartDOCDraft.PurDocs.items" &&
+      select.from.ref[0].id === "smartDOCDraft.PurItems" &&
       //select.from.ref[1].id === "items" &&
       (select.from.ref[1] == "serviceNumber" ||
         select.from.ref[1].id === "serviceNumber")
@@ -1716,7 +1808,7 @@ module.exports = cds.service.impl(async function () {
       // Get object ID from sDOC
       const { serviceNumber_ID } = await this.run(
         SELECT.one("serviceNumber_ID")
-          .from("PurDocs.items")
+          .from("PurItems")
           .where(select.from.ref[0].where)
       );
 
@@ -1735,7 +1827,7 @@ module.exports = cds.service.impl(async function () {
   });
 
   // PurItems?$expand=ServiceData
-  this.on("READ", "PurDocs.items", async (req, next) => {
+  this.on("READ", "PurItems", async (req, next) => {
     const expandIndex =
       req.query.SELECT.columns?.findIndex(
         ({ expand, ref }) => expand && ref[0] === "serviceNumber"
@@ -1792,7 +1884,7 @@ module.exports = cds.service.impl(async function () {
 
     if (
       select.from.ref.length === 2 &&
-      select.from.ref[0].id === "smartDOCDraft.PurDocs.items" 
+      select.from.ref[0].id === "smartDOCDraft.PurItems" 
       //&& select.from.ref[1].id === "items" ]
       &&
       (select.from.ref[1] == "currency" || select.from.ref[1].id === "currency")
@@ -1803,7 +1895,7 @@ module.exports = cds.service.impl(async function () {
 
       const { currency_ID } = await this.run(
         SELECT.one("currency_ID")
-          .from("PurDocs.items")
+          .from("PurItems")
           .where( select.from.ref[0].where )
       );
 
@@ -1822,7 +1914,7 @@ module.exports = cds.service.impl(async function () {
   });
 
   // PurItems?$expand=TR_Currencies
-  this.on("READ", "PurDocs.items", async (req, next) => {
+  this.on("READ", "PurItems", async (req, next) => {
     const expandIndex =
       req.query.SELECT.columns?.findIndex(
         ({ expand, ref }) => expand && ref[0] === "currency"

@@ -125,6 +125,16 @@
           "name": "Charges",
           "pattern": "airport/:id:/vendorcontract/:vid:",
           "target": ["VendorsTarget", "ChargesTarget"]
+        },
+        {
+          "name": "TasksList",
+          "pattern": "airport/:id:/tasksList/:type:",
+          "target": ["AirportsTarget", "TasksListTarget"]
+        },
+        {
+          "name": "TaskDetails",
+          "pattern": "airport/:id:/taskDetails/:type:/:vid:",
+          "target": ["TasksListTarget", "TaskDetailsTarget"]
         }
       ],
       "targets": {
@@ -143,6 +153,22 @@
           "controlAggregation": "beginColumnPages",
           "viewId": "Vendors",
           "viewName": "Vendors"
+        },
+        "TasksListTarget": {
+          "viewType": "XML",
+          "transition": "slide",
+          "viewLevel": 2,
+          "controlAggregation": "beginColumnPages",
+          "viewId": "tasksList",
+          "viewName": "TasksList"
+        },
+        "TaskDetailsTarget": {
+          "viewType": "XML",
+          "transition": "slide",
+          "viewLevel": 3,
+          "controlAggregation": "midColumnPages",
+          "viewId": "taskDetails",
+          "viewName": "TaskDetails"
         },
         "ChargesTarget": {
           "viewType": "XML",

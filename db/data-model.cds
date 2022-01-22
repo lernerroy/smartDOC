@@ -185,56 +185,22 @@ type ObjectType : String
 type DocumentType : String 
     enum { airport; catering; };
 type LOB : String 
-    enum { airport; cargo; engineering; overflight; crew; fuel; catering; };
+    enum { 
+        Airport = 'AC'; 
+        Cargo = 'CG'; 
+        Engineering = 'EG'; 
+        Overflight = 'OV';
+        Navigation = 'NV';
+        Crew = 'CR';
+        fuel = 'FU';
+        Catering = 'CT';
+        Airwaybill = 'AB';
+        };
 type DomesticIntl : String 
     enum { domestic ; international; };
 type AdditionalIndicator : String 
     enum { routine; additional; };
 
-
-// entity PurHeader : managed {
-//     key ID                   : UUID @(Core.Computed : true);
-//         extenalID            : Integer;
-//         objectType           : ObjectType;
-//         documentDate         : Date;
-//         description          : String;
-//         airport              : Association to one TR_Airports;
-//         origin               : Association to one TR_Airports;
-//         destination          : Association to one TR_Airports;
-//         status               : Status;
-//         validityFrom         : Date;
-//         validityTo           : Date;
-//         carrier              : Association to one TR_Carriers;
-//         purchaseOrganization : Association to one PurchaseOrganizations;
-//         documentType         : DocumentType;
-//         vendor               : Association to one BusinessPartners;
-//         //paymentTerms
-//         aribaIndicator       : String;
-//         items  : Association[1,*] to PurItems 
-//             on items.purHeader = $self;
-// };
-
-// entity PurItems : managed {
-//     key purHeader            : Association to PurHeader;
-//     key ID                   : String(5);
-//         description          : String;          
-//         serviceNumber        : Association to one ServiceData;
-//         status               : Status;
-//         validityFrom         : Date;
-//         validityTo           : Date;
-//         validityFromTime     : Time;
-//         validityToTime       : Time;
-//         lineOfBusiness       : LOB;
-//         vendor               : Association to one BusinessPartners;
-//         jobIndicator         : Boolean;
-//         domesticIntl         : DomesticIntl;
-//         carrier              : Association to one TR_Carriers;
-//         quantity             : Decimal(8,2);
-//         additionalIndicator  : AdditionalIndicator;
-//         price                : Decimal(11,2);
-//         currency             : Association to one TR_Currencies;
-//         brf_id               : String; //Association to one BRF_Pricing;
-// };
 
 
 entity PurDocs : managed, temporal {
@@ -243,31 +209,30 @@ entity PurDocs : managed, temporal {
         objectType           : ObjectType;
         documentDate         : Date;
         description          : String;
-        airport              : Association to one TR_Airports;
-      //  origin               : Association to one TR_Airports;
-     //   destination          : Association to one TR_Airports;
+        airport              : Association to one TR_Airports @assert.integrity: false;
         status               : Status;
         //validityFrom         : Date;
         //validityTo           : Date;
-        carrier              : Association to one TR_Carriers;
-        purchaseOrganization : Association to one PurchaseOrganizations;
+        carrier              : Association to one TR_Carriers @assert.integrity: false;
+        purchaseOrganization : Association to one PurchaseOrganizations @assert.integrity: false;
         documentType         : DocumentType;
         vendor               : Association to one BusinessPartners;
         //paymentTerms
         aribaIndicator       : String;
-        items  : Composition of many PurItems;
+        //items : Composition of many PurItems;
+        items : Composition of many PurItems on items.up_ = $self;
 };
 
-aspect PurItems : managed, temporal {
-    //key purHeader            : Association to PurHeader;
+entity PurItems : managed, temporal {
+    key up_                  : Association to PurDocs;
     key ID                   : String(5);
-        description          : String;          
+        description          : String;
         serviceNumber        : Association to one ServiceData;
         status               : Status;
         //validityFrom         : Date;
         //validityTo           : Date;
-        validFromTime        : Time;
-        validToTime          : Time;
+        //validFromTime        : Time;
+        //validToTime          : Time;
         lineOfBusiness       : LOB;
       //  vendor               : Association to one BusinessPartners;
         jobIndicator         : Boolean;
@@ -278,6 +243,8 @@ aspect PurItems : managed, temporal {
         price                : Decimal(11,2);
         currency             : Association to one TR_Currencies;
         brf_id               : String; //Association to one BRF_Pricing;
+        // TaskListItem         : Association to TaskLists.items;
+        taskListItem         : Association to many Pur2TL on taskListItem.purItem = $self;
 };
 
 
@@ -295,41 +262,29 @@ entity TaskLists : managed, temporal  {
         //validityFrom         : Date;
         //validityTo           : Date;
         documentType         : DocumentType;
-        //items                : Association[1,*] to TLItems on items.tlHeader = $self;
-        //items : Composition of many TLItems on items.tlHeader = $self;
-        items : Composition of many TaskListItems;
-/*
-        items : Composition of many {
-            key item_ID          : String(5);
-            item_desc            : String;
-            purHeader            : Association to one PurHeader;
-            purItem              : Association to one PurItems;// on purItem.ID = $self.ID and purItem.purHeader = $self.purHeader;
-            item_status          : Status;
-            //validityFrom         : Date;
-            //validityTo           : Date;
-            validFromTime        : Time;
-            validToTime          : Time;
-            lineOfBusiness       : LOB;
-            jobIndicator         : Boolean;
-            domesticIntl         : DomesticIntl;
-        }
-        */
+ 
+        //items : Composition of many TaskListItems;
+        items : Composition of many TaskListItems on items.up_ = $self;
 };
 
 
-aspect TaskListItems : managed, temporal {
-   // key tlHeader             : Association to TaskLists;
+entity TaskListItems : managed, temporal {
+    key up_                  : Association to TaskLists;
     key ID                   : String(5);
         description          : String;
         
-        
-        purItem              : Association to one PurDocs.items;// on purItem.ID = $self.ID and purItem.purHeader = $self.purHeader;
+        purItem              : Association to many Pur2TL on purItem.taskListItem = $self;
         status               : Status;
         //validityFrom         : Date;
         //validityTo           : Date;
-        validFromTime        : Time;
-        validToTime          : Time;
+        //validFromTime        : Time;
+        //validToTime          : Time;
         lineOfBusiness       : LOB;
         jobIndicator         : Boolean;
         domesticIntl         : DomesticIntl;
 };
+
+entity Pur2TL {
+  key purItem : Association to PurItems;
+  key taskListItem : Association to TaskListItems;
+}
