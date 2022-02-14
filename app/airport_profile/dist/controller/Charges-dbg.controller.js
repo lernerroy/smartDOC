@@ -15,7 +15,6 @@ sap.ui.define(
       formatter: formatters,
 
       onInit: function () {
-
         var viewModel = new JSONModel({
           title: "",
         });
@@ -94,23 +93,39 @@ sap.ui.define(
           },
         });
       },
-      onLobTabSelected: function(oEvent){
-          var oModel = this.getModel("detailsModel");
-          var oHeader = oModel.getProperty("/header");
-          var sSelectedKey = oEvent.getParameter("selectedKey");
+      onLobTabSelected: function (oEvent) {
+        var oModel = this.getModel("detailsModel");
+        var oHeader = oModel.getProperty("/header");
+        var sSelectedKey = oEvent.getParameter("selectedKey");
 
-          oModel.setProperty("/header/items", oHeader[sSelectedKey]);
-
+        oModel.setProperty("/header/items", oHeader[sSelectedKey]);
       },
-      onBrfButtonPressed: function(oEvent){
-          var oListItem = oEvent.getSource().getParent();
-          var sPath = oListItem.getBindingContextPath();
+      onBrfButtonPressed: function (oEvent) {
+        var oListItem = oEvent.getSource().getParent();
+        var sPath = oListItem.getBindingContextPath();
 
-          // get the item from the model 
-          var oItem = this.getModel("detailsModel").getProperty(sPath);
+        // get the item from the model
+        var oItem = this.getModel("detailsModel").getProperty(sPath);
 
-          debugger;
-      }
+        const RESOURCES = {
+          MD_APP_BASE_URL: "BusinessRules-ManageDecision&/RuleServices",
+          REVISIONS: "Revisions",
+        };
+
+        var sShellHashURL = RESOURCES.MD_APP_BASE_URL + "/" + oItem.brf_id;
+
+        var xnaservice =
+          sap.ushell &&
+          sap.ushell.Container &&
+          sap.ushell.Container.getService &&
+          sap.ushell.Container.getService("CrossApplicationNavigation");
+
+        xnaservice.toExternal({
+          target: {
+            shellHash: sShellHashURL,
+          },
+        });
+      },
     });
   }
 );

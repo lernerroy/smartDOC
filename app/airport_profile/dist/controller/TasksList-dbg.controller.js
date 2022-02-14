@@ -27,15 +27,21 @@ sap.ui.define(
           .getRoute("TaskDetails")
           .attachPatternMatched(this._onObjectMatched, this);
       },
+      onExit: function(){
+        alert("destroy");
+      },
       _getDataModel: function () {
         return this.getModel("tasksListDataModel");
       },
-      _onObjectMatched: function (oEvent) {        
+      _onObjectMatched: function (oEvent) {
         var routeName = oEvent.getParameter("name");
         var oRouteParams = oEvent.getParameter("arguments");
 
         this.getModel("appView").setProperty("/mainTabsVisible", true);
-        this.getModel("appView").setProperty("/currentSelectedTabKey", oRouteParams.type);
+        this.getModel("appView").setProperty(
+          "/currentSelectedTabKey",
+          oRouteParams.type
+        );
 
         if (routeName === "TasksList") {
           this.getModel("appView").setProperty("/layout", LayoutType.OneColumn);
@@ -60,9 +66,9 @@ sap.ui.define(
           );
 
           if (!this.dataLoaded) {
-            this.loadData(oRouteParams.type, oRouteParams.id,oRouteParams.vid);
-          }  else {
-              this._setSelectedListItem(oRouteParams.vid);
+            this.loadData(oRouteParams.type, oRouteParams.id, oRouteParams.vid);
+          } else {
+            this._setSelectedListItem(oRouteParams.vid);
           }
         }
       },
@@ -107,6 +113,23 @@ sap.ui.define(
               item.isCurrent = moment().isBetween(item.validFrom, item.validTo);
             });
             dataModel.setProperty("/items", items);
+
+            if (type !== "vendor") {
+              // auto select current item
+              var currentItem = items.find(function (item) {
+                return item.isCurrent;
+              });
+
+              if (currentItem) {
+                self
+                  .getRouter()
+                  .navTo(
+                    "TaskDetails",
+                    { id: airportId, vid: currentItem.ID, type: type },
+                    false
+                  );
+              }
+            }
           },
           error: function (err) {
             self.showBusyIndicator(false);

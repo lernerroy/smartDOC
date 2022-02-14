@@ -4,11 +4,11 @@ sap.ui.define(["sap/ui/core/ValueState"], function (ValueState) {
   return {
     vendorContratStatusState: function (status) {
       switch (status) {
-        case "active":
+        case "A":
           return ValueState.Success;
-        case "inactive":
+        case "I":
           return ValueState.None;
-        case "deleted":
+        case "D":
           return ValueState.Error;
         default:
           return ValueState.None;

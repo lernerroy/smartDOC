@@ -6,11 +6,11 @@
     <VBox>
         <IconTabBar expanded="{device>/isNoPhone}" visible="{appView>/mainTabsVisible}" applyContentPadding="false" selectedKey="{appView>/currentSelectedTabKey}" select="onMainTabSelected">
             <items>
-                <IconTabFilter text="Vendor" icon="sap-icon://travel-expense" key="vendor" design="Horizontal">
+                <IconTabFilter text="Vendor" icon="sap-icon://travel-expense" key="vendor" design="Horizontal" iconColor="Default">
                 </IconTabFilter>
-                <IconTabFilter text="Arrival" icon="sap-icon://journey-arrive" key="arr" design="Horizontal">
+                <IconTabFilter text="Arrival" icon="sap-icon://journey-arrive" key="arr" design="Horizontal" iconColor="Critical">
                 </IconTabFilter>
-                <IconTabFilter text="Departure" icon="sap-icon://journey-depart" key="dep" design="Horizontal">
+                <IconTabFilter text="Departure" icon="sap-icon://journey-depart" key="dep" design="Horizontal" iconColor="Critical">
                 </IconTabFilter>
             </items>
 

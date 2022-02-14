@@ -5,6 +5,8 @@ using {temporal}
     from '@sap/cds/common';
 using {managed} 
     from '@sap/cds/common';
+using {sap.common.CodeList} 
+    from '@sap/cds/common';
 using cuid 
     from '@sap/cds/common';
 using {TripService} 
@@ -178,12 +180,12 @@ entity Carriers : managed {
 /////////////////////////////////////////////////////////////
 // Entities Declaration of Airport Profile 
 /////////////////////////////////////////////////////////////
-type Status : String 
-    enum { deleted; inactive; active; };
+
 type ObjectType : String
     enum { contract; profile; };
 type DocumentType : String 
     enum { airport; catering; };
+
 type LOB : String 
     enum { 
         Airport = 'AC'; 
@@ -196,10 +198,28 @@ type LOB : String
         Catering = 'CT';
         Airwaybill = 'AB';
         };
-type DomesticIntl : String 
-    enum { domestic ; international; };
-type AdditionalIndicator : String 
-    enum { routine; additional; };
+ 
+entity DomesticIntl : CodeList {
+    key code : String enum {
+        domestic = 'D';
+        international = 'I';
+    };
+};
+
+entity Status : CodeList {
+    key code : String enum {
+        deleted = 'D';
+        inactive = 'I';
+        active = 'A';
+    };
+};
+
+entity ServiceType : CodeList {
+    key code : String enum {
+        passenger = 'P';
+        freight = 'F';
+    };
+};
 
 
 
@@ -210,7 +230,7 @@ entity PurDocs : managed, temporal {
         documentDate         : Date;
         description          : String;
         airport              : Association to one TR_Airports @assert.integrity: false;
-        status               : Status;
+        status               : Association to Status;
         //validityFrom         : Date;
         //validityTo           : Date;
         carrier              : Association to one TR_Carriers @assert.integrity: false;
@@ -225,21 +245,22 @@ entity PurDocs : managed, temporal {
 
 entity PurItems : managed, temporal {
     key up_                  : Association to PurDocs;
-    key ID                   : String(5);
+    key ID                   : UUID @(Core.Computed : true);
+        extenalID            : String(5);
         description          : String;
         serviceNumber        : Association to one ServiceData;
-        status               : Status;
+        status               : Association to Status;
         //validityFrom         : Date;
         //validityTo           : Date;
         //validFromTime        : Time;
         //validToTime          : Time;
         lineOfBusiness       : LOB;
       //  vendor               : Association to one BusinessPartners;
-        jobIndicator         : Boolean;
+      //  jobIndicator         : Boolean;
      //   domesticIntl         : DomesticIntl;
       //  carrier              : Association to one TR_Carriers;
         quantity             : Decimal(8,2);
-        additionalIndicator  : AdditionalIndicator;
+      //  additionalIndicator  : AdditionalIndicator;
         price                : Decimal(11,2);
         currency             : Association to one TR_Currencies;
         brf_id               : String; //Association to one BRF_Pricing;
@@ -258,7 +279,7 @@ entity TaskLists : managed, temporal  {
         description          : String;
         origin               : Association to one TR_Airports;
         destination          : Association to one TR_Airports;
-        status               : Status;
+        status               : Association to Status;
         //validityFrom         : Date;
         //validityTo           : Date;
         documentType         : DocumentType;
@@ -270,21 +291,25 @@ entity TaskLists : managed, temporal  {
 
 entity TaskListItems : managed, temporal {
     key up_                  : Association to TaskLists;
-    key ID                   : String(5);
+    key ID                   : UUID @(Core.Computed : true);
+        extenalID            : String(5);
         description          : String;
-        
+        purDoc               : Association to PurDocs;
         purItem              : Association to many Pur2TL on purItem.taskListItem = $self;
-        status               : Status;
+        status               : Association to Status;
         //validityFrom         : Date;
         //validityTo           : Date;
         //validFromTime        : Time;
         //validToTime          : Time;
         lineOfBusiness       : LOB;
         jobIndicator         : Boolean;
-        domesticIntl         : DomesticIntl;
+        additionalIndicator  : Boolean;
+        domesticIntl         : Association to DomesticIntl;
+        serviceType          : Association to ServiceType;
+        tailNumber           : String;
 };
 
 entity Pur2TL {
-  key purItem : Association to PurItems;
   key taskListItem : Association to TaskListItems;
+  key purItem : Association to PurItems;
 }

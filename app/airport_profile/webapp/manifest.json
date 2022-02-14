@@ -133,8 +133,13 @@
         },
         {
           "name": "TaskDetails",
-          "pattern": "airport/:id:/taskDetails/:type:/:vid:",
-          "target": ["TasksListTarget", "TaskDetailsTarget"]
+          "pattern": "airport/:id:/taskDetails/:type:",
+          "target": ["AirportsTarget", "TaskDetailsTarget"]
+        },
+        {
+          "name": "Services",
+          "pattern": "airport/:id:/taskDetails/:type:/services/:uid:/item/:itemid:/task/:tid:",
+          "target": ["TaskDetailsTarget", "ServicesTarget"]
         }
       ],
       "targets": {
@@ -165,10 +170,18 @@
         "TaskDetailsTarget": {
           "viewType": "XML",
           "transition": "slide",
-          "viewLevel": 3,
-          "controlAggregation": "midColumnPages",
+          "viewLevel": 2,
+          "controlAggregation": "beginColumnPages",
           "viewId": "taskDetails",
           "viewName": "TaskDetails"
+        },
+        "ServicesTarget": {
+          "viewType": "XML",
+          "transition": "slide",
+          "viewLevel": 3,
+          "controlAggregation": "midColumnPages",
+          "viewId": "services",
+          "viewName": "Services"
         },
         "ChargesTarget": {
           "viewType": "XML",

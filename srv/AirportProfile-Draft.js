@@ -1671,7 +1671,7 @@ module.exports = cds.service.impl(async function () {
 
     return FromEntity_s;
   });
-
+  
   this.after("READ", "PurItems", async (req) => {
     if (req == null || req === null) {
       return req;

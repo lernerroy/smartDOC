@@ -24,14 +24,13 @@ sap.ui.define(
       /**
        * Function to perform cross app navigation
        * will work only when app will run inside FLP
-       * @param {*} semanticObject 
-       * @param {*} action 
-       * @param {*} params 
+       * @param {*} semanticObject
+       * @param {*} action
+       * @param {*} params
        */
       crossNavigate: function (semanticObject, action, params = {}) {
-
-        if (!semanticObject || !action){
-            return;
+        if (!semanticObject || !action) {
+          return;
         }
 
         var xnaservice =
@@ -51,7 +50,7 @@ sap.ui.define(
                 semanticObject: semanticObject,
                 action: action,
               },
-              params: params
+              params: params,
             })) ||
           "";
 
@@ -80,7 +79,7 @@ sap.ui.define(
        * @returns {sap.ui.mvc.View} the view instance
        */
       setModel: function (oModel, sName) {
-        return this.getView().setModel(oModel, sName);
+        return this.getOwnerComponent().setModel(oModel, sName);
       },
 
       /**
@@ -98,15 +97,19 @@ sap.ui.define(
        * If not, it will replace the current entry of the browser history with the master route.
        * @public
        */
-      onNavBack: function () {
+      onNavBack: function (fallbackRouteName) {
         var sPreviousHash = History.getInstance().getPreviousHash();
 
         if (sPreviousHash !== undefined) {
           history.go(-1);
         } else {
-          this.getRouter().navTo("master", {}, true);
+          this.getRouter().navTo(fallbackRouteName, {}, true);
         }
       },
+
+      getAppViewModel: function() {
+          return this.getModel("appView");
+      }
     });
   }
 );

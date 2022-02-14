@@ -29,6 +29,7 @@ sap.ui.define(
           sap.ui.core.BusyIndicator.hide();
           oList.setVisible(true);
         });
+
       },
       onAirportClicked: function (oEvent) {
         var oItem = oEvent.getParameter("listItem");
@@ -49,32 +50,6 @@ sap.ui.define(
           code: airportId,
           IsActiveEntity: isActiveEntity,
         });
-
-        // var xnaservice =
-        //   sap.ushell &&
-        //   sap.ushell.Container &&
-        //   sap.ushell.Container.getService &&
-        //   sap.ushell.Container.getService("CrossApplicationNavigation");
-
-        // var href =
-        //   (xnaservice &&
-        //     xnaservice.hrefForExternal({
-        //       target: {
-        //         semanticObject: "airports_configuration",
-        //         action: "manage_airports",
-        //       },
-        //       params: {
-        //         code: airportId,
-        //         IsActiveEntity: isActiveEntity,
-        //       },
-        //     })) ||
-        //   "";
-
-        // xnaservice.toExternal({
-        //   target: {
-        //     shellHash: href,
-        //   },
-        // });
       },
       onPlantPressed: function (oEvent) {
         var oBinding = oEvent.getSource().getBindingContext();
@@ -87,60 +62,9 @@ sap.ui.define(
           IsActiveEntity: isActiveEntity,
         });
 
-        // var xnaservice =
-        //   sap.ushell &&
-        //   sap.ushell.Container &&
-        //   sap.ushell.Container.getService &&
-        //   sap.ushell.Container.getService("CrossApplicationNavigation");
-
-        // if (!xnaservice) {
-        //   return;
-        // }
-
-        // var href =
-        //   (xnaservice &&
-        //     xnaservice.hrefForExternal({
-        //       target: {
-        //         semanticObject: "airports_eh",
-        //         action: "Manage",
-        //       },
-        //       params: {
-        //         code: airportId,
-        //         IsActiveEntity: isActiveEntity,
-        //       },
-        //     })) ||
-        //   "";
-
-        // xnaservice.toExternal({
-        //   target: {
-        //     shellHash: href,
-        //   },
-        // });
       },
       onAddAirport: function () {
         this.crossNavigate("airports_configuration", "manage_airports");
-
-        // var xnaservice =
-        //   sap.ushell &&
-        //   sap.ushell.Container &&
-        //   sap.ushell.Container.getService &&
-        //   sap.ushell.Container.getService("CrossApplicationNavigation");
-        // var href =
-        //   (xnaservice &&
-        //     xnaservice.hrefForExternal({
-        //       target: {
-        //         semanticObject: "airports_configuration",
-        //         action: "manage_airports",
-        //       },
-        //       params: {},
-        //     })) ||
-        //   "";
-
-        // xnaservice.toExternal({
-        //   target: {
-        //     shellHash: href,
-        //   },
-        // });
       },
     });
   }

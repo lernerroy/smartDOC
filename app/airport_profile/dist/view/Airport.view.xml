@@ -5,7 +5,7 @@
 
     <IconTabBar expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding sapUiTinyMarginTop">
         <items>
-            <IconTabFilter text="Airport Charges" icon="sap-icon://travel-expense" key="airport_charges">
+            <IconTabFilter text="Airport Charges" icon="sap-icon://travel-expense" key="airport_charges" iconColor="Critical">
             </IconTabFilter>
         </items>
 

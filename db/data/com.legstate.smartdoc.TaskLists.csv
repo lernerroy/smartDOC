@@ -1,8 +1,8 @@
-ID;extenalID;objectType;documentDate;description;origin_ID;destination_ID;status;validFrom;validTo;documentType
-17ca879d-1f2f-4bc6-9066-a42f6536dafa;1000000005;profile;2021-12-02;First profile;FRA;;active;2021-12-17;2023-12-01;airport
-4e7723ca-ed9e-4b7f-b6ca-0b038848e712;1000000006;profile;2021-12-02;Second profile;;FRA;active;2021-11-17;2021-12-05;airport
-1a576d02-5702-4d19-92cd-90ade0d94294;1000000005;profile;2021-12-02;Third profile;FRA;;active;2023-12-02;9999-12-31;airport
-c0706964-b830-491c-993f-a39f60d22d8d;1000000006;profile;2021-12-02;Fourth profile;;FRA;active;2021-12-06;9999-12-31;airport
-d34c8e26-58a2-4c34-9192-d11af0543205;1000000004;profile;2021-12-01;3rd profile;FRA;;active;2021-08-17;2021-12-16;airport
-09ec03fc-c1a1-46d3-ac2a-6eb243dffe57;1000000007;profile;2021-10-10;4th profile;FRA;;not active;2021-05-03;2021-08-16;airport
-85704ca5-1f15-4834-a8f2-ef17f2273a3d;1000000008;profile;2021-10-11;5th profile;;FRA;active;2021-08-17;2021-12-16;airport
+ID;extenalID;objectType;documentDate;description;origin_ID;destination_ID;status_code;validFrom;validTo;documentType
+17ca879d-1f2f-4bc6-9066-a42f6536dafa;1000000005;profile;2021-12-02;First profile;FRA;;A;2021-12-17;2023-12-01;airport
+4e7723ca-ed9e-4b7f-b6ca-0b038848e712;1000000006;profile;2021-12-02;Second profile;;FRA;A;2021-11-17;2021-12-05;airport
+1a576d02-5702-4d19-92cd-90ade0d94294;1000000005;profile;2021-12-02;Third profile;FRA;;A;2023-12-02;9999-12-31;airport
+c0706964-b830-491c-993f-a39f60d22d8d;1000000006;profile;2021-12-02;Fourth profile;;FRA;A;2021-12-06;9999-12-31;airport
+d34c8e26-58a2-4c34-9192-d11af0543205;1000000004;profile;2021-12-01;3rd profile;FRA;;A;2021-08-17;2021-12-16;airport
+09ec03fc-c1a1-46d3-ac2a-6eb243dffe57;1000000007;profile;2021-10-10;4th profile;FRA;;I;2021-05-03;2021-08-16;airport
+85704ca5-1f15-4834-a8f2-ef17f2273a3d;1000000008;profile;2021-10-11;5th profile;;FRA;A;2021-08-17;2021-12-16;airport

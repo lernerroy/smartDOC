@@ -42,7 +42,7 @@ sap.ui.define(
           this.getRouter().navTo("Vendors", { id: airportId }, false);
         } else {
           this.getRouter().navTo(
-            "TasksList",
+            "TaskDetails",
             { id: airportId, type: type },
             false
           );

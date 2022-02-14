@@ -3,7 +3,7 @@
     xmlns:core="sap.ui.core"
     xmlns:semantic="sap.f.semantic"
     xmlns="sap.m">
-    <semantic:SemanticPage id="masterPage" preserveHeaderStateOnScroll="true" toggleHeaderOnTitleClick="false">
+    <semantic:SemanticPage preserveHeaderStateOnScroll="true" toggleHeaderOnTitleClick="false">
         <semantic:titleHeading>
             <Title id="masterPageTitle" text="Contracts" level="H2"/>
         </semantic:titleHeading>
