@@ -197,15 +197,15 @@ http://localhost:4004/draft/TaskLists(ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,Is
 ###
 http://localhost:4004/draft/TaskLists(ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true)/status
 ###
+http://localhost:4004/draft/TaskLists(ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true)/status/name
+###
 http://localhost:4004/draft/TaskLists(ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true)/documentType
 ###
 http://localhost:4004/draft/TaskLists(ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true)/items
 ###
-http://localhost:4004/draft/TaskLists(ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true)/items(ID='00020',IsActiveEntity=true)
+http://localhost:4004/draft/TaskLists(ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true)/items(ID='00010',IsActiveEntity=true)
 ###
-http://localhost:4004/draft/TaskLists(ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true)/items(ID='00020',IsActiveEntity=true)/purItem_ID
-###
-http://localhost:4004/draft/TaskLists(ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true)/items(ID='00020',IsActiveEntity=true)/purItem_up__ID
+http://localhost:4004/draft/TaskLists(ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true)/items(ID='00010',IsActiveEntity=true)/purDoc_ID
 ###
 http://localhost:4004/draft/TaskLists(ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true)/items(ID='00020',IsActiveEntity=true)/purItem
 
@@ -226,7 +226,9 @@ http://localhost:4004/draft/TaskLists(ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,Is
 ###
 http://localhost:4004/draft/TaskLists(ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true)?$select=ID&$expand=origin($select=ID),destination($select=ID),items($select=ID)
 ###
-http://localhost:4004/draft/TaskLists(ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true)?$select=ID&$expand=origin($select=ID),destination($select=ID),items($select=ID,purItem_ID,purItem_up__ID)
+http://localhost:4004/draft/TaskLists(ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true)?$select=ID&$expand=origin($select=ID),destination($select=ID),items($select=ID,lineOfBusiness,up_)
+
+
 
 
 
@@ -238,7 +240,7 @@ http://localhost:4004/draft/TaskLists(ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,Is
 ###
 http://localhost:4004/draft/TaskListItems
 ###
-http://localhost:4004/draft/TaskListItems(up__ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true,ID='00010')
+http://localhost:4004/draft/TaskListItems(up__ID=c0706964-b830-491c-993f-a39f60d22d8d,IsActiveEntity=true,ID='00010')
 ###
 http://localhost:4004/draft/TaskListItems(up__ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true,ID='00010')/lineOfBusiness
 ###
@@ -246,31 +248,78 @@ http://localhost:4004/draft/TaskListItems(up__ID=17ca879d-1f2f-4bc6-9066-a42f653
 ###
 http://localhost:4004/draft/TaskListItems(up__ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true,ID='00010')/up_
 ###
-http://localhost:4004/draft/TaskListItems(up__ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true,ID='00010')/purItem
+http://localhost:4004/draft/TaskListItems(up__ID=c0706964-b830-491c-993f-a39f60d22d8d,IsActiveEntity=true,ID='00010')/purItem
+###
+http://localhost:4004/draft/TaskListItems(up__ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true,ID='00010')/purItem(purItem_up__ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,purItem_ID='00010')
+###
+http://localhost:4004/draft/TaskListItems(up__ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true,ID='00010')/purItem(purItem_up__ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,purItem_ID='00010')/purItem
+###
+http://localhost:4004/draft/TaskListItems(up__ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true,ID='00010')/purDoc
+
 
 
 ###
-http://localhost:4004/draft/TaskListItems(up__ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true,ID='00010')?$select=ID&$expand=up_
+http://localhost:4004/draft/TaskListItems(up__ID=c0706964-b830-491c-993f-a39f60d22d8d,IsActiveEntity=true,ID='00010')?$select=ID&$expand=up_
 ###
-http://localhost:4004/draft/TaskListItems(up__ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true,ID='00010')?$select=ID&$expand=purItem($select=ID,description,serviceNumber)
+http://localhost:4004/draft/TaskListItems(up__ID=c0706964-b830-491c-993f-a39f60d22d8d,IsActiveEntity=true,ID='00010')?$select=ID&$expand=purItem($select=purItem_up__ID,purItem_ID)
+###
+http://localhost:4004/draft/TaskListItems(up__ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true,ID='00010')/purItem(purItem_up__ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,purItem_ID='00010')?&$expand=purItem($select=description)
+###
+http://localhost:4004/draft/TaskListItems(up__ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true,ID='00010')/purItem?&$expand=purItem($select=ID,description,brf_id,status,serviceNumber_ID)
+###
+http://localhost:4004/draft/TaskListItems(up__ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true,ID='00010')/purItem(purItem_up__ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,purItem_ID='00010')/purItem?&$expand=up_($select=carrier_ID)
+###
+http://localhost:4004/draft/TaskListItems(up__ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true,ID='00010')/purItem?&$expand=purItem($select=ID)
+###
+http://localhost:4004/draft/TaskListItems(up__ID=c0706964-b830-491c-993f-a39f60d22d8d,IsActiveEntity=true,ID='00010')?$select=ID&$expand=purDoc($select=extenalID,carrier_ID)
+
+
 
 
 
 
 ###
-curl -X POST http://localhost:4004/draft/PurDocs -H "Content-Type: application/json;IEEE754Compatible=true" -d '{"validFrom":"2021-12-01T00:00:00.000Z","validTo":"2023-12-01T00:00:00.000Z","objectType":"contract","documentDate":"2021-12-01","description":"Mai Contract","airport_ID":"FRA","status":"active","carrier_ID":"AV","purchaseOrganization_ID":"1000","documentType":"airport","vendor_ID":"0000001000","aribaIndicator":null}'
+curl -X POST http://localhost:4004/draft/PurDocs -H "Content-Type: application/json;IEEE754Compatible=true" -d '{"validFrom":"2000-12-01T00:00:00.000Z","validTo":"2003-12-01T00:00:00.000Z","objectType":"contract","documentDate":"2002-12-01","description":"Ran2 Contract","airport_ID":"FRA","status_code":"A","carrier_ID":"AV","purchaseOrganization_ID":"1000","documentType":"airport","vendor_ID":"0000001000","aribaIndicator":null, "items": [ { "validFrom":"1900-01-01T00:00:00.000Z" }, { "validFrom":"1900-01-01T00:00:00.000Z" } }'
 
 ###
-curl -X PATCH http://localhost:4004/draft/PurDocs(ID=903ebb15-1c8d-4a61-8605-b257784915f8,IsActiveEntity=false) -H "Content-Type: application/json;IEEE754Compatible=true" -d '{"validFrom":"2021-12-01T00:00:00.000Z","validTo":"2023-12-03T00:00:00.000Z","objectType":"contract","documentDate":"2021-12-01","description":"Mai Contract","airport_ID":"FRA","status":"active","carrier_ID":"AV","purchaseOrganization_ID":"1000","documentType":"airport","vendor_ID":"0000001000","aribaIndicator":null}'
+curl -X POST http://localhost:4004/draft/PurDocs -H "Content-Type: application/json;IEEE754Compatible=true" -d '{"validFrom":"2000-12-01T00:00:00.000Z","validTo":"2003-12-01T00:00:00.000Z","objectType":"contract","documentDate":"2002-12-01","description":"Ran2 Contract","airport_ID":"FRA","status_code":"active","carrier_ID":"AV","purchaseOrganization_ID":"1000","documentType":"airport","vendor_ID":"0000001000","aribaIndicator":null}'
 
 ###
-http://localhost:4004/draft/PurDocs(ID=903ebb15-1c8d-4a61-8605-b257784915f8,IsActiveEntity=false)
+curl -X PATCH http://localhost:4004/draft/PurDocs(ID=2d7cf05a-fdfb-4de0-bad2-2fe639da0951,IsActiveEntity=false) -H "Content-Type: application/json;IEEE754Compatible=true" -d '{"validFrom":"2021-12-01T00:00:00.000Z","validTo":"2023-12-03T00:00:00.000Z","objectType":"contract","documentDate":"2021-12-01","description":"Ran Contract","airport_ID":"FRA","status_code":"A","carrier_ID":"AV","purchaseOrganization_ID":"1000","documentType":"airport","vendor_ID":"0000001000","aribaIndicator":null}'
 
 ###
-curl -X POST http://localhost:4004/draft/PurDocs(ID=422e2701-6568-43a1-95da-e70cb2a4738a,IsActiveEntity=false)/smartDOCDraft.draftActivate -H "Content-Type: application/json;IEEE754Compatible=true"
+curl -X POST http://localhost:4004/draft/PurDocs(ID=e58e6f95-6c84-42b6-8824-18082f83f843,IsActiveEntity=false)/smartDOCDraft.draftPrepare -H "Content-Type: application/json;IEEE754Compatible=true"
 
 ###
-http://localhost:4004/draft/PurDocs(ID=34296f81-0e08-43c3-8f3c-6bbeeb8d3e41,IsActiveEntity=true)
+curl -X POST http://localhost:4004/draft/PurDocs(ID=e58e6f95-6c84-42b6-8824-18082f83f843,IsActiveEntity=false)/smartDOCDraft.draftActivate -H "Content-Type: application/json;IEEE754Compatible=true"
+
+###
+http://localhost:4004/draft/PurDocs?$select=ID&$filter=airport_ID eq 'FRA' and (IsActiveEntity eq false or SiblingEntity/IsActiveEntity eq null)&$expand=DraftAdministrativeData($select=DraftUUID,InProcessByUser,LastChangedByUser),items($select=ID)
+
+
+
+
+###
+http://localhost:4004/draft/PurDocs(ID=2aa19b8f-5f9f-4ae3-87fa-01072e450907,IsActiveEntity=false)?$select=ID&$expand=DraftAdministrativeData($select=DraftUUID,InProcessByUser,LastChangedByUser),items($select=ID)
+
+###
+http://localhost:4004/draft/PurItems?$select=ID&$filter=IsActiveEntity eq false
+
+###
+http://localhost:4004/draft/PurDocs?$select=ID&$filter=IsActiveEntity eq false&$expand=items($select=up__ID,ID,description)
+
+###
+http://localhost:4004/draft/PurDocs?$select=ID&$filter=IsActiveEntity eq true
+
+###
+http://localhost:4004/draft/PurDocs(ID=f9fdc2f1-bc8e-46df-ac4b-ea823c452b83,IsActiveEntity=true)
+
+
+###
+curl -X POST http://localhost:4004/draft/PurDocs(ID=f9fdc2f1-bc8e-46df-ac4b-ea823c452b83,IsActiveEntity=true)/smartDOCDraft.draftEdit -H "Content-Type: application/json;IEEE754Compatible=true" -d '{"PreserveChanges":true}'
+
+###
+http://localhost:4004/draft/PurDocs(ID=f9fdc2f1-bc8e-46df-ac4b-ea823c452b83,IsActiveEntity=true)
 
 ###
 http://localhost:4004/draft/PurDocs(ID=34296f81-0e08-43c3-8f3c-6bbeeb8d3e41,IsActiveEntity=true)
