@@ -1,6 +1,13 @@
 sap.ui.define(
-  ["sap/ui/core/mvc/Controller", "sap/ui/core/routing/History"],
-  function (Controller, History) {
+  [
+    "sap/ui/core/mvc/Controller",
+    "sap/ui/core/routing/History",
+    "sap/m/Dialog",
+    "sap/m/DialogType",
+    "sap/m/ButtonType",
+    "sap/m/Button",
+  ],
+  function (Controller, History, Dialog, DialogType, ButtonType, Button) {
     "use strict";
 
     return Controller.extend("airportprofile.controller.BaseController", {
@@ -107,9 +114,27 @@ sap.ui.define(
         }
       },
 
-      getAppViewModel: function() {
-          return this.getModel("appView");
-      }
+      getAppViewModel: function () {
+        return this.getModel("appView");
+      },
+
+      showMessageDialog: function (title, message) {
+        
+        this.oMessageDialog = new Dialog({
+          type: DialogType.Message,
+          title: title,
+          content: new Text({ text: message }),
+          beginButton: new Button({
+            type: ButtonType.Emphasized,
+            text: "Close",
+            press: function () {
+              this.oMessageDialog.close();
+              this.oMessageDialog.destroy();
+              this.oMessageDialog = null;
+            }.bind(this),
+          }),
+        });
+      },
     });
   }
 );

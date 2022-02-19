@@ -8,6 +8,9 @@
         <semantic:titleHeading>
             <Title text="{detailsViewModel>/title}" level="H2"/>
         </semantic:titleHeading>
+           <semantic:titleCustomTextActions>
+            <Button icon= "sap-icon://delete" text="Delete Contract" enabled="{= !${detailsViewModel>/deleteEnabled} }"  type="Critical" press="onDeleteContractPressed"/>
+        </semantic:titleCustomTextActions>
         <semantic:titleBreadcrumbs>
             <Breadcrumbs currentLocationText="{vendorsView>/airportId}" separatorStyle="GreaterThan">
             </Breadcrumbs>
@@ -22,9 +25,6 @@
                             <Text text="{detailsModel>/header/extenalID}" />
                             <Label text="{i18n>statusField}" />
                             <ObjectStatus text="{path: 'detailsModel>/header/status/name', formatter: '.formatter.capitalizeText'}" state="{path: 'detailsModel>/header/status/code', formatter: '.formatter.vendorContratStatusState'}" visible="{= !${detailsViewModel>/editable} }" />
-                            <ComboBox items="{/Status}" visible="{= ${detailsViewModel>/editable} }">
-                                <core:Item key="{code}" text="{name}" />
-                            </ComboBox>
                             <Label text="{i18n>descriptionField}" />
                             <Text text="{detailsModel>/header/description}" />
                             <Label text="{i18n>docDate}" />
@@ -100,14 +100,15 @@
                     </f:SimpleForm>
                 </Panel>
 
-                <IconTabBar expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding sapUiTinyMarginTop" select="onLobTabSelected">
+                <IconTabBar expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding sapUiTinyMarginTop" 
+                select="onLobTabSelected" selectedKey="{detailsViewModel>/lobSelectedTab}">
                     <items>
-                        <IconTabFilter text="Airport Charges" icon="sap-icon://travel-expense" key="airportCharges">
+                        <IconTabFilter text="Airport Charges" icon="sap-icon://travel-expense" key="airport">
 
                             <core:Fragment fragmentName="airportprofile.fragments.lobs" type="XML" />
 
                         </IconTabFilter>
-                        <IconTabFilter text="Cargo" key="cargos" icon="sap-icon://sap-box">
+                        <IconTabFilter text="Cargo" key="cargo" icon="sap-icon://sap-box">
                             <core:Fragment fragmentName="airportprofile.fragments.lobs" type="XML" />
                         </IconTabFilter>
                         <IconTabFilter text="Engineering" key="engs" icon="sap-icon://wrench">

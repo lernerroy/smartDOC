@@ -2,6 +2,12 @@
     xmlns:l="sap.ui.layout"
     xmlns:core="sap.ui.core" controllerName="airportprofile.controller.Charges">
     <Table inset="false" items="{detailsModel>/header/items}">
+        <headerToolbar>
+            <OverflowToolbar>
+                <ToolbarSpacer />
+                <Button text="Add Item" icon="sap-icon://add" press="onAddLobItem" />
+            </OverflowToolbar>
+        </headerToolbar>
         <columns>
             <Column width="12em">
                 <Text text="ID" />

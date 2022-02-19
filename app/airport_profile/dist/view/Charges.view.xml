@@ -4,10 +4,13 @@
     xmlns:semantic="sap.f.semantic"
     xmlns:f="sap.ui.layout.form"
     xmlns="sap.m">
-    <semantic:SemanticPage preserveHeaderStateOnScroll="true" toggleHeaderOnTitleClick="false">
+    <semantic:SemanticPage preserveHeaderStateOnScroll="true" showFooter="{detailsViewModel>/editable}" toggleHeaderOnTitleClick="false">
         <semantic:titleHeading>
             <Title text="{detailsViewModel>/title}" level="H2"/>
         </semantic:titleHeading>
+           <semantic:titleCustomTextActions>
+            <Button icon= "sap-icon://delete" text="Delete Contract" enabled="{= !${detailsViewModel>/deleteEnabled} }"  type="Critical" press="onDeleteContractPressed"/>
+        </semantic:titleCustomTextActions>
         <semantic:titleBreadcrumbs>
             <Breadcrumbs currentLocationText="{vendorsView>/airportId}" separatorStyle="GreaterThan">
             </Breadcrumbs>
@@ -15,13 +18,13 @@
         <semantic:content>
             <VBox>
                 <Panel expandable="true" expanded="true" backgroundDesign="Transparent">
-                    <f:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
+                    <f:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false" visible="{= !${detailsViewModel>/editable} }">
                         <f:content>
                             <core:Title text="{i18n>generalInfoTitle}" />
                             <Label text="{i18n>extId}" />
                             <Text text="{detailsModel>/header/extenalID}" />
                             <Label text="{i18n>statusField}" />
-                            <ObjectStatus text="{path: 'detailsModel>/header/status', formatter: '.formatter.capitalizeText'}" state="{path: 'detailsModel>/header/status', formatter: '.formatter.vendorContratStatusState'}" />
+                            <ObjectStatus text="{path: 'detailsModel>/header/status/name', formatter: '.formatter.capitalizeText'}" state="{path: 'detailsModel>/header/status/code', formatter: '.formatter.vendorContratStatusState'}" visible="{= !${detailsViewModel>/editable} }" />
                             <Label text="{i18n>descriptionField}" />
                             <Text text="{detailsModel>/header/description}" />
                             <Label text="{i18n>docDate}" />
@@ -52,16 +55,60 @@
                             <Text text="{detailsModel>/header/vendor/Name}" />
                         </f:content>
                     </f:SimpleForm>
+                    <f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false" visible="{= ${detailsViewModel>/editable} }">
+                        <f:content>
+
+                            <core:Title text="{i18n>generalInfoTitle}" />
+                            <Label text="{i18n>statusField}" />
+                            <ComboBox items="{/Status}" selectedKey="{editedContract>/statusCode}">
+                                <core:Item key="{code}" text="{name}" />
+                            </ComboBox>
+                            <Label text="{i18n>descriptionField}" />
+                            <Input value="{editedContract>/description}" />
+                            <Label text="{i18n>docDate}" />
+                            <DatePicker value="{editedContract>/docDate}" valueFormat="yyyy-MM-dd" />
+                            <Label text="{i18n>validFromField}" />
+                            <DatePicker value="{editedContract>/validFromDate}" valueFormat="yyyy-MM-ddThh:mm:sssZ" />
+                            <Label text="{i18n>validToField}" />
+                            <DatePicker value="{editedContract>/validToDate}" valueFormat="yyyy-MM-ddThh:mm:sssZ"  />
+
+                            <core:Title text="{i18n>carrierInfoTitle}" />
+                            <Label text="{i18n>carrrierIdField}" />
+                            <ComboBox items="{/Carriers}" selectedKey="{editedContract>/carrierId}">
+                                <core:Item key="{carrier_ID}" text="{carrier_ID}" />
+                            </ComboBox>
+                            <Text text="{detailsModel>/header/carrier/name}" />
+                            <Label text="{i18n>carrierDecsField}" />
+                            <Text text="{detailsModel>/header/carrier/descr}" />
+
+                            <core:Title text="{i18n>purchaseOrgTitle}" />
+                            <Label text="{i18n>poIdField}" />
+                            <ComboBox items="{/PurchaseOrganizations}" selectedKey="{editedContract>/purchaseOrgId}" showSecondaryValues="true">
+                                <core:ListItem key="{ID}" text="{Name}" additionalText="{ID}" />
+                            </ComboBox>
+                            <Label text="{i18n>poNameField}" />
+                            <Text text="{detailsModel>/header/purchaseOrganization/Name}" />
+
+                            <core:Title text="{i18n>vendorInfoTitle}" />
+                            <Label text="{i18n>vendorIdField}" />
+                            <SearchField placeholder="Enter Vendor" enableSuggestions="true" change="" value="{editedContract>/vendorId}" suggestionItems="{/BusinessPartners}" suggest="vendorOnSuggest">
+                                <SuggestionItem text="{ID}" description="{Name}" key="{ID}" />
+                            </SearchField>
+                            <Label text="{i18n>vendorNameField}" />
+                            <Text text="{detailsModel>/header/vendor/Name}" />
+                        </f:content>
+                    </f:SimpleForm>
                 </Panel>
 
-                <IconTabBar expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding sapUiTinyMarginTop" select="onLobTabSelected">
+                <IconTabBar expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding sapUiTinyMarginTop" 
+                select="onLobTabSelected" selectedKey="{detailsViewModel>/lobSelectedTab}">
                     <items>
-                        <IconTabFilter text="Airport Charges" icon="sap-icon://travel-expense" key="airportCharges">
+                        <IconTabFilter text="Airport Charges" icon="sap-icon://travel-expense" key="airport">
 
                             <core:Fragment fragmentName="airportprofile.fragments.lobs" type="XML" />
 
                         </IconTabFilter>
-                        <IconTabFilter text="Cargo" key="cargos" icon="sap-icon://sap-box">
+                        <IconTabFilter text="Cargo" key="cargo" icon="sap-icon://sap-box">
                             <core:Fragment fragmentName="airportprofile.fragments.lobs" type="XML" />
                         </IconTabFilter>
                         <IconTabFilter text="Engineering" key="engs" icon="sap-icon://wrench">
@@ -76,6 +123,10 @@
             </VBox>
 
         </semantic:content>
+        <semantic:footerCustomActions>
+            <Button text="Cancel" press="onCancelCreate" icon="sap-icon://decline" />
+            <Button text="Save" icon="sap-icon://save" type="Success" press="onSaveContract"/>
+        </semantic:footerCustomActions>
     </semantic:SemanticPage>
 
 

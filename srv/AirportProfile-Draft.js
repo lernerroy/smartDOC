@@ -39,36 +39,33 @@ const SequenceHelper = require("./lib/SequenceHelper.js");
  */
 
 module.exports = cds.service.impl(async function () {
+  this.after("CREATE", "PurDocs", async (req, next) => {
+    const db = await cds.connect.to("db");
 
-
-    this.after("CREATE", "PurDocs", async (req, next) => {
-        const db = await cds.connect.to("db");
-
-        const TaskListsId = new SequenceHelper({
-            db: db,
-            sequence: "CONTRACT_ID",
-            table: "PurDocs",
-            field: "extenalID",
-          });
-
-          req.extenalID = await TaskListsId.getNextNumber();
-          
-          return req;
+    const TaskListsId = new SequenceHelper({
+      db: db,
+      sequence: "CONTRACT_ID",
+      table: "PurDocs",
+      field: "extenalID",
     });
-    
 
-    this.after("CREATE", "TaskLists", async (req, next) => {
-        const db = await cds.connect.to("db");
+    req.extenalID = await TaskListsId.getNextNumber();
 
-        const TaskListsId = new SequenceHelper({
-            db: db,
-            sequence: "TL_ID",
-            table: "TaskLists",
-            field: "extenalID",
-          });
-      
-          req.extenalID = await TaskListsId.getNextNumber();
+    return req;
+  });
+
+  this.after("CREATE", "TaskLists", async (req, next) => {
+    const db = await cds.connect.to("db");
+
+    const TaskListsId = new SequenceHelper({
+      db: db,
+      sequence: "TL_ID",
+      table: "TaskLists",
+      field: "extenalID",
     });
+
+    req.extenalID = await TaskListsId.getNextNumber();
+  });
 
   ////////////////////////////////////////////////////////////
   // TR_Airports
@@ -1572,62 +1569,61 @@ module.exports = cds.service.impl(async function () {
   // BRF Data
   ////////////////////////////////////////////////////////////
 
-    // // PurItems('...')/brf_id
-    // this.on("READ", "brf_id", async (req, next) => {
-    //   const select = req.query.SELECT;
+  // // PurItems('...')/brf_id
+  // this.on("READ", "brf_id", async (req, next) => {
+  //   const select = req.query.SELECT;
 
-    //   const BRF = await cds.connect.to("SAP_CF_BusinessRules_Repository");
-    //   const response = await BRF.get("/v1/projects?Name=AP_AV&$top=100");
+  //   const BRF = await cds.connect.to("SAP_CF_BusinessRules_Repository");
+  //   const response = await BRF.get("/v1/projects?Name=AP_AV&$top=100");
 
-    //   const response1 = await BRF.get(
-    //     "/v1/projects/" +
-    //       response[0].Id +
-    //       "/ruleservices?Name=rserv_ac_fra_landing&$top=100"
-    //   );
+  //   const response1 = await BRF.get(
+  //     "/v1/projects/" +
+  //       response[0].Id +
+  //       "/ruleservices?Name=rserv_ac_fra_landing&$top=100"
+  //   );
 
-    //   if (
-    //     select.from.ref.length === 2 &&
-    //     select.from.ref[0].id === "smartDOCDraft.PurItems" &&
-    //     (select.from.ref[1] == "brf_id" || select.from.ref[1].id === "brf_id")
-    //   ) {
-    //     // Get object ID from sDOC
-    //     const { serviceNumber_ID } = await this.run(
-    //       SELECT.one("serviceNumber_ID")
-    //         .from("PurItems")
-    //         .where(select.from.ref[0].where)
-    //     );
+  //   if (
+  //     select.from.ref.length === 2 &&
+  //     select.from.ref[0].id === "smartDOCDraft.PurItems" &&
+  //     (select.from.ref[1] == "brf_id" || select.from.ref[1].id === "brf_id")
+  //   ) {
+  //     // Get object ID from sDOC
+  //     const { serviceNumber_ID } = await this.run(
+  //       SELECT.one("serviceNumber_ID")
+  //         .from("PurItems")
+  //         .where(select.from.ref[0].where)
+  //     );
 
-    //     // Select all sDOC for a object
-    //     const cql = SELECT(select.columns)
-    //       .from("smartDOCDraft.ServiceData")
-    //       .where("ID = ", serviceNumber_ID)
-    //       .limit(select.limit?.rows?.val, select.limit?.offset?.val);
-    //     cql.SELECT.count = !!select.count;
-    //     const vendor = await ServiceDataAPI.run(cql);
+  //     // Select all sDOC for a object
+  //     const cql = SELECT(select.columns)
+  //       .from("smartDOCDraft.ServiceData")
+  //       .where("ID = ", serviceNumber_ID)
+  //       .limit(select.limit?.rows?.val, select.limit?.offset?.val);
+  //     cql.SELECT.count = !!select.count;
+  //     const vendor = await ServiceDataAPI.run(cql);
 
-    //     return vendor;
-    //   } else {
-    //     return next();
-    //   }
-    // });
+  //     return vendor;
+  //   } else {
+  //     return next();
+  //   }
+  // });
 
   // PurDocs?$expand=items
   this.on("READ", "PurDocs", async (req, next) => {
-
     // const asArray = (x) => (Array.isArray(x) ? x : [x]);
 
     // for (const header of req)
     //     for (const items of header.items)
-        
+
     //     const plantIds = asArray(FromEntity_s).map(
     //            (FromEntity) => FromEntity.ID
     //          );
 
-     const expandIndex =
-       req.query.SELECT.columns?.findIndex(
-         ({ expand, ref }) => expand && ref[0] === "items"
-       ) ?? -1;
-     if (expandIndex < 0) return next();
+    const expandIndex =
+      req.query.SELECT.columns?.findIndex(
+        ({ expand, ref }) => expand && ref[0] === "items"
+      ) ?? -1;
+    if (expandIndex < 0) return next();
 
     // Remove expand from query
     req.query.SELECT.columns.splice(expandIndex, 1);
@@ -1635,7 +1631,7 @@ module.exports = cds.service.impl(async function () {
     // Make sure object_ID will be returned
     if (
       !req.query.SELECT.columns.find((column) =>
-        column.ref.find((ref) => ref == "ID")
+        column.ref.find((ref) => ref === "ID")
       )
     )
       req.query.SELECT.columns.push({ ref: ["ID"] });
@@ -1645,24 +1641,21 @@ module.exports = cds.service.impl(async function () {
     const asArray = (x) => (Array.isArray(x) ? x : [x]);
 
     // Request all associated objects
-    const plantIds = asArray(FromEntity_s).map(
-      (FromEntity) => FromEntity.ID
-    );
-    const plants  = await this.run(
-      SELECT.from("smartDOCDraft.PurItems").where({ up__ID: plantIds })
-    );
-
+    const plantIds = asArray(FromEntity_s).map((FromEntity) => FromEntity.ID);
+    
+    
+    const plants = await this.run(
+      SELECT.from("smartDOCDraft.PurItems").where({up__ID: FromEntity_s.ID, IsActiveEntity: FromEntity_s.IsActiveEntity } ));
+    //{ up__ID: plantIds })
 
     // Convert in a map for easier lookup
-    const plantsMap = [] ;
-    const plantsMap2 = {} ;
+    const plantsMap = [];
+    const plantsMap2 = {};
     var count = 0;
-    for (const plant of plants) 
-    {   
-        
-        //plantsMap[plant.up__ID] = plant;
-        plantsMap[count++] = plant;
-        plantsMap2[plant.up__ID] = plantsMap;
+    for (const plant of plants) {
+      //plantsMap[plant.up__ID] = plant;
+      plantsMap[count++] = plant;
+      plantsMap2[plant.up__ID] = plantsMap;
     }
     // Add objects to result
     for (const FromEntity of asArray(FromEntity_s)) {
@@ -1671,7 +1664,7 @@ module.exports = cds.service.impl(async function () {
 
     return FromEntity_s;
   });
-  
+
   this.after("READ", "PurItems", async (req) => {
     if (req == null || req === null) {
       return req;
@@ -1701,7 +1694,8 @@ module.exports = cds.service.impl(async function () {
                   " and " +
                   " ID = '" +
                   PurItem["ID"] +
-                  "'" + " and IsActiveEntity=true"
+                  "'" +
+                  " and IsActiveEntity=false"
               )
           );
 
@@ -1726,12 +1720,22 @@ module.exports = cds.service.impl(async function () {
           default:
         }
 
-        // Get object ID from sDOC
-        const { carrier_ID } = await this.run(
+        const carrierResponse = await this.run(
           SELECT.one("carrier_ID")
             .from("PurDocs")
             .where("ID = '" + PurDocs_ID + "'")
         );
+
+        if (!carrierResponse || !carrierResponse.carrier_ID) {
+          return req;
+        }
+
+        // Get object ID from sDOC
+        // const { carrier_ID } = await this.run(
+        //   SELECT.one("carrier_ID")
+        //     .from("PurDocs")
+        //     .where("ID = '" + PurDocs_ID + "'")
+        // );
 
         // Get object ID from sDOC
         const { airport_ID } = await this.run(
@@ -1884,9 +1888,8 @@ module.exports = cds.service.impl(async function () {
 
     if (
       select.from.ref.length === 2 &&
-      select.from.ref[0].id === "smartDOCDraft.PurItems" 
+      select.from.ref[0].id === "smartDOCDraft.PurItems" &&
       //&& select.from.ref[1].id === "items" ]
-      &&
       (select.from.ref[1] == "currency" || select.from.ref[1].id === "currency")
     ) {
       // Get object ID from sDOC
@@ -1896,7 +1899,7 @@ module.exports = cds.service.impl(async function () {
       const { currency_ID } = await this.run(
         SELECT.one("currency_ID")
           .from("PurItems")
-          .where( select.from.ref[0].where )
+          .where(select.from.ref[0].where)
       );
 
       // Select all sDOC for a object

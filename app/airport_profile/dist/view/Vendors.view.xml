@@ -7,6 +7,9 @@
         <semantic:titleHeading>
             <Title id="masterPageTitle" text="Contracts" level="H2"/>
         </semantic:titleHeading>
+        <semantic:titleCustomTextActions>
+            <Button icon= "sap-icon://add" text="New Contract" enabled="{= !${detailsViewModel>/editable} }" press="onNewContractButtonPressed"/>
+        </semantic:titleCustomTextActions>
         <semantic:titleBreadcrumbs>
             <Breadcrumbs currentLocationText="{vendorsView>/airportId}" separatorStyle="GreaterThan">
                 <Link press="navToAirports" text="Airports"/>
@@ -14,7 +17,7 @@
         </semantic:titleBreadcrumbs>
         <semantic:content>
             <VBox items="{vendorContracts>/vendorContracts}">
-                <Panel headerText="{vendorContracts>vendor_ID}" width="auto" class="sapUiResponsiveMargin" expandable="true" backgroundDesign="Transparent" expanded="true">
+                <Panel headerText="{vendorContracts>vendor_ID}" width="auto" class="sapUiResponsiveMargin" expandable="true" backgroundDesign="Transparent" expanded="true" blocked="{detailsViewModel>/editable}">
                     <content>
                         <List items="{vendorContracts>contracts}" itemPress="onContractItemClicked">
                             <CustomListItem type="Navigation" highlight="{= ${vendorContracts>selected} ? 'Information' : 'None'}">
@@ -45,9 +48,13 @@
                                                 <Text text="{i18n>aribaIndicator}" class="sapUiTinyMarginEnd" />
                                                 <Text text="{vendorContracts>aribaIndicator}" />
                                             </HBox>
+                                            <ObjectStatus text="{i18n>draft}" class="sapUiTinyMarginTop" state="Information" icon="sap-icon://notes" visible="{vendorContracts>showDraftIndicator}" />
+                                            <ObjectStatus text="{vendorContracts>draftLastChangedByText}" class="sapUiTinyMarginTop" state="Information" icon="sap-icon://edit" visible="{= ${vendorContracts>showUnsavedChangesIndicator} === true }" />
+
+                                            <ObjectStatus text="{vendorContracts>lockedText}" class="sapUiTinyMarginTop" state="Information" icon="sap-icon://private" visible="{= ${vendorContracts>showLockedIndicator} === true }" />
                                         </VBox>
                                         <VBox justifyContent="Center">
-                                            <ObjectStatus text="{path: 'vendorContracts>status', formatter: '.formatter.capitalizeText'}" state="{path: 'vendorContracts>status', formatter: '.formatter.vendorContratStatusState'}" />
+                                            <ObjectStatus text="{path: 'vendorContracts>status/name'}" state="{path: 'vendorContracts>status_code', formatter: '.formatter.vendorContratStatusState'}" />
                                             <Text text="{
                                                 path: 'vendorContracts>documentDate',
                                                 formatter: '.formatter.convertDate'

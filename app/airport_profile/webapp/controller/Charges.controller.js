@@ -7,6 +7,7 @@ sap.ui.define(
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/ui/core/Fragment",
+    "sap/m/Dialog",
   ],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
@@ -26,22 +27,7 @@ sap.ui.define(
       formatter: formatters,
 
       onInit: function () {
-        var viewModel = new JSONModel({
-          title: "",
-          editLobDialog: {
-            title: "",
-            busy: false,
-          },
-          modes: {
-            create: false,
-            edit: false,
-            displayWithDraft: false,
-            displayWithoutDraft: false,
-          },
-          editable: false,
-        });
-
-        this.setModel(viewModel, "detailsViewModel");
+        this._initViewModel();
 
         var dataModel = new JSONModel({
           header: {},
@@ -66,17 +52,25 @@ sap.ui.define(
               return;
             }
 
-            if (confirm("Are you sure you want to navigate away?")) {
-              // exit page
-              window.removeEventListener("hashchange", fnHandleHashChange);
-              window.hasher.setHash(sOldHash.substr(1));
-              window.hasher.changed.active = true;
-              window.hasher.setHash(sNewHash.substr(1));
-              self._getViewModel().setProperty("/editable", false);
-            } else {
-              // stay on the current page
-              window.hasher.setHash(sOldHash.substr(1));
-            }
+            window.removeEventListener("hashchange", fnHandleHashChange);
+            window.hasher.setHash(sOldHash.substr(1));
+            window.hasher.changed.active = true;
+            window.hasher.setHash(sNewHash.substr(1));
+            self._getViewModel().setProperty("/editable", false);
+            self._initViewModel();
+            self.stopManualHashChangeHandling();
+
+            // if (confirm("Are you sure you want to navigate away?")) {
+            //   // exit page
+            //   window.removeEventListener("hashchange", fnHandleHashChange);
+            //   window.hasher.setHash(sOldHash.substr(1));
+            //   window.hasher.changed.active = true;
+            //   window.hasher.setHash(sNewHash.substr(1));
+            //   self._getViewModel().setProperty("/editable", false);
+            // } else {
+            //   // stay on the current page
+            //   window.hasher.setHash(sOldHash.substr(1));
+            // }
           };
 
           return {
@@ -92,11 +86,39 @@ sap.ui.define(
           };
         })();
       },
+      _initViewModel: function () {
+        var data = {
+          title: "",
+          editLobDialog: {
+            title: "",
+            busy: false,
+          },
+          modes: {
+            create: false,
+            edit: false,
+            displayWithDraft: false,
+            displayWithoutDraft: false,
+            locked: false,
+          },
+          lobSelectedTab: "airport",
+          editable: true,
+        };
+
+        var viewModel = this._getViewModel();
+        if (viewModel) {
+          viewModel.setData(data);
+        } else {
+          this.setModel(new JSONModel(data), "detailsViewModel");
+        }
+      },
       _getDataModel: function () {
         return this.getModel("detailsModel");
       },
       _getViewModel: function () {
         return this.getModel("detailsViewModel");
+      },
+      _getLobSelectedTab: function () {
+        return this._getViewModel().getProperty("/lobSelectedTab");
       },
       _onObjectMatched: function (oEvent) {
         // clear data model
@@ -117,23 +139,7 @@ sap.ui.define(
 
         this.loadData(oEvent.getParameter("arguments").vid);
 
-        this._hashHandler.startManualHashChangeHandling();
-
-        // if (this.routeParams.vid !== "new") {
-        //   this.loadData(oEvent.getParameter("arguments").vid);
-        //   this._getViewModel().setProperty("/editMode", false);
-        //   this.getModel("appView").setProperty("/mainTabsVisible", true);
-        // } else {
-        //   this.getModel("appView").setProperty("/mainTabsVisible", false);
-        //   this._getViewModel().setProperty("/editMode", true);
-        //   this._getViewModel().setProperty(
-        //     "/title",
-        //     this.getResourceBundle().getText("newContract")
-        //   );
-        //   var contractItemModel = this._setupEditedContractModel();
-        // //   this._saveDraftContract(contractItemModel.getData());
-        //   this._hashHandler.startManualHashChangeHandling();
-        // }
+        // this._hashHandler.startManualHashChangeHandling();
       },
 
       loadData: function (id) {
@@ -144,7 +150,7 @@ sap.ui.define(
         $.get({
           url: sUrl,
           data: {
-            $select: "IsActiveEntity",
+            $select: "IsActiveEntity,HasActiveEntity",
             $filter: `ID eq ${id} and (IsActiveEntity eq false or SiblingEntity/IsActiveEntity eq null)`,
           },
           success: function (data) {
@@ -174,23 +180,21 @@ sap.ui.define(
           success: function (data) {
             var header = _.cloneDeep(data);
 
-            header.airportCharges = [];
-            header.cargos = [];
+            header.airport = [];
+            header.cargo = [];
             header.engs = [];
             header.caterings = [];
 
             if (data && data.items) {
               // loop on the items and group them by line of business
               data.items.forEach(function (item) {
-                if (item.lineOfBusiness === "airport") {
-                  header.airportCharges.push(item);
-                } else if (item.lineOfBusiness === "cargo") {
-                  header.cargos.push(item);
+                if (item.lineOfBusiness) {
+                  header[item.lineOfBusiness].push(item);
                 }
               });
             }
 
-            header.items = header.airportCharges;
+            header.items = header.airport;
 
             oModel.setProperty("/header", header);
 
@@ -212,41 +216,63 @@ sap.ui.define(
       },
 
       _updateFormMode: function (data) {
+        var currentUser = "";
+        if (sap.ushell) {
+          currentUser = sap.ushell.Container.getUser().getEmail();
+        }
+
         var createMode =
           data.DraftAdministrativeData &&
           data.DraftAdministrativeData.DraftIsCreatedByMe &&
           !data.IsActiveEntity &&
           !data.HasActiveEntity &&
-          !data.HasDraftEntity;
+          !data.HasDraftEntity
+            ? true
+            : false;
 
         var editMode =
           data.DraftAdministrativeData &&
           data.DraftAdministrativeData.DraftIsCreatedByMe &&
           !data.IsActiveEntity &&
           data.HasActiveEntity &&
-          !data.HasDraftEntity;
+          !data.HasDraftEntity
+            ? true
+            : false;
 
         var displayModeWithDraft =
           data.DraftAdministrativeData &&
           !data.DraftAdministrativeData.DraftIsCreatedByMe &&
           data.IsActiveEntity &&
           !data.HasActiveEntity &&
-          data.HasDraftEntity;
+          data.HasDraftEntity
+            ? true
+            : false;
 
         var displayModeWithoutDraft =
           !data.DraftAdministrativeData &&
           data.IsActiveEntity &&
           !data.HasDraftEntity &&
-          data.HasDraftEntity;
+          data.HasDraftEntity
+            ? true
+            : false;
+
+        var isLocked =
+          data.IsActiveEntity &&
+          data.HasDraftEntity &&
+          data.DraftAdministrativeData.LastChangedByUser !== currentUser &&
+          data.DraftAdministrativeData.InProcessByUser
+            ? true
+            : false;
 
         this._getViewModel().setProperty("/modes", {
           create: createMode,
           edit: editMode,
           displayWithDraft: displayModeWithDraft,
           displayWithoutDraft: displayModeWithoutDraft,
+          locked: isLocked,
         });
 
-        this._getViewModel().setProperty("/editable", createMode || editMode);
+        // this._getViewModel().setProperty("/editable", createMode || editMode);
 
         if (createMode || editMode) {
           this._setupEditedContractModel(data);
@@ -407,6 +433,69 @@ sap.ui.define(
           },
         });
       },
+      onDeleteContractPressed: function () {
+        const sUrl = this.getModel().sServiceUrl + "PurDocs";
+
+        // var modes = this._getViewModel().getProperty("/modes");
+
+        var self = this;
+
+        var promises = [];
+
+        $.get({
+          url: `${sUrl}(ID=${this.routeParams.vid},IsActiveEntity=false)/SiblingEntity`,
+          success: function (data) {
+            $.ajax({
+              url: `${sUrl}(ID=${self.routeParams.vid},IsActiveEntity=false)`,
+              method: "DELETE",
+            })
+              .fail(function (err) {
+                if (err.status !== 404) {
+                  self.showMessageDialog(
+                    "Error",
+                    err.responseJSON.error.message
+                  );
+                }
+              })
+              .always(function () {
+                $.ajax({
+                  url: `${sUrl}(ID=${self.routeParams.vid},IsActiveEntity=true)`,
+                  method: "DELETE",
+                })
+                  .then(function () {
+                    self.onNavBack("Vendors");
+                  })
+                  .catch(function (err) {
+                    // show error message
+                    self.showMessageDialog("Error", err.responseJSON.error.message);
+                  });
+              });
+
+            self.showBusyIndicator(false);
+          },
+          error: function (error) {
+            self.showBusyIndicator(false);
+          },
+        });
+
+        // var promises = [];
+
+        // // if has draft
+        // if (modes.displayModeWithDraft){
+
+        // } else if (modes.displayModeWithoutDraft) {
+
+        // }
+
+        // var sUrl = `${
+        //   this.getModel().sServiceUrl
+        // }PurDocs(ID=${contractId},IsActiveEntity=${isActiveEntity})`;
+
+        // $.ajax({
+        //   url: "",
+        //   method: "DELETE",
+        // });
+      },
       onAddLobItem: function () {
         var self = this;
 
@@ -419,6 +508,7 @@ sap.ui.define(
           validTo: "",
           price: undefined,
           quantity: undefined,
+          lineOfBusiness: this._getLobSelectedTab(),
         });
 
         this.getView().setModel(oEditLobModel, "editLobData");
@@ -444,7 +534,14 @@ sap.ui.define(
         var payload = {
           validFrom: `${editedItem.validFrom}T00:00:00.000Z`,
           validTo: `${editedItem.validTo}T00:00:00.000Z`,
+          status_code: editedItem.status,
+          price: editedItem.price,
+          quantity: editedItem.quantity,
+          description: editedItem.description,
+          lineOfBusiness: editedItem.lineOfBusiness,
         };
+
+        var self = this;
 
         $.ajax({
           url: sUrl,
@@ -455,12 +552,13 @@ sap.ui.define(
           },
           dataType: "json",
           success: function (data) {
-            // oContractItemModel.setProperty("/contractItem", data);
-            alert("success");
+            self.onCloseEditLobDialog();
+            var header = self._getDataModel().getProperty("/header");
+            header[data.lineOfBusiness].push(data);
+            header.items = header[data.lineOfBusiness];
+            self._getDataModel().refresh();
           },
-          error: function (error) {
-            alert("error");
-          },
+          error: function (error) {},
         });
       },
 

@@ -156,7 +156,7 @@ entity Carriers : managed {
         carrier              : Association to one TR_Carriers 
             @assert.integrity:false;
         companyCode          : Association to one CompanyCodes
-            @assdert.integrity:false;
+            @assert.integrity:false;
         mainWorkCenter       : Association to one WorkCenters
             @assert.integrity:false;
         orderType            : Association to one OrderTypes

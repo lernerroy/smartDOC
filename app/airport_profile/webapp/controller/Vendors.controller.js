@@ -177,8 +177,11 @@ sap.ui.define(
       onNewContractButtonPressed: function () {
         var sUrl = this.getModel().sServiceUrl + "PurDocs";
 
+        var self = this;
+
         var payload = {
           validFrom: "1900-01-01T00:00:00.000Z",
+          airport_ID: self.routeParams.id,
         };
 
         this.showBusyIndicator(true);
@@ -195,11 +198,15 @@ sap.ui.define(
           dataType: "json",
           success: function (data) {
             self.showBusyIndicator(false);
-            self.getRouter().navTo(
-              "Charges",
-              { id: self.routeParams.id, vid: data.ID },
-              false
-            );
+            setTimeout(function () {
+              self
+                .getRouter()
+                .navTo(
+                  "Charges",
+                  { id: self.routeParams.id, vid: data.ID },
+                  false
+                );
+            }, 10);
           },
           error: function (error) {
             self.showBusyIndicator(false);

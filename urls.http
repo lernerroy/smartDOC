@@ -285,18 +285,21 @@ curl -X POST http://localhost:4004/draft/PurDocs -H "Content-Type: application/j
 curl -X POST http://localhost:4004/draft/PurDocs -H "Content-Type: application/json;IEEE754Compatible=true" -d '{"validFrom":"2000-12-01T00:00:00.000Z","validTo":"2003-12-01T00:00:00.000Z","objectType":"contract","documentDate":"2002-12-01","description":"Ran2 Contract","airport_ID":"FRA","status_code":"active","carrier_ID":"AV","purchaseOrganization_ID":"1000","documentType":"airport","vendor_ID":"0000001000","aribaIndicator":null}'
 
 ###
-curl -X PATCH http://localhost:4004/draft/PurDocs(ID=2d7cf05a-fdfb-4de0-bad2-2fe639da0951,IsActiveEntity=false) -H "Content-Type: application/json;IEEE754Compatible=true" -d '{"validFrom":"2021-12-01T00:00:00.000Z","validTo":"2023-12-03T00:00:00.000Z","objectType":"contract","documentDate":"2021-12-01","description":"Ran Contract","airport_ID":"FRA","status_code":"A","carrier_ID":"AV","purchaseOrganization_ID":"1000","documentType":"airport","vendor_ID":"0000001000","aribaIndicator":null}'
+curl -X PATCH http://localhost:4004/draft/PurDocs(ID=8a62acff-16e5-41fc-9869-33663a0bde0b,IsActiveEntity=false) -H "Content-Type: application/json;IEEE754Compatible=true" -d '{"validFrom":"2021-12-01T00:00:00.000Z","validTo":"2023-12-03T00:00:00.000Z","objectType":"contract","documentDate":"2021-12-01","description":"Ran Contract","airport_ID":"FRA","status_code":"A","carrier_ID":"AV","purchaseOrganization_ID":"1000","documentType":"airport","vendor_ID":"0000001000","aribaIndicator":null}'
  
 ###
 curl -X POST http://localhost:4004/draft/PurDocs(ID=e58e6f95-6c84-42b6-8824-18082f83f843,IsActiveEntity=false)/smartDOCDraft.draftPrepare -H "Content-Type: application/json;IEEE754Compatible=true"
 
 ###
-curl -X POST http://localhost:4004/draft/PurDocs(ID=e58e6f95-6c84-42b6-8824-18082f83f843,IsActiveEntity=false)/smartDOCDraft.draftActivate -H "Content-Type: application/json;IEEE754Compatible=true"
+curl -X POST http://localhost:4004/draft/PurDocs(ID=8a62acff-16e5-41fc-9869-33663a0bde0b,IsActiveEntity=false)/smartDOCDraft.draftActivate -H "Content-Type: application/json;IEEE754Compatible=true"
 
 ###
 http://localhost:4004/draft/PurDocs?$select=ID&$filter=airport_ID eq 'FRA' and (IsActiveEntity eq false or SiblingEntity/IsActiveEntity eq null)&$expand=DraftAdministrativeData($select=DraftUUID,InProcessByUser,LastChangedByUser),items($select=ID)
 
 
+
+###
+http://localhost:4004/draft/PurDocs(ID=2d7cf05a-fdfb-4de0-bad2-2fe639da0951,IsActiveEntity=false)?$select=ID&$expand=items($select=ID,brf_id)
 
 
 ###
