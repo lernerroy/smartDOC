@@ -102,7 +102,7 @@ sap.ui.define(
         // console.log(sap.ushell.Container.getService("UserInfo").getId());
         var oModel = this.getModel("vendorContracts");
         var self = this;
-        const sUrl = this.getModel().sServiceUrl + "PurDocs";
+        const sUrl = this.getModel().sServiceUrl + "PurDocs?sap-valid-from=date'0001-01-01'";
         $.get({
           url: sUrl,
           data: {
@@ -181,7 +181,11 @@ sap.ui.define(
 
         var payload = {
           validFrom: "1900-01-01T00:00:00.000Z",
-          airport_ID: self.routeParams.id,
+          validTo: "9999-12-31T00:00:00.000Z",
+          airport_ID: self.routeParams.id ,
+          status_code: "A",
+          documentDate: new Date().toISOString().split('T')[0],
+          
         };
 
         this.showBusyIndicator(true);

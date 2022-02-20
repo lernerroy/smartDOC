@@ -31,6 +31,8 @@ using {ZGW_LS_FO_SERVICE_SRV as ServiceDataService}
     from '../srv/external/ServiceData';
 
 
+
+
 /////////////////////////////////////////////////////////////
 // View Declaration for SAP Services
 /////////////////////////////////////////////////////////////
@@ -92,7 +94,7 @@ view ServiceData as
         key Activity as ID,
         Activitydesc as Name
     };
-
+    
 
 /////////////////////////////////////////////////////////////
 // View Declaration for Trip Record Services
@@ -127,16 +129,9 @@ view TR_Carriers as
     };
     
 
-/////////////////////////////////////////////////////////////
-// View Declaration for BRF services
-/////////////////////////////////////////////////////////////
-// view BRF_Pricing as
-//     select from BRFService.BRFs {
-//         key code  as ID,
-//             name  as Name
-//     };
 
-     
+
+
 
 /////////////////////////////////////////////////////////////
 // Entities Declaration of smartDOC 
@@ -234,7 +229,7 @@ entity PurDocs : managed, temporal {
         //validityFrom         : Date;
         //validityTo           : Date;
         carrier              : Association to one TR_Carriers @assert.integrity: false;
-        purchaseOrganization : Association to one PurchaseOrganizations @assert.integrity: false;
+        purchaseOrganization : Association to one PurchaseOrganizations;
         documentType         : DocumentType;
         vendor               : Association to one BusinessPartners;
         //paymentTerms

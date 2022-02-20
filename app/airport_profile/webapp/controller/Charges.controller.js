@@ -101,7 +101,8 @@ sap.ui.define(
             locked: false,
           },
           lobSelectedTab: "airport",
-          editable: true,
+          
+          editable: false ,
         };
 
         var viewModel = this._getViewModel();
@@ -143,7 +144,7 @@ sap.ui.define(
       },
 
       loadData: function (id) {
-        const sUrl = this.getModel().sServiceUrl + "PurDocs";
+        const sUrl = this.getModel().sServiceUrl + "PurDocs?sap-valid-from=date%270001-01-01%27";
         var self = this;
         self.showBusyIndicator(true);
 
@@ -152,6 +153,8 @@ sap.ui.define(
           data: {
             $select: "IsActiveEntity,HasActiveEntity",
             $filter: `ID eq ${id} and (IsActiveEntity eq false or SiblingEntity/IsActiveEntity eq null)`,
+            $skip: 0,
+            $top: 2,
           },
           success: function (data) {
             if (data && data.value.length > 0) {
@@ -159,6 +162,7 @@ sap.ui.define(
             }
           },
           error: function (error) {
+              // error doesnt show here for some reason
             console.log(error);
             self.showBusyIndicator(false);
           },
@@ -170,7 +174,7 @@ sap.ui.define(
         var self = this;
 
         $.get({
-          url: `${sUrl}(ID=${id},IsActiveEntity=${isActiveEntity})`,
+          url: `${sUrl}(ID=${id},IsActiveEntity=${isActiveEntity})?sap-valid-from=date%270001-01-01%27`,
           data: {
             $select:
               "extenalID,documentDate,description,status,validFrom,validTo,aribaIndicator",
@@ -272,8 +276,8 @@ sap.ui.define(
           locked: isLocked,
         });
 
-        // this._getViewModel().setProperty("/editable", createMode || editMode);
-
+         //this._getViewModel().setProperty("/editable", createMode || editMode);
+         this._getViewModel().setProperty("/editable", createMode || editMode);
         if (createMode || editMode) {
           this._setupEditedContractModel(data);
         }
@@ -286,8 +290,8 @@ sap.ui.define(
           aFilters = [
             new Filter(
               [
-                new Filter("ID", FilterOperator.StartsWith, sValue),
-                new Filter("Name", FilterOperator.StartsWith, sValue),
+                new Filter("ID", FilterOperator.EQ, sValue),
+                new Filter("Name", FilterOperator.EQ, sValue),
               ],
               false
             ),
@@ -295,6 +299,25 @@ sap.ui.define(
         }
 
         event.getSource().getBinding("suggestionItems").filter(aFilters);
+        event.getSource().suggest();
+      },
+      serviceOnSuggest: function (event) {
+        var sValue = event.getParameter("suggestValue"),
+          aFilters = [];
+        if (sValue) {
+          aFilters = [
+            new Filter(
+              [
+                new Filter("ID", FilterOperator.EQ, sValue),
+                new Filter("Name", FilterOperator.EQ, sValue),
+              ],
+              false
+            ),
+          ];
+        }
+
+        event.getSource().getBinding("suggestionItems").filter(aFilters);
+        
         event.getSource().suggest();
       },
       onCancelCreate: function () {
@@ -397,12 +420,14 @@ sap.ui.define(
         var oContractItemModel = this.getView().getModel("editedContract");
 
         const payload = {
-          validFrom: contractItem.validFromDate
-            ? contractItem.validFromDate
-            : "1900-01-01T00:00:00.000Z",
-          validTo: contractItem.validToDate
-            ? contractItem.validToDate
-            : "1900-01-01T00:00:00.000Z",
+          validFrom: "1900-01-01T00:00:00.000Z",
+          validTo: "9999-12-31T00:00:00.000Z",
+          //contractItem.validFromDate
+            //? contractItem.validFromDate
+            //: "0001-01-01T00:00:00.000Z",
+         // validTo: contractItem.validToDate
+          //  ? contractItem.validToDate
+          //  : "2099-01-01T00:00:00.000Z",
           objectType: "contract",
           documentDate: contractItem.docDate
             ? `${contractItem.docDate}`
@@ -443,10 +468,10 @@ sap.ui.define(
         var promises = [];
 
         $.get({
-          url: `${sUrl}(ID=${this.routeParams.vid},IsActiveEntity=false)/SiblingEntity`,
+          url: `${sUrl}(ID=${this.routeParams.vid},IsActiveEntity=false)/SiblingEntity?sap-valid-from=date%270001-01-01%27`,
           success: function (data) {
             $.ajax({
-              url: `${sUrl}(ID=${self.routeParams.vid},IsActiveEntity=false)`,
+              url: `${sUrl}(ID=${self.routeParams.vid},IsActiveEntity=false)?sap-valid-from=date%270001-01-01%27`,
               method: "DELETE",
             })
               .fail(function (err) {
@@ -459,7 +484,7 @@ sap.ui.define(
               })
               .always(function () {
                 $.ajax({
-                  url: `${sUrl}(ID=${self.routeParams.vid},IsActiveEntity=true)`,
+                  url: `${sUrl}(ID=${self.routeParams.vid},IsActiveEntity=true)?sap-valid-from=date%270001-01-01%27`,
                   method: "DELETE",
                 })
                   .then(function () {
@@ -502,12 +527,14 @@ sap.ui.define(
         this._getViewModel().setProperty("/editLobDialog/title", "Create Item");
 
         var oEditLobModel = new JSONModel({
-          status: "",
+          extenalID: "10",  
+          status: "A",
           description: "",
-          validFrom: "",
-          validTo: "",
+          service: undefined,
+          validFrom: "1900-01-01",
+          validTo: "9999-12-31",
           price: undefined,
-          quantity: undefined,
+          quantity: 1,
           lineOfBusiness: this._getLobSelectedTab(),
         });
 
@@ -527,13 +554,16 @@ sap.ui.define(
 
         var sUrl = `${this.getModel().sServiceUrl}PurDocs(ID=${
           contractItem.ID
-        },IsActiveEntity=${contractItem.IsActiveEntity})/items`;
+        },IsActiveEntity=false)/items`;
+        //},IsActiveEntity=${contractItem.IsActiveEntity})/items`;
 
         var editedItem = this.getView().getModel("editLobData").getData();
 
         var payload = {
+          extenalID: editedItem.extenalID,
           validFrom: `${editedItem.validFrom}T00:00:00.000Z`,
           validTo: `${editedItem.validTo}T00:00:00.000Z`,
+          serviceNumber_ID: editedItem.service,
           status_code: editedItem.status,
           price: editedItem.price,
           quantity: editedItem.quantity,

@@ -11,8 +11,15 @@
                 <ComboBox items="{/Status}" width="100%" selectedKey="{editLobData>/status}" placeholder="Select status">
                     <core:Item key="{code}" text="{name}" />
                 </ComboBox>
+                <Label text="ID" class="sapUiSmallMarginTop" />
+                <Input placeholder="Enter item ID" value="{editLobData>/extenalID}" />
                 <Label text="Description" class="sapUiSmallMarginTop" />
                 <Input placeholder="Enter item description" value="{editLobData>/description}" />
+                <Label text="Service" class="sapUiSmallMarginTop" />
+
+                    <SearchField placeholder="Enter Service code" enableSuggestions="true" change="" value="{editLobData>/service}" suggestionItems="{/ServiceData}" suggest="serviceOnSuggest">
+                                <SuggestionItem text="{ID}" description="{Name}" key="{ID}" />
+                            </SearchField>
 
                 <Label text="Valid from Date" class="sapUiSmallMarginTop" />
                 <DatePicker value="{editLobData>/validFrom}" placeholder="Select date" valueFormat="yyyy-MM-dd" />

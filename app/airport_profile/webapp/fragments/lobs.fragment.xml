@@ -5,15 +5,19 @@
         <headerToolbar>
             <OverflowToolbar>
                 <ToolbarSpacer />
-                <Button text="Add Item" icon="sap-icon://add" press="onAddLobItem" />
+                
             </OverflowToolbar>
         </headerToolbar>
         <columns>
-            <Column width="12em">
-                <Text text="ID" />
+            
+            <Column>
+                <Text text="{i18n>id}" />
             </Column>
-            <Column width="12em">
+            <Column>
                 <Text text="Status" />
+            </Column>
+            <Column minScreenWidth="Tablet" demandPopin="true">
+                <Text text="Service" />
             </Column>
             <Column minScreenWidth="Tablet" demandPopin="true">
                 <Text text="Description" />
@@ -38,8 +42,10 @@
         <items>
             <ColumnListItem vAlign="Middle">
                 <cells>
-                    <Text text="{detailsModel>ID}" />
-                    <ObjectStatus text="{path: 'detailsModel>status', formatter: '.formatter.capitalizeText'}" state="{path: 'detailsModel>status', formatter: '.formatter.vendorContratStatusState'}" />
+                    
+                    <Text text="{detailsModel>extenalID}" />
+                    <ObjectStatus text="{path: 'detailsModel>status/name'}" state="{path: 'detailsModel>status_code', formatter: '.formatter.vendorContratStatusState'}" />
+                    <Text text="{detailsModel>serviceNumber_ID}" />
                     <Text text="{detailsModel>description}" />
 
                     <Text text="{ path: 'detailsModel>validFrom',

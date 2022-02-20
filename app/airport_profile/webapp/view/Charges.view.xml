@@ -83,15 +83,16 @@
 
                             <core:Title text="{i18n>purchaseOrgTitle}" />
                             <Label text="{i18n>poIdField}" />
-                            <ComboBox items="{/PurchaseOrganizations}" selectedKey="{editedContract>/purchaseOrgId}" showSecondaryValues="true">
-                                <core:ListItem key="{ID}" text="{Name}" additionalText="{ID}" />
-                            </ComboBox>
+                            <SearchField placeholder="Enter Purchase Organization" enableSuggestions="true" change="" value="{editedContract>/purchaseOrgId}" suggestionItems="{/PurchaseOrganizations}" suggest="vendorOnSuggest">
+                                <SuggestionItem text="{ID}" description="{Name}" key="{ID}" />
+                            </SearchField>
+                            
                             <Label text="{i18n>poNameField}" />
                             <Text text="{detailsModel>/header/purchaseOrganization/Name}" />
 
                             <core:Title text="{i18n>vendorInfoTitle}" />
                             <Label text="{i18n>vendorIdField}" />
-                            <SearchField placeholder="Enter Vendor" enableSuggestions="true" change="" value="{editedContract>/vendorId}" suggestionItems="{/BusinessPartners}" suggest="vendorOnSuggest">
+                            <SearchField placeholder="Enter Vendor" enableSuggestions="true" change="vendorOnSuggest" value="{editedContract>/vendorId}" suggestionItems="{/BusinessPartners}" suggest="vendorOnSuggest">
                                 <SuggestionItem text="{ID}" description="{Name}" key="{ID}" />
                             </SearchField>
                             <Label text="{i18n>vendorNameField}" />
@@ -101,7 +102,7 @@
                 </Panel>
 
                 <IconTabBar expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding sapUiTinyMarginTop" 
-                select="onLobTabSelected" selectedKey="{detailsViewModel>/lobSelectedTab}">
+                select="onLobTabSelected" selectedKey="{detailsViewModel>/lobSelectedTab}" visible="{= !${detailsViewModel>/editable} }">
                     <items>
                         <IconTabFilter text="Airport Charges" icon="sap-icon://travel-expense" key="airport">
 
@@ -117,6 +118,28 @@
 
                         <IconTabFilter text="Catering" key="caterings" icon="sap-icon://meal">
                             <core:Fragment fragmentName="airportprofile.fragments.lobs" type="XML" />
+                        </IconTabFilter>
+                    </items>
+                </IconTabBar>
+
+                
+                <IconTabBar expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding sapUiTinyMarginTop" 
+                select="onLobTabSelected" selectedKey="{detailsViewModel>/lobSelectedTab}" visible="{= ${detailsViewModel>/editable} }">
+                    <items>
+                        <IconTabFilter text="Airport Charges" icon="sap-icon://travel-expense" key="airport">
+
+                            <core:Fragment fragmentName="airportprofile.fragments.editablelobs" type="XML" />
+
+                        </IconTabFilter>
+                        <IconTabFilter text="Cargo" key="cargo" icon="sap-icon://sap-box">
+                            <core:Fragment fragmentName="airportprofile.fragments.editablelobs" type="XML" />
+                        </IconTabFilter>
+                        <IconTabFilter text="Engineering" key="engs" icon="sap-icon://wrench">
+                            <core:Fragment fragmentName="airportprofile.fragments.editablelobs" type="XML" />
+                        </IconTabFilter>
+
+                        <IconTabFilter text="Catering" key="caterings" icon="sap-icon://meal">
+                            <core:Fragment fragmentName="airportprofile.fragments.editablelobs" type="XML" />
                         </IconTabFilter>
                     </items>
                 </IconTabBar>

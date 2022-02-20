@@ -2,46 +2,15 @@ const cds = require("@sap/cds");
 
 const SequenceHelper = require("./lib/SequenceHelper.js");
 
-// module.exports = cds.service.impl(async (service) => {
-//   const db = await cds.connect.to("db");
-//   const { PurDoc } = service.entities;
-
-//   service.before("CREATE", PurDoc, async (context) => {
-//     const PurDocId = new SequenceHelper({
-//       db: db,
-//       sequence: "CONTRACT_ID",
-//       table: "PurDocs",
-//       field: "extenalID",
-//     });
-
-//     context.data.ID = await PurDocId.getNextNumber();
-//   });
-// });
-
-// module.exports = cds.service.impl(async (service) => {
-//   const db = await cds.connect.to("db");
-//   const { TaskLists } = service.entities;
-
-//   service.before("CREATE", TaskLists, async (context) => {
-//     const TaskListsId = new SequenceHelper({
-//       db: db,
-//       sequence: "TL_ID",
-//       table: "TaskLists",
-//       field: "extenalID",
-//     });
-
-//     context.data.ID = await TaskListsId.getNextNumber();
-//   });
-// });
-
 /**
  * Implementation for Airport Profile service in ./AirportProfile-Draft.cds
  */
 
 module.exports = cds.service.impl(async function () {
-  this.after("CREATE", "PurDocs", async (req, next) => {
+  this.before("CREATE", "PurDocs", async (req) => {
     const db = await cds.connect.to("db");
-
+    if (!req.data.extenalID)
+    {
     const TaskListsId = new SequenceHelper({
       db: db,
       sequence: "CONTRACT_ID",
@@ -49,22 +18,28 @@ module.exports = cds.service.impl(async function () {
       field: "extenalID",
     });
 
-    req.extenalID = await TaskListsId.getNextNumber();
+    req.data.extenalID = await TaskListsId.getNextNumber();
 
     return req;
+    }
   });
 
-  this.after("CREATE", "TaskLists", async (req, next) => {
+  this.before("CREATE", "TaskLists", async (req) => { 
     const db = await cds.connect.to("db");
 
-    const TaskListsId = new SequenceHelper({
-      db: db,
-      sequence: "TL_ID",
-      table: "TaskLists",
-      field: "extenalID",
+    if (!req.data.extenalID)
+    {
+        const TaskListsId = new SequenceHelper({
+        db: db,
+        sequence: "TL_ID",
+        table: "TaskLists",
+        field: "extenalID",
     });
 
-    req.extenalID = await TaskListsId.getNextNumber();
+    req.data.extenalID = await TaskListsId.getNextNumber();
+    
+    return req;
+    }
   });
 
   ////////////////////////////////////////////////////////////
@@ -1723,34 +1698,30 @@ module.exports = cds.service.impl(async function () {
         const carrierResponse = await this.run(
           SELECT.one("carrier_ID")
             .from("PurDocs")
-            .where("ID = '" + PurDocs_ID + "'")
+            .where("ID = '" + PurDocs_ID + "' and IsActiveEntity = true")
         );
 
         if (!carrierResponse || !carrierResponse.carrier_ID) {
-          return req;
+         
         }
-
-        // Get object ID from sDOC
-        // const { carrier_ID } = await this.run(
-        //   SELECT.one("carrier_ID")
-        //     .from("PurDocs")
-        //     .where("ID = '" + PurDocs_ID + "'")
-        // );
+        else
+        {
 
         // Get object ID from sDOC
         const { airport_ID } = await this.run(
           SELECT.one("airport_ID")
             .from("PurDocs")
-            .where("ID = '" + PurDocs_ID + "'")
+            .where("ID = '" + PurDocs_ID + "' and IsActiveEntity = true")
         );
 
-        const cx1 = lineOfBusiness + "_" + carrier_ID;
+        const cx1 = lineOfBusiness + "_" + carrierResponse.carrier_ID;
 
         const BRF = await cds.connect.to("SAP_CF_BusinessRules_Repository");
         const response = await BRF.get(
           "/v1/projects?Name=" + cx1 + "&$top=100"
         );
 
+        if (serviceNumber_ID){
         // Select all sDOC for a object
         const ServiceDataAPI1 = await cds.connect.to("ZGW_LS_FO_SERVICE_SRV");
         const cql = SELECT("Name")
@@ -1759,35 +1730,42 @@ module.exports = cds.service.impl(async function () {
         // cql.SELECT.count = !!select.count;
         const service_name = await ServiceDataAPI1.run(cql);
 
-        const cx3 = response[0]?.Id;
-        const cx2 =
-          "rserv_" +
-          lineOfBusiness +
-          "_" +
-          airport_ID +
-          "_" +
-          service_name[0].Name;
+        if (service_name[0])
+        {
 
-        if (
-          cx3 == "undefined" ||
-          cx2 == "undefined" ||
-          cx3 == null ||
-          cx2 == null
-        ) {
-        } else {
-          const response1 = await BRF.get(
-            "/v1/projects/" +
-              cx3 +
-              "/ruleservices?Name=" +
-              cx2.toLowerCase() +
-              "&$top=100"
-          );
+            
+            const cx3 = response[0]?.Id;
+            const cx2 =
+            "rserv_" +
+            lineOfBusiness +
+            "_" +
+            airport_ID +
+            "_" +
+            service_name[0].Name;
 
-          if (response1[0] != null) {
-            PurItem["brf_id"] = response1[0].Id;
-          }
+            if (
+            cx3 == "undefined" ||
+            cx2 == "undefined" ||
+            cx3 == null ||
+            cx2 == null
+            ) {
+            } else {
+            const response1 = await BRF.get(
+                "/v1/projects/" +
+                cx3 +
+                "/ruleservices?Name=" +
+                cx2.toLowerCase() +
+                "&$top=100"
+            );
+
+                        if (response1[0] != null) {
+                            PurItem["brf_id"] = response1[0].Id;
+                        }
+                    }
+                }
+            }
         }
-      }
+    }
     }
 
     return req;
