@@ -138,7 +138,7 @@
         },
         {
           "name": "Services",
-          "pattern": "airport/:id:/taskDetails/:type:/services/:uid:/item/:itemid:/task/:tid:",
+          "pattern": "airport/:id:/taskDetails/:type:/services/:contractId:/item/:lobItemId:/task/:taskId:",
           "target": ["TaskDetailsTarget", "ServicesTarget"]
         }
       ],

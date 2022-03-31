@@ -1,0 +1,27 @@
+<mvc:View controllerName="airportprofile.controller.App"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:f="sap.f"
+    xmlns="sap.m">
+
+    <VBox>
+        <IconTabBar expanded="{device>/isNoPhone}" visible="{appView>/mainTabsVisible}" applyContentPadding="false" selectedKey="{appView>/currentSelectedTabKey}" select="onMainTabSelected">
+            <items>
+                <IconTabFilter text="Vendor" icon="sap-icon://travel-expense" key="vendor" design="Horizontal" iconColor="Default">
+                </IconTabFilter>
+                <IconTabFilter text="Arrival" icon="sap-icon://journey-arrive" key="arr" design="Horizontal" iconColor="Critical">
+                </IconTabFilter>
+                <IconTabFilter text="Departure" icon="sap-icon://journey-depart" key="dep" design="Horizontal" iconColor="Critical">
+                </IconTabFilter>
+            </items>
+
+        </IconTabBar>
+
+        <App id="app" busy="{appView>/busy}" busyIndicatorDelay="{appView>/delay}">
+            <f:FlexibleColumnLayout id="layout" layout="{appView>/layout}" backgroundDesign="Translucent">
+            </f:FlexibleColumnLayout>
+
+        </App>
+    </VBox>
+
+
+</mvc:View>

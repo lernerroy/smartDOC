@@ -1,16 +1,22 @@
 {
   "meta": {
-    "creator": "cds-dk 4.7.1"
+    "creator": "cds-dk 4.8.2"
   },
   "$version": "2.0",
   "definitions": {
     "TAX_CODE": {
       "kind": "service",
-      "@cds.external": true
+      "@cds.external": true,
+      "@m.IsDefaultEntityContainer": "true",
+      "@sap.supported.formats": "atom json xlsx"
     },
     "TAX_CODE.TaxCodeSet": {
       "kind": "entity",
       "@cds.persistence.skip": true,
+      "@sap.creatable": "false",
+      "@sap.updatable": "false",
+      "@sap.deletable": "false",
+      "@sap.pageable": "false",
       "@sap.content.version": "1",
       "elements": {
         "TaxCode": {

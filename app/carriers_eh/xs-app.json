@@ -8,7 +8,8 @@
         "target": "draft/$1",
         "authenticationType": "xsuaa",
         "service": "smartdoc-ui",
-        "endpoint": "root"
+        "endpoint": "root",
+        "csrfProtection": false
       },
       {
         "source": "^(.*)$",

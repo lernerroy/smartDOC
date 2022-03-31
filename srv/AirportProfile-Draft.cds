@@ -12,17 +12,17 @@ service smartDOCDraft {
 //////////////////////////////////////////////////////////////////
     entity PurDocs
      @(restrict: [ { grant: ['*'], to: ['Admin','User']},
-                  { grant: ['READ'], to: ['API_user']}])
+                   { grant: ['READ'], to: ['API_user']}])
     as projection on smartdoc.PurDocs;
         
     entity TaskLists
      @(restrict: [ { grant: ['*'], to: ['Admin','User']},
-                  { grant: ['READ'], to: ['API_user']}])
+                   { grant: ['READ'], to: ['API_user']}])
     as projection on smartdoc.TaskLists;
     
     entity Pur2TL
      @(restrict: [ { grant: ['*'], to: ['Admin','User']},
-                  { grant: ['READ'], to: ['API_user']}])
+                   { grant: ['READ'], to: ['API_user']}])
     as projection on smartdoc.Pur2TL;
  
 

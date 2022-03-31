@@ -148,24 +148,24 @@ entity Airports : managed {
 @assert.unique : {carrier     : [carrier], }
 entity Carriers : managed {
     key ID                   : UUID @(Core.Computed : true);
-        carrier              : Association to one TR_Carriers 
-            @assert.integrity:false;
-        companyCode          : Association to one CompanyCodes
-            @assert.integrity:false;
-        mainWorkCenter       : Association to one WorkCenters
-            @assert.integrity:false;
-        orderType            : Association to one OrderTypes
-            @assert.integrity:false;
-        awbOrderType         : Association to one OrderTypes 
-            @assert.integrity:false;
-        purchaseOrganization : Association to one PurchaseOrganizations
-            @assert.integrity:false;
-        plant                : Association to one Plants
-            @assert.integrity:false;
-        materialGroup        : Association to one MaterialGroups
-            @assert.integrity:false;
-        controlKey           : Association to one ControlKeys
-            @assert.integrity:false;
+        carrier              : Association to one TR_Carriers;
+            //@assert.integrity:false;
+        companyCode          : Association to one CompanyCodes;
+            //@assert.integrity:false;
+        mainWorkCenter       : Association to one WorkCenters;
+            //@assert.integrity:false;
+        orderType            : Association to one OrderTypes;
+            //@assert.integrity:false;
+        awbOrderType         : Association to one OrderTypes;
+            //@assert.integrity:false;
+        purchaseOrganization : Association to one PurchaseOrganizations;
+            //@assert.integrity:false;
+        plant                : Association to one Plants;
+            //@assert.integrity:false;
+        materialGroup        : Association to one MaterialGroups;
+            //@assert.integrity:false;
+        controlKey           : Association to one ControlKeys;
+            //@assert.integrity:false;
 // purchasingGroup       : String(3);
 // profitCenter          : String(10);
 };
@@ -221,46 +221,33 @@ entity ServiceType : CodeList {
 entity PurDocs : managed, temporal {
     key ID                   : UUID @(Core.Computed : true);
         extenalID            : Integer;
-        objectType           : ObjectType;
-        documentDate         : Date;
-        description          : String;
-        airport              : Association to one TR_Airports @assert.integrity: false;
-        status               : Association to Status;
-        //validityFrom         : Date;
-        //validityTo           : Date;
-        carrier              : Association to one TR_Carriers @assert.integrity: false;
-        purchaseOrganization : Association to one PurchaseOrganizations;
-        documentType         : DocumentType;
-        vendor               : Association to one BusinessPartners;
-        //paymentTerms
+        objectType           : ObjectType @mandatory;
+        documentDate         : Date @mandatory;
+        description          : String @mandatory;
+        airport              : Association to one TR_Airports @mandatory @assert.integrity:false;
+        status               : Association to Status @mandatory;
+        carrier              : Association to one TR_Carriers @mandatory @assert.integrity:false;
+        purchaseOrganization : Association to one PurchaseOrganizations @mandatory @assert.integrity:false;
+        documentType         : DocumentType @mandatory;
+        vendor               : Association to one BusinessPartners @mandatory @assert.integrity:false;
         aribaIndicator       : String;
-        //items : Composition of many PurItems;
+        //paymentTerms
         items : Composition of many PurItems on items.up_ = $self;
 };
 
 entity PurItems : managed, temporal {
     key up_                  : Association to PurDocs;
     key ID                   : UUID @(Core.Computed : true);
-        extenalID            : String(5);
-        description          : String;
-        serviceNumber        : Association to one ServiceData;
-        status               : Association to Status;
-        //validityFrom         : Date;
-        //validityTo           : Date;
-        //validFromTime        : Time;
-        //validToTime          : Time;
-        lineOfBusiness       : LOB;
-      //  vendor               : Association to one BusinessPartners;
-      //  jobIndicator         : Boolean;
-     //   domesticIntl         : DomesticIntl;
-      //  carrier              : Association to one TR_Carriers;
-        quantity             : Decimal(8,2);
-      //  additionalIndicator  : AdditionalIndicator;
-        price                : Decimal(11,2);
-        currency             : Association to one TR_Currencies;
-        brf_id               : String; //Association to one BRF_Pricing;
-        // TaskListItem         : Association to TaskLists.items;
-        taskListItem         : Association to many Pur2TL on taskListItem.purItem = $self;
+        extenalID            : String(5) @mandatory;
+        description          : String @mandatory;
+        serviceNumber        : Association to one ServiceData @mandatory @assert.integrity:false;
+        status               : Association to Status @mandatory;
+        lineOfBusiness       : LOB @mandatory;
+        quantity             : Decimal(8,2) @mandatory;
+        price                : Decimal(11,2) @mandatory;
+        currency             : Association to one TR_Currencies @mandatory @assert.integrity:false;
+        brf_id               : String; 
+        taskListItem         : Association to many Pur2TL on taskListItem.purItem = $self @assert.integrity:false;
 };
 
 
@@ -272,15 +259,11 @@ entity TaskLists : managed, temporal  {
         objectType           : ObjectType;
         documentDate         : Date;
         description          : String;
-        origin               : Association to one TR_Airports;
-        destination          : Association to one TR_Airports;
+        origin               : Association to one TR_Airports @assert.integrity:false;
+        destination          : Association to one TR_Airports @assert.integrity:false;
         status               : Association to Status;
-        //validityFrom         : Date;
-        //validityTo           : Date;
         documentType         : DocumentType;
- 
-        //items : Composition of many TaskListItems;
-        items : Composition of many TaskListItems on items.up_ = $self;
+        items : Composition of many TaskListItems on items.up_ = $self @assert.integrity:false;
 };
 
 
@@ -289,13 +272,9 @@ entity TaskListItems : managed, temporal {
     key ID                   : UUID @(Core.Computed : true);
         extenalID            : String(5);
         description          : String;
-        purDoc               : Association to PurDocs;
-        purItem              : Association to many Pur2TL on purItem.taskListItem = $self;
+        purDoc               : Association to PurDocs @assert.integrity:false;
+        purItem              : Association to many Pur2TL on purItem.taskListItem = $self @assert.integrity:false;
         status               : Association to Status;
-        //validityFrom         : Date;
-        //validityTo           : Date;
-        //validFromTime        : Time;
-        //validToTime          : Time;
         lineOfBusiness       : LOB;
         jobIndicator         : Boolean;
         additionalIndicator  : Boolean;
@@ -305,6 +284,6 @@ entity TaskListItems : managed, temporal {
 };
 
 entity Pur2TL {
-  key taskListItem : Association to TaskListItems;
-  key purItem : Association to PurItems;
+  key taskListItem : Association to TaskListItems @assert.integrity:false;
+  key purItem : Association to PurItems @assert.integrity:false;
 }

@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" >
+	<SelectDialog
+		title= "{detailsViewModel>/vhTitle}"
+		
+		search="onValueHelpDialogSearch"
+		confirm="onValueHelpDialogClose"
+		cancel="onValueHelpDialogClose">
+		<StandardListItem
+			iconDensityAware="false"
+			iconInset="false"
+			title="{Name}"
+			description="{ID}" />
+	</SelectDialog>
+</core:FragmentDefinition>

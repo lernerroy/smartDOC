@@ -11,6 +11,7 @@ http://localhost:4004/draft/TR_Currencies?$top=30
 
 ###
 http://localhost:4004/draft/Airports
+Authorization: basic roy.lerner@legstate.com:
 ###
 http://localhost:4004/draft/Airports(ID=2d1f3996-26a2-4cef-b4f5-c123a9126155,IsActiveEntity=true)
 ###
@@ -85,9 +86,10 @@ http://localhost:4004/draft/Carriers(ID=915de690-55f6-11ec-bf63-0242ac130002,IsA
 
 ###
 http://localhost:4004/draft/PurDocs
+Authorization: basic roy.lerner@legstate.com:
 ###
 http://localhost:4004/draft/PurDocs(ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true)
-
+Authorization: basic roy.lerner@legstate.com:
 
 ###
 http://localhost:4004/draft/PurDocs(ID=08cda5d5-e570-476b-8a23-4f5a59a25c03,IsActiveEntity=true)/airport_ID
@@ -188,6 +190,7 @@ http://localhost:4004/draft/PurItems(up__ID=08cda5d5-e570-476b-8a23-4f5a59a25c03
 
 ###
 http://localhost:4004/draft/TaskLists
+Authorization: basic roy.lerner@legstate.com:
 ###
 http://localhost:4004/draft/TaskLists(ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true)
 ###
@@ -282,7 +285,8 @@ http://localhost:4004/draft/TaskListItems(up__ID=c0706964-b830-491c-993f-a39f60d
 curl -X POST http://localhost:4004/draft/PurDocs -H "Content-Type: application/json;IEEE754Compatible=true" -d '{"validFrom":"2000-12-01T00:00:00.000Z","validTo":"2003-12-01T00:00:00.000Z","objectType":"contract","documentDate":"2002-12-01","description":"Ran2 Contract","airport_ID":"FRA","status_code":"A","carrier_ID":"AV","purchaseOrganization_ID":"1000","documentType":"airport","vendor_ID":"0000001000","aribaIndicator":null, "items": [ { "validFrom":"1900-01-01T00:00:00.000Z" }, { "validFrom":"1900-01-01T00:00:00.000Z" } }'
 
 ###
-curl -X POST http://localhost:4004/draft/PurDocs -H "Content-Type: application/json;IEEE754Compatible=true" -d '{"validFrom":"2000-12-01T00:00:00.000Z","validTo":"2003-12-01T00:00:00.000Z","objectType":"contract","documentDate":"2002-12-01","description":"Ran2 Contract","airport_ID":"FRA","status_code":"active","carrier_ID":"AV","purchaseOrganization_ID":"1000","documentType":"airport","vendor_ID":"0000001000","aribaIndicator":null}'
+curl -X POST http://localhost:4004/draft/PurDocs
+-H "Content-Type: application/json;IEEE754Compatible=true" -d '{"validFrom":"2000-12-01T00:00:00.000Z","validTo":"2003-12-01T00:00:00.000Z","objectType":"contract","documentDate":"2002-12-01","description":"Ran2 Contract","airport_ID":"FRA","status_code":"active","carrier_ID":"AV","purchaseOrganization_ID":"1000","documentType":"airport","vendor_ID":"0000001000","aribaIndicator":null}'
 
 ###
 curl -X PATCH http://localhost:4004/draft/PurDocs(ID=8a62acff-16e5-41fc-9869-33663a0bde0b,IsActiveEntity=false) -H "Content-Type: application/json;IEEE754Compatible=true" -d '{"validFrom":"2021-12-01T00:00:00.000Z","validTo":"2023-12-03T00:00:00.000Z","objectType":"contract","documentDate":"2021-12-01","description":"Ran Contract","airport_ID":"FRA","status_code":"A","carrier_ID":"AV","purchaseOrganization_ID":"1000","documentType":"airport","vendor_ID":"0000001000","aribaIndicator":null}'
@@ -301,7 +305,6 @@ http://localhost:4004/draft/PurDocs?$select=ID&$filter=airport_ID eq 'FRA' and (
 ###
 http://localhost:4004/draft/PurDocs(ID=2d7cf05a-fdfb-4de0-bad2-2fe639da0951,IsActiveEntity=false)?$select=ID&$expand=items($select=ID,brf_id)
 
-
 ###
 http://localhost:4004/draft/PurDocs(ID=2aa19b8f-5f9f-4ae3-87fa-01072e450907,IsActiveEntity=false)?$select=ID&$expand=DraftAdministrativeData($select=DraftUUID,InProcessByUser,LastChangedByUser),items($select=ID)
 
@@ -319,7 +322,12 @@ http://localhost:4004/draft/PurDocs(ID=f9fdc2f1-bc8e-46df-ac4b-ea823c452b83,IsAc
 
 
 ###
-curl -X POST http://localhost:4004/draft/PurDocs(ID=f9fdc2f1-bc8e-46df-ac4b-ea823c452b83,IsActiveEntity=true)/smartDOCDraft.draftEdit -H "Content-Type: application/json;IEEE754Compatible=true" -d '{"PreserveChanges":true}'
+curl -X POST http://localhost:4004/draft/PurDocs(ID=650e0aac-9552-4c49-8379-a987ad7f7885,IsActiveEntity=true)/smartDOCDraft.draftEdit -H "Content-Type: application/json;IEEE754Compatible=true" -d '{"PreserveChanges":true}'
+
+###
+curl -X POST http://localhost:4004/draft/TaskLists(ID=17ca879d-1f2f-4bc6-9066-a42f6536dafa,IsActiveEntity=true)/smartDOCDraft.draftEdit -H "Content-Type: application/json;IEEE754Compatible=true" -d '{"PreserveChanges":true}'
+
+
 
 ###
 http://localhost:4004/draft/PurDocs(ID=f9fdc2f1-bc8e-46df-ac4b-ea823c452b83,IsActiveEntity=true)
