@@ -514,58 +514,6 @@ sap.ui.define(
           )
           .catch(function (err) {});
       },
-      //   activateDraft: function (action = "smartDOCDraft.draftPrepare") {
-      //     var oDataModel = this._getDataModel();
-
-      //     var contractId = oDataModel.getProperty("/header/ID");
-      //     var isActiveEntity = oDataModel.getProperty("/header/IsActiveEntity");
-
-      //     var sUrl = `${
-      //       this.getModel().sServiceUrl
-      //     }PurDocs(ID=${contractId},IsActiveEntity=${isActiveEntity})/${action}`;
-
-      //     var self = this;
-
-      //     $.ajax({
-      //       url: sUrl,
-      //       type: "POST",
-      //       data: JSON.stringify({ SideEffectsQualifier: "" }),
-      //       headers: {
-      //         "Content-Type": "application/json;IEEE754Compatible=true",
-      //       },
-      //       dataType: "json",
-      //       success: function (data) {
-      //         if (action === "smartDOCDraft.draftPrepare") {
-      //           self.activateDraft("smartDOCDraft.draftActivate");
-      //         } else {
-      //           self._getViewModel().setProperty("/editable", false);
-      //           MessageToast.show("Contract saved successfully");
-      //         }
-      //         self.getEventBus().publish(null, "refreshVendors");
-      //       },
-      //       error: function (error) {
-      //         debugger;
-      //         if (error.responseJSON.error.details) {
-      //           self.showMessageDialog(
-      //             self.getResourceBundle().getText("error"),
-      //             error.responseJSON.error.message +
-      //               " \n " +
-      //               error.responseJSON.error.details[0].message +
-      //               " - " +
-      //               error.responseJSON.error.details[0].target
-      //           );
-      //         } else {
-      //           self.showMessageDialog(
-      //             self.getResourceBundle().getText("error"),
-      //             error.responseJSON.error.message +
-      //               " - " +
-      //               error.responseJSON.error.target
-      //           );
-      //         }
-      //         console.log(error);
-      //       },
-      //     });
-      //   },
       _discardDraft: function () {
         const sUrl = this.getModel().sServiceUrl + "PurDocs";
         var dataModel = this._getDataModel();
@@ -617,10 +565,7 @@ sap.ui.define(
       },
       onBrfButtonPressed: function (oEvent) {
         var oListItem = oEvent.getSource().getParent().getParent();
-        var sPath = oListItem.getBindingContextPath();
-
-        // get the item from the model
-        var oItem = this.getModel("detailsModel").getProperty(sPath);
+        var oItem = oListItem.getBindingContext().getObject();
 
         if (!sap.ushell || !sap.ushell.Container) {
           return;
@@ -742,7 +687,11 @@ sap.ui.define(
             }.bind(this)
           )
           .catch(function (err) {
-            self.showMessageDialog("Error", err.responseJSON.error.message);
+            var message = err.message;
+            if (!message && err.responseJSON) {
+              message = err.responseJSON.error.message;
+            }
+            self.showMessageDialog("Error", message);
           });
       },
       onDeleteContractPressed: function () {

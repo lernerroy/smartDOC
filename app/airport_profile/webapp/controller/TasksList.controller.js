@@ -28,7 +28,7 @@ sap.ui.define(
           .attachPatternMatched(this._onObjectMatched, this);
       },
       onExit: function () {
-        alert("destroy");
+
       },
       _getDataModel: function () {
         return this.getModel("tasksListDataModel");

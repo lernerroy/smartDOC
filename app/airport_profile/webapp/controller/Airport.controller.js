@@ -8,7 +8,6 @@ sap.ui.define(
 
     return BaseController.extend("airportprofile.controller.Airport", {
       onInit: function () {
-            alert('airport');
 
       },
     });

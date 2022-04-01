@@ -36,7 +36,6 @@ sap.ui.define(
       formatter: formatters,
 
       onInit: function () {
-
         var viewModel = new JSONModel({
           title: this.getResourceBundle().getText("airportProfileTitle"),
           selectedTabKey: "airport",
@@ -137,7 +136,11 @@ sap.ui.define(
             }.bind(this)
           )
           .catch(function (err) {
-            self.showMessageDialog("Error", err.responseJSON.error.message);
+            var message = err.message;
+            if (!message && err.responseJSON) {
+              message = err.responseJSON.error.message;
+            }
+            self.showMessageDialog("Error", message);
           });
       },
       onDeleteVersionPressed: function () {
@@ -199,8 +202,8 @@ sap.ui.define(
                   return oItem;
                 }
               });
-              if (oItemToSelect){
-                  oItemToSelect.setSelected(true);
+              if (oItemToSelect) {
+                oItemToSelect.setSelected(true);
               } else {
                 this._hashHandler.stopManualHashChangeHandling();
                 this.onNavBack("TaskDetails");
@@ -210,8 +213,8 @@ sap.ui.define(
           );
         }
 
-        if (this.oVersionContext && routeName === "Services"){
-            return;
+        if (this.oVersionContext && routeName === "Services") {
+          return;
         }
 
         this.loadVersions(oRouteParams.type, oRouteParams.id);
@@ -318,7 +321,6 @@ sap.ui.define(
       },
 
       loadVersions: function (type, airportId, oSelectedContext = null) {
-
         var aFilters = [];
 
         if (type === "arr") {
@@ -361,7 +363,7 @@ sap.ui.define(
 
         var self = this;
 
-        // oCombobox.unbindItems();
+        oCombobox.clearSelection();
 
         oCombobox.bindItems({
           path: "/TaskLists",
@@ -423,6 +425,9 @@ sap.ui.define(
                 self._bindView(oContext);
                 self._bindLobTableItems(oContext);
                 self._updateFormMode(oItem);
+              } else {
+                self.oVersionContext = null;
+                self.getView().unbindElement();
               }
             },
           },
@@ -432,6 +437,10 @@ sap.ui.define(
         this.getView().bindElement({
           path: oContext.getPath(),
         });
+      },
+      _unbindLobTableItems: function () {
+        var oTable = this.getView().byId("lobTableItems");
+        oTable.unbindItems();
       },
       _bindLobTableItems: function (oContext) {
         var oTable = this.getView().byId("lobTableItems");
@@ -617,8 +626,8 @@ sap.ui.define(
           false
         );
 
-        if (this._getViewModel().getProperty("/draftMode")){
-            this._hashHandler.startManualHashChangeHandling();
+        if (this._getViewModel().getProperty("/draftMode")) {
+          this._hashHandler.startManualHashChangeHandling();
         }
       },
 

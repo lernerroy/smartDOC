@@ -193,7 +193,7 @@ sap.ui.define(
                     currentUser;
 
                 if (item.showUnsavedChangesIndicator) {
-                  item.draftLastChangedByText = `${this.getResourceBundle().getText(
+                  item.draftLastChangedByText = `${self.getResourceBundle().getText(
                     "unsavedChangesBy"
                   )} ${item.DraftAdministrativeData.LastChangedByUser}`;
                 }
@@ -206,7 +206,7 @@ sap.ui.define(
                   item.DraftAdministrativeData.InProcessByUser;
 
                 if (item.showLockedIndicator) {
-                  item.lockedText = `${this.getResourceBundle().getText(
+                  item.lockedText = `${self.getResourceBundle().getText(
                     "lockedBy"
                   )} ${item.DraftAdministrativeData.LastChangedByUser}`;
                 }
