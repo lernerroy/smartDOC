@@ -280,6 +280,21 @@ http://localhost:4004/draft/TaskListItems(up__ID=c0706964-b830-491c-993f-a39f60d
 
 
 
+###
+curl -X POST http://localhost:4004/draft/TaskLists -H "Content-Type: application/json;IEEE754Compatible=true" -d '{"validFrom":"2999-12-01T00:00:00.000Z","validTo":"9999-12-01T00:00:00.000Z","origin_ID":"FRA"}'
+
+###
+http://localhost:4004/draft/TaskLists
+
+###
+http://localhost:4004/draft/TaskLists?$select=ID&$filter=origin_ID eq 'FRA' and (IsActiveEntity eq false or SiblingEntity/IsActiveEntity eq null)&$expand=DraftAdministrativeData($select=DraftUUID,InProcessByUser,LastChangedByUser),items($select=ID)
+
+###
+curl -X POST http://localhost:4004/draft/TaskLists(ID=e293763a-7160-4f00-befe-fc1264053752,IsActiveEntity=false)/smartDOCDraft.draftActivate -H "Content-Type: application/json;IEEE754Compatible=true"
+
+
+
+
 
 ###
 curl -X POST http://localhost:4004/draft/PurDocs -H "Content-Type: application/json;IEEE754Compatible=true" -d '{"validFrom":"2000-12-01T00:00:00.000Z","validTo":"2003-12-01T00:00:00.000Z","objectType":"contract","documentDate":"2002-12-01","description":"Ran2 Contract","airport_ID":"FRA","status_code":"A","carrier_ID":"AV","purchaseOrganization_ID":"1000","documentType":"airport","vendor_ID":"0000001000","aribaIndicator":null, "items": [ { "validFrom":"1900-01-01T00:00:00.000Z" }, { "validFrom":"1900-01-01T00:00:00.000Z" } }'

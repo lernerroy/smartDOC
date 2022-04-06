@@ -146,9 +146,9 @@ sap.ui.define(
         var oDialog = oEvent.getSource().getParent();
         var oSelectedItems = oTable.getSelectedItems();
 
-        if (!oSelectedItems || oSelectedItems.length === 0){
-            oDialog.close();
-            return;
+        if (!oSelectedItems || oSelectedItems.length === 0) {
+          oDialog.close();
+          return;
         }
 
         var oDataListBinding = this.getModel().bindList(

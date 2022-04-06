@@ -36,6 +36,8 @@ sap.ui.define(
       formatter: formatters,
 
       onInit: function () {
+        this.initializeMessageManager();
+
         var viewModel = new JSONModel({
           title: this.getResourceBundle().getText("airportProfileTitle"),
           selectedTabKey: "airport",
@@ -119,7 +121,11 @@ sap.ui.define(
       onEditVersionPressed: function () {
         var oOperation = this.getModel().bindContext(
           "smartDOCDraft.draftEdit(...)",
-          this.oVersionContext
+          this.oVersionContext,
+          {
+            "sap-valid-from": "date'1900-01-01'",
+            "sap-valid-to": "date'9999-12-31'",
+          }
         );
 
         var self = this;
@@ -186,38 +192,43 @@ sap.ui.define(
           "/currentSelectedTabKey",
           oRouteParams.type
         );
-        if (routeName !== "Services") {
+
+        // if (routeName !== "Services") {
+        //   this.getModel("appView").setProperty("/layout", LayoutType.OneColumn);
+        // } else {
+        //   var oTable = this.getView().byId("lobTableItems");
+        //   oTable.attachUpdateFinished(
+        //     null,
+        //     function () {
+        //       var oItems = oTable.getItems();
+        //       var itemToSelectId = this.routeParams.lobItemId;
+        //       // find the item we need to select
+        //       var oItemToSelect = oItems.find(function (oItem) {
+        //         var object = oItem.getBindingContext().getObject();
+        //         if (object.ID === itemToSelectId) {
+        //           return oItem;
+        //         }
+        //       });
+        //       if (oItemToSelect) {
+        //         oItemToSelect.setSelected(true);
+        //       } else {
+        //         this._hashHandler.stopManualHashChangeHandling();
+        //         this.onNavBack("TaskDetails");
+        //       }
+        //     },
+        //     this
+        //   );
+        // }
+        if (
+          routeName === "TaskDetails" ||
+          (routeName === "Services" && !this.oVersionContext)
+        ) {
+          this.loadVersions(oRouteParams.type, oRouteParams.id);
+        }
+
+        if (routeName === "TaskDetails") {
           this.getModel("appView").setProperty("/layout", LayoutType.OneColumn);
-        } else {
-          var oTable = this.getView().byId("lobTableItems");
-          oTable.attachUpdateFinished(
-            null,
-            function () {
-              var oItems = oTable.getItems();
-              var itemToSelectId = this.routeParams.lobItemId;
-              // find the item we need to select
-              var oItemToSelect = oItems.find(function (oItem) {
-                var object = oItem.getBindingContext().getObject();
-                if (object.ID === itemToSelectId) {
-                  return oItem;
-                }
-              });
-              if (oItemToSelect) {
-                oItemToSelect.setSelected(true);
-              } else {
-                this._hashHandler.stopManualHashChangeHandling();
-                this.onNavBack("TaskDetails");
-              }
-            },
-            this
-          );
         }
-
-        if (this.oVersionContext && routeName === "Services") {
-          return;
-        }
-
-        this.loadVersions(oRouteParams.type, oRouteParams.id);
       },
       _updateFormMode: function (data) {
         var currentUser = "";
@@ -436,6 +447,10 @@ sap.ui.define(
       _bindView: function (oContext) {
         this.getView().bindElement({
           path: oContext.getPath(),
+          parameters: {
+            "sap-valid-from": "date'1900-01-01'",
+            "sap-valid-to": "date'9999-12-31'",
+          },
         });
       },
       _unbindLobTableItems: function () {
@@ -508,7 +523,7 @@ sap.ui.define(
           false
         );
 
-        oDataListBinding.attachCreateCompleted(function (oEvent) {
+        oListBinding.attachCreateCompleted(function (oEvent) {
           //   this.getModel().refresh();
         }, this);
       },
@@ -555,12 +570,16 @@ sap.ui.define(
       onSaveVersionDraft: function () {
         var oOperation = this.getModel().bindContext(
           "smartDOCDraft.draftActivate(...)",
-          this.oVersionContext
+          this.oVersionContext,
+          {
+            "sap-valid-from": "date'1900-01-01'",
+            "sap-valid-to": "date'9999-12-31'",
+          }
         );
 
         var self = this;
 
-        // this.oMessageManager.removeAllMessages();
+        this.oMessageManager.removeAllMessages();
 
         oOperation.execute().then(
           function (oUpdatedContext) {

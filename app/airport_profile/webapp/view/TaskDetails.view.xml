@@ -25,13 +25,6 @@
             <VBox>
                 <HBox alignItems="Center" class="sapUiSmallMarginBottom" width="100%">
                     <ComboBox showSecondaryValues="true" class="sapUiTinyMarginEnd" id="versionsComboBox" width="400px" selectionChange="onVersionSelectionChanged">
-                        <!-- <core:ListItem key="{ID}" text="{
-                            path: 'validFrom',
-                            formatter: '.formatter.convertDate'
-                        } - {
-                            path: 'validTo',
-                            formatter: '.formatter.convertDate'
-                        }" additionalText=""/> -->
                     </ComboBox>
                     <Button icon="sap-icon://add" press="onAddNewVersionClicked" />
                 </HBox>
@@ -50,9 +43,6 @@
 
                         <Table id="lobTableItems" inset="false" items="{
                             path: 'items',
-                            parameters: {
-                                expand: 'purDoc,status,domesticIntl,serviceType'
-                            },
                             filters: [{
                                 path: 'lineOfBusiness',
                                 operator: 'EQ',

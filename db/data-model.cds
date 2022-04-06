@@ -139,7 +139,7 @@ view TR_Carriers as
 @assert.unique : {airport : [airport], }
 entity Airports : managed {
     key ID      : UUID @(Core.Computed : true);
-    airport : Association to one TR_Airports 
+    airport : Association to one TR_Airports
         @assert.integrity:false;
     plant   : Association to one Plants 
         @assert.integrity:false;

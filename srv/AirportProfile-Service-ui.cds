@@ -5,7 +5,7 @@ using com.legstate.smartdoc as smartdoc
 
 annotate smartDOCService.TR_Airports with {
     ID @Common : {Label : '{i18n>AirportCode}'};
-    aptcd_icao  @Common : { Label : '{i18n>AirportICAOCode}' };
+    @readonly aptcd_icao @Common : { Label : '{i18n>AirportICAOCode}' };
     descr   @Common : {Label : '{i18n>Description}'};
     name @Common : {Label : '{i18n>AirportName}' };
 };
@@ -29,7 +29,7 @@ annotate smartDOCService.Airports with {
         title                  : '{i18n>Plant}',
         Common.Text            : plant.Name,
         Common.TextArrangement : #TextFirst
-    )
+    );
 };
 
 annotate smartDOCService.Carriers with {
@@ -524,8 +524,6 @@ annotate smartDOCService.Carriers with @(
 // Start of Airport Draft UI
 /////////////////////////////////////////////////////////////
 
-
-
 annotate smartDOCService.Airports {
     airport @Common.ValueListForValidation : '' @Common.ValueList : {
         CollectionPath  : 'TR_Airports',
@@ -604,8 +602,8 @@ annotate smartDOCService.Airports with @(
                 {Value : airport_ID},
                 //{Value : airport.name, Label : 'Airport Name' },
                 {Value : plant_ID},
-                //{Value : plant.Name, Label : 'Plant Name' },
-                {Value : airport.aptcd_icao },
+                {Value : plant.Name, Label : 'Plant Name' },
+                {Value : airport.aptcd_icao},
             ]
         },
     },
