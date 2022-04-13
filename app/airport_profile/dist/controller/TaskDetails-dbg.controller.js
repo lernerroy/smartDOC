@@ -10,6 +10,7 @@ sap.ui.define(
     "sap/ui/core/ListItem",
     "sap/m/MessageBox",
     "../utils/draftUtils",
+    "../utils/routeUtils",
     "sap/m/MessagePopover",
     "sap/m/MessagePopoverItem",
   ],
@@ -27,6 +28,7 @@ sap.ui.define(
     ListItem,
     MessageBox,
     draftUtils,
+    routeUtils,
     MessagePopover,
     MessagePopoverItem
   ) {
@@ -85,7 +87,6 @@ sap.ui.define(
             if (sCurrentHash !== sOldHash) {
               return;
             }
-
             // show draft save dialog only when we're in edit mode
             if (self._getViewModel().getProperty("/draftMode")) {
               window.hasher.setHash(sOldHash.substr(1));
@@ -178,14 +179,14 @@ sap.ui.define(
       /* End of Events */
       _onObjectMatched: function (oEvent) {
         var oRouteParams = oEvent.getParameter("arguments");
-        this.routeParams = oRouteParams;
         var routeName = oEvent.getParameter("name");
+        this.currentRouteName = oEvent.getParameter("name");
 
         this.getModel("appView").setProperty("/mainTabsVisible", true);
 
         this.getModel("appView").setProperty(
           "/currentAirportId",
-          this.routeParams.id
+          oRouteParams.id
         );
 
         this.getModel("appView").setProperty(
@@ -193,42 +194,27 @@ sap.ui.define(
           oRouteParams.type
         );
 
-        // if (routeName !== "Services") {
-        //   this.getModel("appView").setProperty("/layout", LayoutType.OneColumn);
-        // } else {
-        //   var oTable = this.getView().byId("lobTableItems");
-        //   oTable.attachUpdateFinished(
-        //     null,
-        //     function () {
-        //       var oItems = oTable.getItems();
-        //       var itemToSelectId = this.routeParams.lobItemId;
-        //       // find the item we need to select
-        //       var oItemToSelect = oItems.find(function (oItem) {
-        //         var object = oItem.getBindingContext().getObject();
-        //         if (object.ID === itemToSelectId) {
-        //           return oItem;
-        //         }
-        //       });
-        //       if (oItemToSelect) {
-        //         oItemToSelect.setSelected(true);
-        //       } else {
-        //         this._hashHandler.stopManualHashChangeHandling();
-        //         this.onNavBack("TaskDetails");
-        //       }
-        //     },
-        //     this
-        //   );
-        // }
         if (
-          routeName === "TaskDetails" ||
-          (routeName === "Services" && !this.oVersionContext)
+          !this.oVersionContext ||
+          oRouteParams.type !== this.routeParams.type ||
+          oRouteParams.id !== this.routeParams.id
         ) {
           this.loadVersions(oRouteParams.type, oRouteParams.id);
         }
 
         if (routeName === "TaskDetails") {
           this.getModel("appView").setProperty("/layout", LayoutType.OneColumn);
+          if (
+            this.oVersionContext &&
+            this._getViewModel().getProperty("/draftMode")
+          ) {
+            this._hashHandler.startManualHashChangeHandling();
+          }
+        } else if (routeName === "Services") {
+          this._hashHandler.stopManualHashChangeHandling();
         }
+
+        this.routeParams = oRouteParams;
       },
       _updateFormMode: function (data) {
         var currentUser = "";
@@ -290,7 +276,9 @@ sap.ui.define(
         this._getViewModel().setProperty("/draftMode", createMode || editMode);
         if (createMode || editMode) {
           this.formChanged = true;
-          this._hashHandler.startManualHashChangeHandling();
+          if (this.currentRouteName === "TaskDetails") {
+            this._hashHandler.startManualHashChangeHandling();
+          }
         } else {
           this._hashHandler.stopManualHashChangeHandling();
         }
@@ -461,6 +449,7 @@ sap.ui.define(
         var oTable = this.getView().byId("lobTableItems");
         var oListBinding = oTable.getBinding("items");
         var key = this._getViewModel().getProperty("/selectedTabKey");
+
         oListBinding.filter(
           new Filter({
             path: "lineOfBusiness",
@@ -468,6 +457,48 @@ sap.ui.define(
             value1: key,
           })
         );
+
+        oTable.attachUpdateFinished(
+          null,
+          function (oEvent) {
+            this._setSelectedLobItem(this.routeParams.lobItemId);
+          },
+          this
+        );
+
+        // var aFilters = [];
+        // aFilters.push(
+        //   new Filter({
+        //     path: "lineOfBusiness",
+        //     operator: FilterOperator.EQ,
+        //     value1: key,
+        //   })
+        // );
+
+        // oTable.bindAggregation("items", {
+        //     path: "items"
+        // });
+      },
+      _setSelectedLobItem: function (itemId) {
+        var oTable = this.getView().byId("lobTableItems");
+        var aItems = oTable.getItems();
+        // if no item id is selected, then we deselect all items
+        if (!itemId) {
+          aItems.forEach(function (oItem) {
+            oItem.setSelected(false);
+          });
+          return;
+        }
+
+        // get the item that needs to be selected and select it
+        var oItemToSelect = aItems.find(function (oItem) {
+          var object = oItem.getBindingContext().getObject();
+          return object.ID === itemId;
+        });
+
+        if (oItemToSelect) {
+          oItemToSelect.setSelected(true);
+        }
       },
       onAddNewVersionClicked: function () {
         var self = this;
@@ -584,11 +615,16 @@ sap.ui.define(
         oOperation.execute().then(
           function (oUpdatedContext) {
             this.oVersionContext = oUpdatedContext;
-            this._bindView(oUpdatedContext);
-            self._bindLobTableItems(oUpdatedContext);
-            self._updateFormMode(oUpdatedContext.getObject());
-            var oCombo = self.getView().byId("versionsComboBox");
-            oCombo.getBinding("items").refresh();
+            this.loadVersions(
+              self.routeParams.type,
+              self.routeParams.id,
+              oUpdatedContext
+            );
+            // this._bindView(oUpdatedContext);
+            // self._bindLobTableItems(oUpdatedContext);
+            // self._updateFormMode(oUpdatedContext.getObject());
+            // var oCombo = self.getView().byId("versionsComboBox");
+            // oCombo.getBinding("items").refresh();
           }.bind(this)
         );
       },
@@ -611,6 +647,16 @@ sap.ui.define(
       },
 
       onVersionSelectionChanged: function (oEvent) {
+        var routeName = routeUtils.getCurrentRouteName(this.getRouter());
+        // if we're in Services and user changed the version
+        // we need to navigate back
+        if (routeName === "Services") {
+          this.onNavBack("TaskDetails", {
+            id: this.routeParams.id,
+            type: this.routeParams.type,
+          });
+        }
+
         this.oVersionContext = oEvent
           .getParameter("selectedItem")
           .getBindingContext();
@@ -626,13 +672,21 @@ sap.ui.define(
         var oSelectedItem = oEvent.getParameter("listItem");
         var oItem = oSelectedItem.getBindingContext().getObject();
 
+        if (!oItem.purDoc_ID) {
+          this.showMessageDialog(
+            "Info",
+            "You must select a contract in order to view the item services"
+          );
+          this._setSelectedLobItem(this.routeParams.lobItemId);
+          return;
+        }
+
         this.getModel("appView").setProperty(
           "/layout",
           LayoutType.TwoColumnsBeginExpanded
         );
 
         this._hashHandler.stopManualHashChangeHandling();
-
         this.getRouter().navTo(
           "Services",
           {
@@ -644,10 +698,6 @@ sap.ui.define(
           },
           false
         );
-
-        if (this._getViewModel().getProperty("/draftMode")) {
-          this._hashHandler.startManualHashChangeHandling();
-        }
       },
 
       onContractIdPressed: function (oEvent) {
@@ -696,7 +746,23 @@ sap.ui.define(
           .getParent()
           .getBindingContext();
 
+        var deletedItemId = oContext.getObject().ID;
+
+        var oTable = this.getView().byId("lobTableItems");
+        var oSelectedItem = oTable.getSelectedItem();
+        var selectedItemId = null;
+        if (oSelectedItem) {
+          selectedItemId = oSelectedItem.getBindingContext().getObject().ID;
+        }
+
         oContext.delete();
+
+        if (deletedItemId === selectedItemId) {
+          this.onNavBack("TaskDetails", {
+            id: this.routeParams.id,
+            type: this.routeParams.type,
+          });
+        }
       },
       onBrfButtonPressed: function (oEvent) {
         var oListItem = oEvent.getSource().getParent();

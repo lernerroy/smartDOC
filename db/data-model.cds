@@ -278,7 +278,7 @@ entity TaskListItems : managed, temporal {
         lineOfBusiness       : LOB;
         jobIndicator         : Boolean;
         additionalIndicator  : Boolean;
-        domesticIntl         : Association to DomesticIntl;
+        domesticIntl         : Association to DomesticIntl @assert.integrity:false;
         serviceType          : Association to ServiceType;
         tailNumber           : String;
 };

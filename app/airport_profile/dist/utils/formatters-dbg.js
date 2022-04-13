@@ -28,6 +28,21 @@ sap.ui.define(["sap/ui/core/ValueState"], function (ValueState) {
             return "";
         }
         
+    },
+    isLobItemEditable: function(value){
+        if (value !== null){
+            return false;
+        } else {
+            return true;
+        }
+    },
+    convertContractNumber: function(value){
+        if (value){
+            var val = `${value}`.replaceAll(',', '');
+            return val;            
+        } else {
+            return "";
+        }
     }
   };
 });

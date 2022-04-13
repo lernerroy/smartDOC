@@ -8,6 +8,9 @@
         <semantic:titleHeading>
             <Title text="{i18n>svcTitle}" level="H2"/>
         </semantic:titleHeading>
+        <semantic:closeAction>
+            <semantic:CloseAction press="onClose" />
+        </semantic:closeAction>
         <semantic:content>
             <Table id="activeServicesTable" mode="None" items="{purItem}" busy="{servicesDataModel>/busy}" alternateRowColors="true">
                 <headerToolbar>
@@ -32,6 +35,9 @@
                     <Column>
                         <Text text="{i18n>description}" />
                     </Column>
+                    <Column hAlign="End" width="100px">
+
+                    </Column>
                 </columns>
                 <items>
                     <ColumnListItem selected="true">
@@ -41,6 +47,7 @@
                             <ObjectStatus text="{path: 'purItem/status/name'}" state="{path: 'purItem/status_code', formatter: '.formatter.vendorContratStatusState'}" />
                             <Button type="Transparent" text="{purItem/serviceNumber_ID}" />
                             <Text text="{purItem/description}" />
+                            <Button icon="sap-icon://delete" visible="{taskDetailsViewModel>/draftMode}" press="onDeleteService" />
                         </cells>
                     </ColumnListItem>
                 </items>

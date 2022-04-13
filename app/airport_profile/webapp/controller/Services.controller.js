@@ -39,6 +39,14 @@ sap.ui.define(
           .getRoute("Services")
           .attachPatternMatched(this._onObjectMatched, this);
       },
+      onDeleteService: function(oEvent){
+        var oContext = oEvent
+        .getSource()
+        .getParent()
+        .getBindingContext();
+
+        oContext.delete();
+      },
       _onObjectMatched: function (oEvent) {
         this.getModel("appView").setProperty("/mainTabsVisible", true);
         this.getModel("appView").setProperty(
@@ -49,6 +57,12 @@ sap.ui.define(
         this.routeParams = oEvent.getParameter("arguments");
         this._loadContext();
         this._loadContract();
+      },
+      onClose: function () {
+        this.onNavBack("TaskDetails", {
+          id: this.routeParams.id,
+          type: this.routeParams.type,
+        });
       },
       _loadContext() {
         var self = this;

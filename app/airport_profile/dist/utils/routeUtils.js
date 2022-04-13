@@ -1,0 +1,1 @@
+sap.ui.define([],function(e){"use strict";return{getCurrentRouteName:function(e){if(!e){return null}const t=e.getHashChanger().getHash();return e.getRouteInfoByHash(t).name}}});

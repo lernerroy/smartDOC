@@ -19,6 +19,7 @@ sap.ui.define(
           LayoutType.MidColumnFullScreen
         );
 
+
         var oList = this.getView().byId("airportList");
 
         oList.attachUpdateStarted(function () {
