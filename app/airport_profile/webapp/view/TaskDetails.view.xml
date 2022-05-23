@@ -41,7 +41,7 @@
                     </items>
                     <content>
 
-                        <Table id="lobTableItems" inset="false" items="{
+                        <Table id="lobTableItems" autoPopinMode="true" inset="false" items="{
                             path: 'items'
                         }" mode="SingleSelectMaster" itemPress="onLobItemPressed">
                             <headerToolbar>

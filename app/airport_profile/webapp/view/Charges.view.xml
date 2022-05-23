@@ -138,7 +138,7 @@
                         <IconTabFilter text="Catering" key="caterings" icon="sap-icon://meal" />
                     </items>
                     <content>
-                        <Table id="lobsTable" inset="false" items="{
+                        <Table id="lobsTable" inset="false" autoPopinMode="true" items="{
                             path: 'items',
                             parameters: {
                                 expand: 'status'

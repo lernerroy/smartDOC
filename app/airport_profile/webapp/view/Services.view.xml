@@ -12,7 +12,7 @@
             <semantic:CloseAction press="onClose" />
         </semantic:closeAction>
         <semantic:content>
-            <Table id="activeServicesTable" mode="None" items="{purItem}" busy="{servicesDataModel>/busy}" alternateRowColors="true">
+            <Table id="activeServicesTable" autoPopinMode="true" mode="None" items="{purItem}" busy="{servicesDataModel>/busy}" alternateRowColors="true">
                 <headerToolbar>
                     <OverflowToolbar>
                         <ToolbarSpacer />
