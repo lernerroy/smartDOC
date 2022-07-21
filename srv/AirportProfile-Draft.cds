@@ -30,13 +30,13 @@ service smartDOCDraft {
 // smartDOC Services
 //////////////////////////////////////////////////////////////////
     entity Airports 
-     @(restrict: [ { grant: ['*'], to: ['Admin','User']},
-                  { grant: ['READ'], to: ['API_user']}])    
+    //  @(restrict: [ { grant: ['*'], to: ['Admin','User']},
+    //               { grant: ['READ'], to: ['API_user']}])    
     as projection on smartdoc.Airports;
 
     entity Carriers 
-     @(restrict: [ { grant: ['*'], to: ['Admin','User']},
-                  { grant: ['READ'], to: ['API_user']}])
+    //  @(restrict: [ { grant: ['*'], to: ['Admin','User']},
+    //               { grant: ['READ'], to: ['API_user']}])
     as projection on smartdoc.Carriers;
     
 
