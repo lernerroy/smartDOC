@@ -6,12 +6,12 @@
     "license": "UNLICENSED",
     "private": true,
     "engines": {
-        "node": "14.18.x"
+        "node": "16.x"
     },
     "dependencies": {
         "@sap-cloud-sdk/core": "^1.53.0",
-        "@sap/cds": "^5.7.2",
-        "@sap/cds-mtx": "^2.5.1",
+        "@sap/cds": "^5.9.8",
+        "@sap/cds-mtx": "2.5",
         "@sap/hana-client": "^2.11.14",
         "@sap/hdi-deploy": "^4.2.3",
         "@sap/instance-manager": "^2",
@@ -115,202 +115,202 @@
                         }
                     }
                 }
-            }
-        },
-        "TripService": {
-            "kind": "odata",
-            "model": "srv/external/cat-service",
-            "[sap]": {
-                "credentials": {
-                    "destination": "TripRecord",
-                    "path": "/browse"
+            },
+            "TripService": {
+                "kind": "odata",
+                "model": "srv/external/cat-service",
+                "[sap]": {
+                    "credentials": {
+                        "destination": "TripRecord",
+                        "path": "/browse"
+                    }
+                },
+                "[production]": {
+                    "credentials": {
+                        "destination": "TripRecord",
+                        "path": "/browse"
+                    }
                 }
             },
-            "[production]": {
-                "credentials": {
-                    "destination": "TripRecord",
-                    "path": "/browse"
-                }
-            }
-        },
-        "ZGW_LS_FO_PLANT_SRV": {
-            "kind": "odata-v2",
-            "model": "srv/external/ZGW_LS_FO_PLANT_SRV",
-            "[sap]": {
-                "credentials": {
-                    "destination": "DAK_1",
-                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_PLANT_SRV"
-                }
-            },
-            "[production]": {
-                "credentials": {
-                    "destination": "DAK_1",
-                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_PLANT_SRV"
-                }
-            }
-        },
-        "ZGW_LS_FO_PURCHASE_ORG_SRV": {
-            "kind": "odata-v2",
-            "model": "srv/external/PurchaseOrg",
-            "[sap]": {
-                "credentials": {
-                    "destination": "DAK_1",
-                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_PURCHASE_ORG_SRV"
+            "ZGW_LS_FO_PLANT_SRV": {
+                "kind": "odata-v2",
+                "model": "srv/external/ZGW_LS_FO_PLANT_SRV",
+                "[sap]": {
+                    "credentials": {
+                        "destination": "DAK_1",
+                        "path": "/sap/opu/odata/sap/ZGW_LS_FO_PLANT_SRV"
+                    }
+                },
+                "[production]": {
+                    "credentials": {
+                        "destination": "DAK_1",
+                        "path": "/sap/opu/odata/sap/ZGW_LS_FO_PLANT_SRV"
+                    }
                 }
             },
-            "[production]": {
-                "credentials": {
-                    "destination": "DAK_1",
-                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_PURCHASE_ORG_SRV"
-                }
-            }
-        },
-        "ZGW_LS_FO_ORDER_TYPE_SRV": {
-            "kind": "odata-v2",
-            "model": "srv/external/OrderType",
-            "[sap]": {
-                "credentials": {
-                    "destination": "DAK_1",
-                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_ORDER_TYPE_SRV"
-                }
-            },
-            "[production]": {
-                "credentials": {
-                    "destination": "DAK_1",
-                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_ORDER_TYPE_SRV"
-                }
-            }
-        },
-        "API_PRODUCTGROUP_SRV": {
-            "kind": "odata-v2",
-            "model": "srv/external/OP_API_PRODUCTGROUP_SRV_0001",
-            "[sap]": {
-                "credentials": {
-                    "destination": "DAK_1",
-                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_PROD_GROUP_SRV"
+            "ZGW_LS_FO_PURCHASE_ORG_SRV": {
+                "kind": "odata-v2",
+                "model": "srv/external/PurchaseOrg",
+                "[sap]": {
+                    "credentials": {
+                        "destination": "DAK_1",
+                        "path": "/sap/opu/odata/sap/ZGW_LS_FO_PURCHASE_ORG_SRV"
+                    }
+                },
+                "[production]": {
+                    "credentials": {
+                        "destination": "DAK_1",
+                        "path": "/sap/opu/odata/sap/ZGW_LS_FO_PURCHASE_ORG_SRV"
+                    }
                 }
             },
-            "[production]": {
-                "credentials": {
-                    "destination": "DAK_1",
-                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_PROD_GROUP_SRV"
-                }
-            }
-        },
-        "API_COMPANYCODE_SRV": {
-            "kind": "odata-v2",
-            "model": "srv/external/OP_API_COMPANYCODE_SRV",
-            "[sap]": {
-                "credentials": {
-                    "destination": "DAK_1",
-                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_COMPANY_CODE_SRV"
-                }
-            },
-            "[production]": {
-                "credentials": {
-                    "destination": "DAK_1",
-                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_COMPANY_CODE_SRV"
-                }
-            }
-        },
-        "ZGW_LS_FO_WORK_CENTER_SRV": {
-            "kind": "odata-v2",
-            "model": "srv/external/WORKCENTER",
-            "[sap]": {
-                "credentials": {
-                    "destination": "DAK_1",
-                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_WORK_CENTER_SRV"
+            "ZGW_LS_FO_ORDER_TYPE_SRV": {
+                "kind": "odata-v2",
+                "model": "srv/external/OrderType",
+                "[sap]": {
+                    "credentials": {
+                        "destination": "DAK_1",
+                        "path": "/sap/opu/odata/sap/ZGW_LS_FO_ORDER_TYPE_SRV"
+                    }
+                },
+                "[production]": {
+                    "credentials": {
+                        "destination": "DAK_1",
+                        "path": "/sap/opu/odata/sap/ZGW_LS_FO_ORDER_TYPE_SRV"
+                    }
                 }
             },
-            "[production]": {
-                "credentials": {
-                    "destination": "DAK_1",
-                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_WORK_CENTER_SRV"
-                }
-            }
-        },
-        "ZGW_LS_FO_CONTROL_KEY_SRV": {
-            "kind": "odata-v2",
-            "model": "srv/external/ControlKey",
-            "[sap]": {
-                "credentials": {
-                    "destination": "DAK_1",
-                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_CONTROL_KEY_SRV"
-                }
-            },
-            "[production]": {
-                "credentials": {
-                    "destination": "DAK_1",
-                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_CONTROL_KEY_SRV"
-                }
-            }
-        },
-        "API_BUSINESS_PARTNER": {
-            "kind": "odata-v2",
-            "model": "srv/external/ZGW_LS_FO_BUSINESSPARTNER_SRV",
-            "[sap]": {
-                "credentials": {
-                    "destination": "DAK_1",
-                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_BUSINESSPARTNER_SRV"
+            "API_PRODUCTGROUP_SRV": {
+                "kind": "odata-v2",
+                "model": "srv/external/OP_API_PRODUCTGROUP_SRV_0001",
+                "[sap]": {
+                    "credentials": {
+                        "destination": "DAK_1",
+                        "path": "/sap/opu/odata/sap/ZGW_LS_FO_PROD_GROUP_SRV"
+                    }
+                },
+                "[production]": {
+                    "credentials": {
+                        "destination": "DAK_1",
+                        "path": "/sap/opu/odata/sap/ZGW_LS_FO_PROD_GROUP_SRV"
+                    }
                 }
             },
-            "[production]": {
-                "credentials": {
-                    "destination": "DAK_1",
-                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_BUSINESSPARTNER_SRV"
-                }
-            }
-        },
-        "ZGW_LS_FO_SERVICE_SRV": {
-            "kind": "odata-v2",
-            "model": "srv/external/ServiceData",
-            "[sap]": {
-                "credentials": {
-                    "destination": "DAK_1",
-                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_SERVICE_SRV"
+            "API_COMPANYCODE_SRV": {
+                "kind": "odata-v2",
+                "model": "srv/external/OP_API_COMPANYCODE_SRV",
+                "[sap]": {
+                    "credentials": {
+                        "destination": "DAK_1",
+                        "path": "/sap/opu/odata/sap/ZGW_LS_FO_COMPANY_CODE_SRV"
+                    }
+                },
+                "[production]": {
+                    "credentials": {
+                        "destination": "DAK_1",
+                        "path": "/sap/opu/odata/sap/ZGW_LS_FO_COMPANY_CODE_SRV"
+                    }
                 }
             },
-            "[production]": {
-                "credentials": {
-                    "destination": "DAK_1",
-                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_SERVICE_SRV"
+            "ZGW_LS_FO_WORK_CENTER_SRV": {
+                "kind": "odata-v2",
+                "model": "srv/external/WORKCENTER",
+                "[sap]": {
+                    "credentials": {
+                        "destination": "DAK_1",
+                        "path": "/sap/opu/odata/sap/ZGW_LS_FO_WORK_CENTER_SRV"
+                    }
+                },
+                "[production]": {
+                    "credentials": {
+                        "destination": "DAK_1",
+                        "path": "/sap/opu/odata/sap/ZGW_LS_FO_WORK_CENTER_SRV"
+                    }
                 }
-            }
-        },
-        "SAP_CF_BusinessRules_Repository": {
-            "kind": "rest",
-            "[sap]": {
+            },
+            "ZGW_LS_FO_CONTROL_KEY_SRV": {
+                "kind": "odata-v2",
+                "model": "srv/external/ControlKey",
+                "[sap]": {
+                    "credentials": {
+                        "destination": "DAK_1",
+                        "path": "/sap/opu/odata/sap/ZGW_LS_FO_CONTROL_KEY_SRV"
+                    }
+                },
+                "[production]": {
+                    "credentials": {
+                        "destination": "DAK_1",
+                        "path": "/sap/opu/odata/sap/ZGW_LS_FO_CONTROL_KEY_SRV"
+                    }
+                }
+            },
+            "API_BUSINESS_PARTNER": {
+                "kind": "odata-v2",
+                "model": "srv/external/ZGW_LS_FO_BUSINESSPARTNER_SRV",
+                "[sap]": {
+                    "credentials": {
+                        "destination": "DAK_1",
+                        "path": "/sap/opu/odata/sap/ZGW_LS_FO_BUSINESSPARTNER_SRV"
+                    }
+                },
+                "[production]": {
+                    "credentials": {
+                        "destination": "DAK_1",
+                        "path": "/sap/opu/odata/sap/ZGW_LS_FO_BUSINESSPARTNER_SRV"
+                    }
+                }
+            },
+            "ZGW_LS_FO_SERVICE_SRV": {
+                "kind": "odata-v2",
+                "model": "srv/external/ServiceData",
+                "[sap]": {
+                    "credentials": {
+                        "destination": "DAK_1",
+                        "path": "/sap/opu/odata/sap/ZGW_LS_FO_SERVICE_SRV"
+                    }
+                },
+                "[production]": {
+                    "credentials": {
+                        "destination": "DAK_1",
+                        "path": "/sap/opu/odata/sap/ZGW_LS_FO_SERVICE_SRV"
+                    }
+                }
+            },
+            "SAP_CF_BusinessRules_Repository": {
                 "kind": "rest",
-                "credentials": {
-                    "destination": "brf-dest"
+                "[sap]": {
+                    "kind": "rest",
+                    "credentials": {
+                        "destination": "brf-dest"
+                    }
+                },
+                "[production]": {
+                    "kind": "rest",
+                    "credentials": {
+                        "destination": "brf-dest-dinamic"
+                    }
                 }
             },
-            "[production]": {
-                "kind": "rest",
-                "credentials": {
-                    "destination": "brf-dest-dinamic"
-                }
-            }
-        },
-        "ZGW_LS_FO_TAXCODE_SRV": {
-            "kind": "odata-v2",
-            "model": "srv/external/ServiceData",
-            "[sap]": {
-                "credentials": {
-                    "destination": "DAK_1",
-                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_TAXCODE_SRV"
+            "ZGW_LS_FO_TAXCODE_SRV": {
+                "kind": "odata-v2",
+                "model": "srv/external/ServiceData",
+                "[sap]": {
+                    "credentials": {
+                        "destination": "DAK_1",
+                        "path": "/sap/opu/odata/sap/ZGW_LS_FO_TAXCODE_SRV"
+                    }
+                },
+                "[production]": {
+                    "credentials": {
+                        "destination": "DAK_1",
+                        "path": "/sap/opu/odata/sap/ZGW_LS_FO_TAXCODE_SRV"
+                    }
                 }
             },
-            "[production]": {
-                "credentials": {
-                    "destination": "DAK_1",
-                    "path": "/sap/opu/odata/sap/ZGW_LS_FO_TAXCODE_SRV"
-                }
+            "TAX_CODE": {
+                "kind": "odata-v2",
+                "model": "srv/external/TAX_CODE"
             }
-        },
-        "TAX_CODE": {
-            "kind": "odata-v2",
-            "model": "srv/external/TAX_CODE"
         }
     },
     "sapux": [

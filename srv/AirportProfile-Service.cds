@@ -11,31 +11,31 @@ service smartDOCService {
 // Airport Profile Services
 //////////////////////////////////////////////////////////////////
     entity PurDocs
-     @(restrict: [ { grant: ['*'], to: ['Admin','User']},
-                  { grant: ['READ'], to: ['API_user']}])
+     //@(restrict: [ { grant: ['*'], to: ['Admin','User']},
+     //             { grant: ['READ'], to: ['API_user']}])
     as projection on smartdoc.PurDocs;
 
     entity TaskLists
-    @(restrict: [ { grant: ['*'], to: ['Admin','User']},
-                  { grant: ['READ'], to: ['API_user']}])
+    //@(restrict: [ { grant: ['*'], to: ['Admin','User']},
+     //             { grant: ['READ'], to: ['API_user']}])
     as projection on smartdoc.TaskLists;
  
     entity Pur2TL
-    @(restrict: [ { grant: ['*'], to: ['Admin','User']},
-                  { grant: ['READ'], to: ['API_user']}])
+    //@(restrict: [ { grant: ['*'], to: ['Admin','User']},
+    //              { grant: ['READ'], to: ['API_user']}])
     as projection on smartdoc.Pur2TL;
 
 //////////////////////////////////////////////////////////////////
 // smartDOC Services
 //////////////////////////////////////////////////////////////////
     entity Airports
-     @(restrict: [ { grant: ['*'], to: ['Admin','User']},
-                  { grant: ['READ'], to: ['API_user']}])    
+    // @(restrict: [ { grant: ['*'], to: ['Admin','User']},
+    //              { grant: ['READ'], to: ['API_user']}])    
     as projection on smartdoc.Airports;
 
     entity Carriers
-     @(restrict: [ { grant: ['*'], to: ['Admin','User']},
-                  { grant: ['READ'], to: ['API_user']}])
+    // @(restrict: [ { grant: ['*'], to: ['Admin','User']},
+    //              { grant: ['READ'], to: ['API_user']}])
     as projection on smartdoc.Carriers;
 
 
