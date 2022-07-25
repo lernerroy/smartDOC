@@ -11,35 +11,45 @@ parameters:
   enable-parallel-deployments: true
 build-parameters:
   before-all:
-  - builder: custom
-    commands:
-    - npm ci 
-    #- npm install --production
-    - npx -p @sap/cds-dk cds build --production
-    #- cp package-lock.json ./gen/srv 
+    - builder: custom
+      commands:
+        - npm ci
+        #- npm install --production
+        - npx -p @sap/cds-dk cds build --production
+        #- cp package-lock.json ./gen/srv 
 
 modules:
-# ------------------------------------------------------------
-- name: smartdoc-broker
-# ------------------------------------------------------------
-  type: nodejs
-  path: srv-broker
-  parameters:
+  # ------------------------------------------------------------
+  - name: smartdoc-broker
+    # ------------------------------------------------------------
+    type: nodejs
+    path: srv-broker
+    parameters:
       memory: 128M
       disk-quota: 512M
-  properties:
+    properties:
       SBF_ENABLE_AUDITLOG: false
       SBF_CREDENTIALS_PROVIDER_SERVICE: smartdoc-uaa-mt
-      SBF_BROKER_CREDENTIALS_HASH: "{ \"~{smartdoc-broker-credentials/user}\": \"~{smartdoc-broker-credentials/hash}\" }"
-  build-parameters:
-      ignore: [".gitignore", manifest.yml, "*.mtaext", "mta.*", "*.mtar", ".mta/", "*.zip"]
-  requires:
-    - name: smartdoc-broker-credentials
-    - name: smartdoc-uaa-mt
-    - name: smartdoc-repo-host
-    - name: srv-api
-      properties:
-         SBF_SERVICE_CONFIG:
+      SBF_BROKER_CREDENTIALS_HASH: "{ \"~{smartdoc-broker-credentials/user}\":
+        \"~{smartdoc-broker-credentials/hash}\" }"
+    build-parameters:
+      ignore:
+        [
+          ".gitignore",
+          manifest.yml,
+          "*.mtaext",
+          "mta.*",
+          "*.mtar",
+          ".mta/",
+          "*.zip"
+        ]
+    requires:
+      - name: smartdoc-broker-credentials
+      - name: smartdoc-uaa-mt
+      - name: smartdoc-repo-host
+      - name: srv-api
+        properties:
+          SBF_SERVICE_CONFIG:
             smartdoc-srv:
               extend_credentials:
                 shared:
@@ -56,130 +66,135 @@ modules:
               extend_xssecurity:
                 shared:
                   oauth2-configuration:
-                    credential-types: [binding-secret]
+                    credential-types: [ binding-secret ]
                 per_plan:
                   default:
-                    authorities: [$XSMASTERAPPNAME.User,$XSMASTERAPPNAME.API_User,$XSMASTERAPPNAME.Admin]
+                    authorities:
+                      [
+                        $XSMASTERAPPNAME.User,
+                        $XSMASTERAPPNAME.API_User,
+                        $XSMASTERAPPNAME.Admin
+                      ]
                   api:
-                    authorities: [$XSMASTERAPPNAME.API_User]
- # --------------------- SERVER MODULE ------------------------
-- name: smartdoc-srv
- # ------------------------------------------------------------
-  type: nodejs
-  path: gen/srv
-  parameters:
-    memory: 256M
-    buildpack: nodejs_buildpack
-  properties:
-    SAP_JWT_TRUST_ACL: [{"clientid":"*","identityzone":"sap-provisioning"}]  # Trust between server and SaaS Manager
-  requires:
-    # Resources extracted from CAP configuration
-  - name: smartdoc-db-mt
-  - name: smartdoc-uaa-mt
-  - name: smartdoc-registry
-  - name: smartdoc-dest-srv
-  - name: smartdoc-conn
-  - name: smartdoc-business-rules
-  provides:
-  - name: srv-api      # required by consumers of CAP services (e.g. approuter)
-    properties:
-      srv-url: ${default-url}
-  - name: mtx-api      # potentially required by approuter
-    properties:
-      mtx-url: ${default-url}
-      
-- name: smartdoc-app-content
-  type: com.sap.application.content
-  path: .
-  requires:
-  - name: smartdoc-repo-host
+                    authorities: [ $XSMASTERAPPNAME.API_User ]
+  # --------------------- SERVER MODULE ------------------------
+  - name: smartdoc-srv
+    # ------------------------------------------------------------
+    type: nodejs
+    path: gen/srv
     parameters:
-      content-target: true
-  build-parameters:
-    build-result: resources
+      memory: 256M
+      buildpack: nodejs_buildpack
+    properties:
+      SAP_JWT_TRUST_ACL: [ { "clientid": "*", "identityzone": "sap-provisioning" } ]         
     requires:
-    - artifacts:
-      - airportseh.zip
-      name: airportseh
-      target-path: resources/
-    - artifacts:
-      - carrierseh.zip
-      name: carrierseh
-      target-path: resources/         
-    - artifacts:
-      - airportprofile.zip
-      name: airportprofile
-      target-path: resources/
+      # Resources extracted from CAP configuration
+      - name: smartdoc-db-mt
+      - name: smartdoc-uaa-mt
+      - name: smartdoc-registry
+      - name: smartdoc-dest-srv
+      - name: smartdoc-conn
+      - name: smartdoc-business-rules
+    provides:
+      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+      - name: mtx-api # potentially required by approuter
+        properties:
+          mtx-url: ${default-url}
 
-- name: airportseh
-  type: html5
-  path: app/airports_eh
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
-- name: carrierseh
-  type: html5
-  path: app/carriers_eh
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
-- name: airportprofile
-  type: html5
-  path: app/airport_profile
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
+  - name: smartdoc-app-content
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: smartdoc-repo-host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources
+      requires:
+        - artifacts:
+            - airportseh.zip
+          name: airportseh
+          target-path: resources/
+        - artifacts:
+            - carrierseh.zip
+          name: carrierseh
+          target-path: resources/
+        - artifacts:
+            - airportprofile.zip
+          name: airportprofile
+          target-path: resources/
+
+  - name: airportseh
+    type: html5
+    path: app/airports_eh
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms: []
+  - name: carrierseh
+    type: html5
+    path: app/carriers_eh
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms: []
+  - name: airportprofile
+    type: html5
+    path: app/airport_profile
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms: []
 
 resources:
- # services extracted from CAP configuration
- # 'service-plan' can be configured via 'cds.requires.<name>.vcap.plan'
-# ------------------------------------------------------------
-- name: smartdoc-db-mt
-# ------------------------------------------------------------
-  type: org.cloudfoundry.managed-service
-  parameters:
-    service: service-manager
-    service-plan: container
-  properties:
-    hdi-service-name: ${service-name}
-# ------------------------------------------------------------    
-- name: smartdoc-uaa-mt
-# ------------------------------------------------------------
-  type: org.cloudfoundry.managed-service
-  parameters:
-    service: xsuaa
-    service-plan: broker
-    path: ./xs-security.json
-    config:
-      xsappname: smartdoc-${space}
-      tenant-mode: shared
-# ------------------------------------------------------------
-- name: smartdoc-registry
-# ------------------------------------------------------------
-  type: org.cloudfoundry.managed-service
-  requires:
-  - name: smartdoc-uaa-mt
-  - name: mtx-api
-    properties:
-      prop: ~{mtx-url}
+  # services extracted from CAP configuration
+  # 'service-plan' can be configured via 'cds.requires.<name>.vcap.plan'
+  # ------------------------------------------------------------
+  - name: smartdoc-db-mt
+    # ------------------------------------------------------------
+    type: org.cloudfoundry.managed-service
     parameters:
-      param: ~{mtx-url}
-  parameters:
-    service: saas-registry
-    service-plan: application
-    config:
+      service: service-manager
+      service-plan: container
+    properties:
+      hdi-service-name: ${service-name}
+  # ------------------------------------------------------------    
+  - name: smartdoc-uaa-mt
+    # ------------------------------------------------------------
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: broker
+      path: ./xs-security.json
+      config:
+        xsappname: smartdoc-${space}
+        tenant-mode: shared
+  # ------------------------------------------------------------
+  - name: smartdoc-registry
+    # ------------------------------------------------------------
+    type: org.cloudfoundry.managed-service
+    requires:
+      - name: smartdoc-uaa-mt
+      - name: mtx-api
+        properties:
+          prop: ~{mtx-url}
+        parameters:
+          param: ~{mtx-url}
+    parameters:
+      service: saas-registry
+      service-plan: application
+      config:
         xsappname: smartdoc-${space}
         appName: smartdoc
         displayName: smartDOC
@@ -191,41 +206,42 @@ resources:
           onSubscriptionAsync: false
           onUnSubscriptionAsync: false
           callbackTimeoutMillis: 300000
-# ------------------------------------------------------------
-- name: smartdoc-repo-host
-# ------------------------------------------------------------
-  type: org.cloudfoundry.managed-service
-  parameters:
-    service: html5-apps-repo
-    service-name: smartdoc-html5-srv
-    service-plan: app-host           
-# ------------------------------------------------------------
-- name: smartdoc-dest-srv
-# ------------------------------------------------------------
-  type: org.cloudfoundry.managed-service
-  parameters:
-    service: destination
-    service-name: smartdoc-dest-srv
-    service-plan: lite
-# ------------------------------------------------------------
-- name: smartdoc-conn
-# ------------------------------------------------------------
-  type: org.cloudfoundry.managed-service
-  parameters:
-    service: connectivity
-    service-name: smartdoc-conn
-    service-plan: lite
-# ------------------------------------------------------------
-- name: smartdoc-broker-credentials 
-# ------------------------------------------------------------
-  properties:
-    user: "smartdoc-sbf-user"
-    hash: "sha256:jdw4KfEpb29j9Pd82NUyMj080EKYitNydL8snIP5v5g=:ceX//BVqq4uZu6Qj4U3xe11JddU9e/wv4cf47fD7zXY="
-# ------------------------------------------------------------
-- name: smartdoc-business-rules
-# ------------------------------------------------------------
-  type: org.cloudfoundry.managed-service
-  parameters:
-    service: business-rules
-    service-name: smartdoc-business-rules
-    service-plan: basic
+  # ------------------------------------------------------------
+  - name: smartdoc-repo-host
+    # ------------------------------------------------------------
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-name: smartdoc-html5-srv
+      service-plan: app-host
+  # ------------------------------------------------------------
+  - name: smartdoc-dest-srv
+    # ------------------------------------------------------------
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-name: smartdoc-dest-srv
+      service-plan: lite
+  # ------------------------------------------------------------
+  - name: smartdoc-conn
+    # ------------------------------------------------------------
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: connectivity
+      service-name: smartdoc-conn
+      service-plan: lite
+  # ------------------------------------------------------------
+  - name: smartdoc-broker-credentials
+    # ------------------------------------------------------------
+    properties:
+      user: "smartdoc-sbf-user"
+      hash: "sha256:jdw4KfEpb29j9Pd82NUyMj080EKYitNydL8snIP5v5g=:ceX//BVqq4uZu6Qj4U3x\
+        e11JddU9e/wv4cf47fD7zXY="
+  # ------------------------------------------------------------
+  - name: smartdoc-business-rules
+    # ------------------------------------------------------------
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: business-rules
+      service-name: smartdoc-business-rules
+      service-plan: basic
