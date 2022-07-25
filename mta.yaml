@@ -32,7 +32,7 @@ modules:
       SBF_CREDENTIALS_PROVIDER_SERVICE: smartdoc-uaa-mt
       SBF_BROKER_CREDENTIALS_HASH: "{ \"~{smartdoc-broker-credentials/user}\": \"~{smartdoc-broker-credentials/hash}\" }"
   build-parameters:
-      ignore: [".gitignore", manifest.yml, "*.mtaext", "mta.*", "*.mtar", ".mta/"]
+      ignore: [".gitignore", manifest.yml, "*.mtaext", "mta.*", "*.mtar", ".mta/", "*.zip"]
   requires:
     - name: smartdoc-broker-credentials
     - name: smartdoc-uaa-mt

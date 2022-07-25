@@ -209,5 +209,8 @@
                 }
             }
         }
+    },
+    "sap.platform.cf": {
+        "ui5VersionNumber": "1.94.0"
     }
 }
