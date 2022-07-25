@@ -6,6 +6,7 @@ default-*.json
 gen/
 node_modules/
 target/
+dist/
 
 # Web IDE, App Studio
 .che/
@@ -27,3 +28,6 @@ mta_archives/
 # IDEs
 # .vscode
 # .idea
+
+# added by cds bind
+.cdsrc-private.json
