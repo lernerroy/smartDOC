@@ -1,5 +1,5 @@
 ID;extenalID;objectType;documentDate;description;airport_ID;status_code;validFrom;validTo;carrier_ID;purchaseOrganization_ID;documentType;vendor_ID;aribaIndicator
-C8cda5d5-e570-476b-8a23-4f5a59a25k03;1000001101;contract;2021-12-01;Frankfurt Contract;FRA;A;2021-12-01;2023-12-01;AV;1000;airport;0000001000;
-C1388492-933d-47d4-97cc-d30fdbef5k54;1000001102;contract;2021-12-04;Third Contract;FRA;A;2021-12-05;2023-12-01;AV;1000;airport;0000001000;
-Ccea5fb5-3d97-43a9-8001-33eb174d3k16;1000001103;contract;2021-12-02;Fourth Contract;FRA;I;2021-12-15;2023-12-01;AV;1000;airport;0000001000;
-C74bad6e-0bf4-4074-9d57-e01db5eadk14;1000001104;contract;2021-12-02;Fifth Contract;FRA;D;2021-12-17;2023-12-01;AV;1000;airport;0000001000;2900030729
+08cda5d5-e570-476b-8a23-4f5a59a25c03;1000000001;contract;2021-12-01;Frankfurt Contract;FRA;A;2021-12-01;2023-12-01;AV;1000;airport;0000001000;
+81388492-933d-47d4-97cc-d30fdbef5a54;1000000002;contract;2021-12-04;Third  Contract;FRA;A;2021-12-05;2023-12-01;AV;1000;airport;0000001000;
+acea5fb5-3d97-43a9-8001-33eb174d3316;1000000003;contract;2021-12-02;Fourth  Contract;FRA;I;2021-12-15;2023-12-01;AV;1000;airport;0000001000;
+b74bad6e-0bf4-4074-9d57-e01db5ead114;1000000004;contract;2021-12-02;Fifth  Contract;FRA;D;2021-12-17;2023-12-01;AV;1000;airport;0000001000;2900030729
