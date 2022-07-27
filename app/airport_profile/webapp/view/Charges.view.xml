@@ -252,7 +252,26 @@
 
                                             <ObjectNumber number="{price}" unit="{currency_ID}" visible="{= !${detailsViewModel>/editable} }" />
                                         </HBox>
-                                        <Input value="{currency_ID}" visible="{detailsViewModel>/editable}" />
+
+                                        <!-- <Input value="{currency_ID}" visible="{detailsViewModel>/editable}" /> -->
+
+                                        <HBox>
+<!--                                         
+                                            <ComboBox items="{/Status}" selectedKey="{status_code}" visible="{detailsViewModel>/editable}">
+                                                <core:Item key="{code}" text="{name}" />
+                                            </ComboBox> -->
+
+                                            <ComboBox items="{/TR_Currencies}" selectedKey="{currency_ID}" visible="{detailsViewModel>/editable}"  placeholder="Currency" showSecondaryValues="true" >
+                                                <core:ListItem key="{ID}" text="{ID}" additionalText="{Name}" />
+                                            </ComboBox>
+                                        </HBox>
+                                        
+                                        <!-- <Label text="{i18n>BRFIdField}" /> -->
+                                        <!-- <ComboBox placeholder="Select a BRF Id" items="{/BusinessPartners}" showSecondaryValues="true" selectedKey="{vendor_ID}">
+                                            <core:ListItem key="{ID}" text="{ID}" additionalText="{Name}" />
+                                        </ComboBox> -->
+                                        
+
                                         <HBox>
                                             <Button text="Formula" press="onBrfButtonPressed" visible="{= ${brf_id} &amp;&amp; !${detailsViewModel>/editable} ? true : false }" class="sapUiTinyMarginEnd" />
                                             <!-- <Button icon="sap-icon://edit" class="sapUiTinyMarginEnd" visible="{detailsViewModel>/editable}" press="onEditLobItem" /> -->
