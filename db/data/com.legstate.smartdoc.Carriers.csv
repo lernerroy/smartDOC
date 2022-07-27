@@ -1,2 +1,3 @@
 ID;carrier_ID;companyCode_ID;mainWorkCenter_ID;orderType_ID;awbOrderType_ID;purchaseOrganization_ID;plant.ID;materialGroup_ID;controlKey_ID
 915de690-55f6-11ec-bf63-0242ac130002;AV;1000;AVALL;FL01;AWB;1000;AV12;F008;FS02
+15aa26f6-43ff-4a46-8afa-6d7f2fd4b949;MH;2000;AVALL;FL01;AWB;1000;AV12;F008;FS02

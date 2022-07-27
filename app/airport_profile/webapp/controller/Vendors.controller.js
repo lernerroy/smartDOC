@@ -139,7 +139,8 @@ sap.ui.define(
           null,
           null,
           {
-            $expand: "status,DraftAdministrativeData",
+            $select: "ID,IsActiveEntity,aribaIndicator,carrier_ID,description,documentDate,extenalID,purchaseOrganization_ID,status_code,validFrom,validTo,vendor_ID",
+            $expand: "status,DraftAdministrativeData,vendor",
           }
         );
 
@@ -220,6 +221,7 @@ sap.ui.define(
                 } else {
                   vendors.push({
                     vendor_ID: item.vendor_ID,
+                    vendorName: item.vendor.Name,
                     contracts: [item],
                   });
                 }

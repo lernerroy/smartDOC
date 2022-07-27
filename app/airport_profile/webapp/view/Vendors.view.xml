@@ -18,7 +18,7 @@
         </semantic:titleBreadcrumbs>
         <semantic:content>
             <VBox items="{vendorContracts>/vendorContracts}" busy="{vendorsView>/loading}">
-                <Panel headerText="{vendorContracts>vendor_ID} {vendorContracts>vendor_Name}" width="auto" class="sapUiResponsiveMargin" expandable="true" backgroundDesign="Transparent" expanded="true">
+                <Panel headerText="{vendorContracts>vendor_ID} ({vendorContracts>vendorName})" width="auto" class="sapUiResponsiveMargin" expandable="true" backgroundDesign="Transparent" expanded="true">
                     <content>
                         <List items="{vendorContracts>contracts}" itemPress="onContractItemClicked">
                             <CustomListItem type="Navigation" highlight="{= ${vendorContracts>selected} ? 'Information' : 'None'}">

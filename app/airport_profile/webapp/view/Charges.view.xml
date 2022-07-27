@@ -24,7 +24,12 @@
                         <f:content>
                             <core:Title text="{i18n>generalInfoTitle}" />
                             <Label text="{i18n>extId}" />
-                            <Text text="{extenalID}" />
+                            
+                            <Text text="{
+                                path: 'extenalID',
+                                targetType: 'sap.ui.model.odata.type.String',
+                                formatter: '.formatter.convertContractNumber'
+                            }" />
 
                             <Label text="{i18n>statusField}" />
                             <ObjectStatus text="{path: 'status/name', formatter: '.formatter.capitalizeText'}" state="{path: 'status/code', formatter: '.formatter.vendorContratStatusState'}" />
@@ -91,7 +96,7 @@
 
                             <core:Title text="{i18n>carrierInfoTitle}" />
                             <Label text="{i18n>carrrierIdField}" />
-                            <ComboBox items="{/Carriers}" selectedKey="{carrier_ID}">
+                            <ComboBox items="{/Carriers}" selectedKey="{carrier_ID}" change="onCarrierChange">
                                 <core:Item key="{carrier_ID}" text="{carrier_ID}" />
                             </ComboBox>
                             <Text text="{carrier/name}" />
@@ -204,7 +209,7 @@
                                         </HBox>
 
                                         <HBox>
-                                            <Input placeholder="Enter Service" visible="{detailsViewModel>/editable}" textFormatMode="Key" showSuggestion="true" showValueHelp="true" valueHelpRequest="onValueHelpRequest" value="{serviceNumber_ID}" suggestionItems="{/ServiceData}">
+                                            <Input placeholder="Enter Service" visible="{detailsViewModel>/editable}" textFormatMode="Key" showSuggestion="true" showValueHelp="false" valueHelpRequest="onValueHelpRequest" value="{serviceNumber_ID}" suggestionItems="{/ServiceData}">
                                                 <suggestionItems>
                                                     <core:ListItem text="{Name}" additionalText="{ID}" key="{ID}" />
                                                 </suggestionItems>
@@ -212,7 +217,7 @@
                                                     <core:CustomData key="name" value="serviceInput" />
                                                 </customData>
                                             </Input>
-                                            <Text text="{serviceNumber_ID}" visible="{= !${detailsViewModel>/editable} }" />
+                                            <Link text="{serviceNumber_ID}" visible="{= !${detailsViewModel>/editable} }" press="onServiceButtonPress" />
                                         </HBox>
                                         <HBox>
                                             <Input value="{description}" visible="{detailsViewModel>/editable}" />
