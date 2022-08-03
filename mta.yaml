@@ -124,6 +124,10 @@ modules:
             - airportprofile.zip
           name: airportprofile
           target-path: resources/
+        - artifacts:
+            - overflight.zip
+          name: overflight
+          target-path: resources/
 
   - name: airportseh
     type: html5
@@ -148,6 +152,16 @@ modules:
   - name: airportprofile
     type: html5
     path: app/airport_profile
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms: []
+  - name: overflight
+    type: html5
+    path: app/overflight
     build-parameters:
       build-result: dist
       builder: custom
